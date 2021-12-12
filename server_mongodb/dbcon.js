@@ -1,4 +1,10 @@
-// 1. mongoose 모듈 가져오기
-var mongoose = require('mongoose');
-// 2. testDB 세팅
-mongoose.connect('mongodb://localhost:27017/testDB');
+var Client = require('mongodb').MongoClient;
+
+Client.connect('mongodb://localhost:27017/school', function(error, db){
+    if(error) {
+        console.log(error);
+    } else {
+        console.log("connected:"+db);
+        db.close();
+    }
+});
