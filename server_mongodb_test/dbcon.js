@@ -1,12 +1,12 @@
 var Client = require('mongodb').MongoClient
 var Notion = require('./index.js')
 
-Client.connect('mongodb://localhost:27017/testDB', function(error, db){
+Client.connect('mongodb://localhost:27017/testDB', function(error, client){
     if(error) {
         console.log(error);
     } else {
         var calender = Notion.getItemNOTION(Notion.hobbyId)
-        var testDB = db.collection("testDB")
+        var testDB = client.db("testDB")
 	for (key in calender)
         {
             // get date data .
@@ -38,7 +38,8 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, db){
             
         }
 
-        testDB.find().each(function(err, doc){
+        var dbAll  testDB.find()
+	dbAll.each(function(err, doc){
             if(err){
                 console.log(err)
             }else{
