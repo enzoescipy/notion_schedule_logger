@@ -7,7 +7,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
     } else {
         var calender = Notion.getItemNOTION(Notion.hobbyId)
         var testDB = client.db("testDB")
-	for (key in calender)
+        for (key in calender)
         {
             // get date data .
             var data = calender[key]
@@ -38,14 +38,14 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
             
         }
 
-        var dbAll  testDB.find()
-	dbAll.each(function(err, doc){
+        var dbAll = testDB.find()
+        dbAll.each(function(err, doc){
             if(err){
                 console.log(err)
             }else{
                 console.log(doc)
             }
         })
-        
+            
     }
 });
