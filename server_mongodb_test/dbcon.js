@@ -15,7 +15,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, db){
             delete data[id]
             // check if there are already data exist in DB.
             var query = {id : date_id}
-            var cursor = db.testDB.find(query)
+            var cursor = testDB.find(query)
             cursor.each(function(err, doc){
                 if(err){
                     console.log(err)
@@ -23,14 +23,14 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, db){
                     if (doc == null)
                     {
                         //there are no current date it!
-                        db.testDB.insert(data)
+                        testDB.insert(data)
                     }
                     else
                     {
                         //there are already curent date id.
                         for (date in data)
                         {
-                            db.testDB.update( {id : date_id}, {$set: { date : data[date] }})
+                            testDB.update( {id : date_id}, {$set: { date : data[date] }})
                         }
                     }
                 }
@@ -38,7 +38,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, db){
             
         }
 
-        db.testDB.find().each(function(err, doc){
+        testDB.find().each(function(err, doc){
             if(err){
                 console.log(err)
             }else{
