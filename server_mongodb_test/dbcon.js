@@ -1,12 +1,13 @@
 var Client = require('mongodb').MongoClient
-var Notion = require('index')
+var Notion = require('./index.js')
 
 Client.connect('mongodb://localhost:27017/testDB', function(error, db){
     if(error) {
         console.log(error);
     } else {
-        var calender = Notion.getItemNOTION(hobbyId)
-        for (key in calender)
+        var calender = Notion.getItemNOTION(Notion.hobbyId)
+        var testDB = db.collection("testDB")
+	for (key in calender)
         {
             // get date data .
             var data = calender[key]
@@ -14,7 +15,6 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, db){
             delete data[id]
             // check if there are already data exist in DB.
             var query = {id : date_id}
-            var testDB = collection("testDB")
             var cursor = db.testDB.find(query)
             cursor.each(function(err, doc){
                 if(err){
