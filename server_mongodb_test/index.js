@@ -91,7 +91,7 @@ async function getItem(databaseId) {
       calender[i] = prop
     }
 
-    console.log(calender)
+    return calender
   } catch (error) {
     console.error(error.body)
   }
@@ -101,4 +101,5 @@ async function getItem(databaseId) {
 exports.getItemNOTION = getItem
 exports.hobbyId = hobbyId
 exports.workId = workId
+
 
