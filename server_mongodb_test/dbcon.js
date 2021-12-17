@@ -7,6 +7,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
     } else {
         var calender = Notion.getItemNOTION(Notion.hobbyId)
         var testDB = client.db("testDB")
+        testDB.createCollection("testdb")
         for (key in calender)
         {
             // get date data .
@@ -15,7 +16,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
             delete data[id]
             // check if there are already data exist in DB.
             var query = {id : date_id}
-            var cursor = testDB.find(query)
+            var cursor = testDB.testdb.find(query)
             cursor.each(function(err, doc){
                 if(err){
                     console.log(err)
@@ -23,14 +24,14 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
                     if (doc == null)
                     {
                         //there are no current date it!
-                        testDB.insert(data)
+                        testDB.testdb.insertOne(data)
                     }
                     else
                     {
                         //there are already curent date id.
                         for (date in data)
                         {
-                            testDB.update( {id : date_id}, {$set: { date : data[date] }})
+                            testDB.testdb.update( {id : date_id}, {$set: { date : data[date] }})
                         }
                     }
                 }
@@ -38,7 +39,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
             
         }
 
-        var dbAll = testDB.find()
+        var dbAll = testDB.testdb.find({})
         dbAll.each(function(err, doc){
             if(err){
                 console.log(err)
