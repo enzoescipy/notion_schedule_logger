@@ -20,21 +20,21 @@ async function update()
     {
         await client.connect()
         const database = client.db("Notionpage_hobbyid")
-        const todo = database.collection("todo")
+	const todo = database.collection("todo")
         
         //get date data.
-        var calender = Notion.getItemNOTION(Notion.hobbyId)
-        for (key in calender)
+        var calender = await Notion.getItemNOTION(Notion.hobbyId)
+	for (key in calender)
         {
             //get date data.
             var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
             date_id = date_data_now.id // what i did. ex) study math
-            delete date_data_now[id]
+            delete date_data_now.id
 
             //check if there are already data that has same date_id exist in DB.
             var query = {id : date_id}
             var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
-
+	    console.log( await  cursor.count())  //debugdebug
             async function iter_dbrewrite(doc)
             {
                 try
@@ -43,8 +43,9 @@ async function update()
                     {
                         var date_data_db = doc // the {date1 : true, date2 : false, ...}
                         var id_db = doc.id
-                        delete date_data_db[id]
-                        //compare the _now date and db's date.
+                        delete date_data_db.id
+                        console.log(id_db) // debugdebug
+			//compare the _now date and db's date.
                         for (date_now in date_data_now)
                         {
                             //date_now is like 2021-12-21
@@ -76,20 +77,20 @@ async function update()
                     else
                     {
                         //if there is no date_id(study) in the database, create a new document.
-                        date_data_now[id] = date_id
+                        date_data_now.id = date_id
                         await todo.insertOne(date_data_now)
                     }
-                }
-                finally
-                {
-                    await client.close()
                 }
             }
             
             while (true)
             {
                 var doc = await cursor.next()
-                if (doc === null) {break}
+                if (doc === null)
+		{
+		    await iter_dbrewrite(doc)
+		    break
+		}
 
                 await iter_dbrewrite(doc)   
             }
