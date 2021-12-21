@@ -1,4 +1,4 @@
-const MongoClient = require ("mongodb")
+const {MongoClient} = require ("mongodb")
 const Notion = require('./index.js')
 
 const uri = "mongodb://localhost:27017"
