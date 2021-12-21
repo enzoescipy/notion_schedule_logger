@@ -112,7 +112,7 @@ async function debug()
 
         const result = await todo.find()
         await result.forEach(function(doc){
-            if (doc != nil)
+            if (doc != null)
             {
                 console.log(doc)
             }
