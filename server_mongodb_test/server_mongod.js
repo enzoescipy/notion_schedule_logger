@@ -11,7 +11,7 @@ async function initialize()
     const database = client.db("Notionpage_hobbyid")
     const todo = database.collection("todo")
     var result = await todo.deleteMany({})
-    console.log("\ndeleted ${result.deletedCount} data first.\n")
+    console.log("\ndeleted" + result.deletedCount + " data first.\n")
 }
 
 async function update()
