@@ -26,7 +26,7 @@ async function update()
             var query = {id : date_id}
             var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
 
-            async function iter(doc)
+            async function iter_dbrewrite(doc)
             {
                 try
                 {
@@ -77,12 +77,13 @@ async function update()
                 }
             }
             
-            await cursor.forEach(function (doc){ await iter(doc) }//doc is 'one' { id : date_id, date1:true/false,  date2:true/false, ...}
-                
-            })
+            while (true)
+            {
+                var doc = await cursor.next()
+                if (doc === null) {break}
 
-
-
+                await iter_dbrewrite(doc)   
+            }
         }
     }
     finally
@@ -114,4 +115,4 @@ async function main()
     await debug()
 }
 
-main().catch(console.dir)
+main()
