@@ -25,8 +25,9 @@ async function update()
             //check if there are already data that has same date_id exist in DB.
             var query = {id : date_id}
             var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
-            
-            await cursor.forEach(function (doc){ //doc is 'one' { id : date_id, date1:true/false,  date2:true/false, ...}
+
+            async function iter(doc)
+            {
                 try
                 {
                     if (doc != null) 
@@ -74,6 +75,10 @@ async function update()
                 {
                     await client.close()
                 }
+            }
+            
+            await cursor.forEach(function (doc){ await iter(doc) }//doc is 'one' { id : date_id, date1:true/false,  date2:true/false, ...}
+                
             })
 
 
