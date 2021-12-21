@@ -110,7 +110,12 @@ async function debug()
         const todo = database.collection("todo")
 
         const result = await todo.find()
-        console.log(result)
+        await result.forEach(function(doc){
+            if (doc != nil)
+            {
+                console.log(doc)
+            }
+        })
     }
     finally
     {
