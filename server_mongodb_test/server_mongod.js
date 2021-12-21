@@ -5,6 +5,15 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
+async function initialize()
+{
+    await client.connect()
+    const database = client.db("Notionpage_hobbyid")
+    const todo = database.collection("todo")
+    var result = await todo.deleteMany({})
+    console.log("\ndeleted ${result.deletedCount} data first.\n")
+}
+
 async function update()
 {
     try
@@ -111,6 +120,7 @@ async function debug()
 
 async function main()
 {
+    await initialize()
     await update()
     await debug()
 }
