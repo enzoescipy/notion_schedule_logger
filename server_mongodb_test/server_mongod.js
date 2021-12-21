@@ -1,5 +1,5 @@
-import {MongoClient} from "mongodb"
-var Notion = require('./index.js')
+const MongoClient = require ("mongodb")
+const Notion = require('./index.js')
 
 const uri = "mongodb://localhost:27017"
 
@@ -43,8 +43,8 @@ async function update()
                             //check if there is same day in db.
                             var dates_db = date_data_db.keys()
                             var foundequal = dates_db.find(db => db === date_now)
-                            const update_doc
-                            const filter
+                            var update_doc
+                            var filter
                             if ( foundequal === undefined )
                             {
                                 //if there is no same date in the db then add it.
@@ -59,7 +59,7 @@ async function update()
                                 //and delete in the db copy.
                                 delete date_data_db[foundequal]
                             }
-                            var result = await todo.updateOne(filter, update_doc) //it can be done as asynchronously BUT for now, synchronous action.
+                            var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                             console.log("${result.matchedCount} was matched the filter, ${result.modifiedCount} was modified.")
                         }
                     }
