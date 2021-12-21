@@ -45,7 +45,7 @@ async function update()
                         var id_db = doc.id
                         delete date_data_db.id
                         console.log(id_db) // debugdebug
-			//compare the _now date and db's date.
+                        //compare the _now date and db's date.
                         for (date_now in date_data_now)
                         {
                             //date_now is like 2021-12-21
@@ -81,17 +81,17 @@ async function update()
                         await todo.insertOne(date_data_now)
                     }
                 }
+                finally{}
             }
             
             while (true)
             {
                 var doc = await cursor.next()
                 if (doc === null)
-		{
-		    await iter_dbrewrite(doc)
-		    break
-		}
-
+                {
+                    await iter_dbrewrite(doc)
+                    break
+                }
                 await iter_dbrewrite(doc)   
             }
         }
