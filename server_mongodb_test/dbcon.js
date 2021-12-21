@@ -1,13 +1,11 @@
 var Client = require('mongodb').MongoClient
 var Notion = require('./index.js')
 
-Client.connect('mongodb://localhost:27017/testDB', function(error, client){
+Client.connect('mongodb://localhost:27017/testDB', function(error, db){
     if(error) {
         console.log(error);
     } else {
         var calender = Notion.getItemNOTION(Notion.hobbyId)
-        var testDB = client.db("testDB")
-        testDB.createCollection("testdb")
         for (key in calender)
         {
             // get date data .
@@ -16,7 +14,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
             delete data[id]
             // check if there are already data exist in DB.
             var query = {id : date_id}
-            var cursor = testDB.testdb.find(query)
+            var cursor = db.collection('student').find(query)
             cursor.each(function(err, doc){
                 if(err){
                     console.log(err)
@@ -24,14 +22,14 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
                     if (doc == null)
                     {
                         //there are no current date it!
-                        testDB.testdb.insertOne(data)
+                        db.collection('student').insertOne(data)
                     }
                     else
                     {
                         //there are already curent date id.
                         for (date in data)
                         {
-                            testDB.testdb.update( {id : date_id}, {$set: { date : data[date] }})
+                            db.collection('student').update( {id : date_id}, {$set: { date : data[date] }})
                         }
                     }
                 }
@@ -39,7 +37,7 @@ Client.connect('mongodb://localhost:27017/testDB', function(error, client){
             
         }
 
-        var dbAll = testDB.testdb.find({})
+        var dbAll = db.collection('student').find({})
         dbAll.each(function(err, doc){
             if(err){
                 console.log(err)
