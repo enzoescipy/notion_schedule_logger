@@ -11,6 +11,6 @@ router.get('/home',function(req, res) {
 //locational href router
 router.get('/api/notionUpdate', function(req, res) {
     console.log("hello, world!")
-    res.render('warp')//, {portal: 'http://naver.com'})
+    res.render('warp', {portal: "http://naver.com"})
 })
 module.exports = router

@@ -1,5 +1,5 @@
 const {MongoClient} = require ("mongodb")
-const Notion = require('..notion-communicate/index')
+const Notion = require('../notion-communicate/index')
 
 const uri = "mongodb://localhost:27017"
 

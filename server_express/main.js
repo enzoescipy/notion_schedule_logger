@@ -4,6 +4,7 @@ const express = require('express')
 //middle-wares
 var bodyParser = require('body-parser')
 var helmet = require('helmet')
+var csp = require('helmet-csp')
 var compression = require('compression')
 
 //project routers
@@ -22,9 +23,18 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(compression())
 app.use(helmet())
+app.use(
+    csp({
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        scriptSrc: ["'self' 'unsafe-inline'"],
+      },
+    })
+  );
 
 //routers url and express static.
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 app.use('/',crudRouter)
 
 //404 error case
