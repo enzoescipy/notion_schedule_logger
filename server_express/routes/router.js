@@ -5,12 +5,12 @@ var router = express.Router()
 
 //page router
 router.get('/home',function(req, res) {
-    res.render('index',{title: "fuck you, world!"})
+    res.render('index',{title: "fuck you, world!", iam: "/home"})
 })
 
 //locational href router
-router.get('/api/notionUpdate', function(req, res) {
-    console.log("hello, world!")
-    res.render('warp', {portal: "http://naver.com"})
+router.post('/api/notionUpdate', function(req, res) {
+    console.log(req.body.portal)
+    res.render('warp', {portal: req.body.portal})
 })
 module.exports = router
