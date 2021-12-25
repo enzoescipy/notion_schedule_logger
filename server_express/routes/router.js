@@ -5,7 +5,7 @@ var router = express.Router()
 
 //page router
 router.get('/home',function(req, res) {
-    res.render('index',{title: "hello, world!"})
+    res.render('index',{title: "fuck you, world!"})
 })
 
 //locational href router
