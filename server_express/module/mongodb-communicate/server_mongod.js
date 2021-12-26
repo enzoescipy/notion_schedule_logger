@@ -5,7 +5,7 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-async function initialize()
+async function initialize(callback)
 {
     await client.connect()
     const database = client.db("Notionpage_hobbyid")
