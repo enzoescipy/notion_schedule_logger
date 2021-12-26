@@ -4,7 +4,7 @@ block scpt
     script.
         function change_desc()
         {
-            $('#desc').text('hello~')
+            $('#desc').html('<div>hello~</div>')
         }
         change_desc()
 
@@ -12,7 +12,8 @@ block content
     h1 #{title}
     |
     |
-    p(id="desc") description
+    p(id="desc") 
+        div description
     |
     |
     button(class="button", onclick="change_desc()") 테스트
