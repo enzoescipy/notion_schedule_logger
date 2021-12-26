@@ -5,7 +5,7 @@ block scpt
         $document.ready(function() {
             function change_desc()
             {
-                $("p").css("color","red")
+                $("#desc").css("color","red")
             }
         })
         
@@ -14,8 +14,7 @@ block content
     h1 #{title}
     |
     |
-    p(id="desc") 
-        div description
+    div(id="desc") description
     |
     |
     button(class="button", onclick="change_desc()") 테스트
