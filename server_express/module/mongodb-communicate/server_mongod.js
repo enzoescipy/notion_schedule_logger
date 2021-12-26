@@ -27,6 +27,7 @@ async function update(callback)
         var calender = await Notion.getItemNOTION(Notion.hobbyId)
         for (key in calender)
         {
+            console.log("debug")
             //get date data.
             var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
             date_id = date_data_now.id // what i did. ex) study math
