@@ -2,7 +2,13 @@ extends layout
 
 block scpt
     script.
-        $("p").css("color","red")
+        $document.ready(function() {
+            function change_desc()
+            {
+                $("p").css("color","red")
+            }
+        })
+        
 
 block content
     h1 #{title}
