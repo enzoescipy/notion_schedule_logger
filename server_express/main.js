@@ -42,9 +42,6 @@ async function main()
 
   //custom-wares
   var Mongo = require("./module/mongodb-communicate/server_mongod")
-  await Mongo.initialize()
-  await Mongo.update()
-  await Mongo.debug()
 
 
   //404 error case
