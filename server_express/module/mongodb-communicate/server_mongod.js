@@ -100,12 +100,13 @@ async function update(callback)
     finally
     {
         await client.close();
-        if (callback != null){callback()}
     }
+    if (callback != null){callback()}
 }
 
 async function debug(callback)
 {
+    var docSum = {}
     try
     {
         await client.connect()
@@ -118,8 +119,8 @@ async function debug(callback)
             {
                 console.log("(server_mongod) mongodb inner document emited.")
                 console.log(doc)
-                if (callback != null){callback(doc)}
-                return doc
+                Object.assign(docSum, doc)
+
             }
         })
     }
@@ -127,6 +128,8 @@ async function debug(callback)
     {
         await client.close()
     }
+    if (callback != null){callback(docSum)}
+    return docSum
 }
 
 async function main()
