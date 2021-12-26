@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 #{title}
+    |
+    |
+    p(id="desc")
+    |
+    |
+    button(class="button",onclick="$("#desc").text(#{description})")
