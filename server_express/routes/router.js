@@ -5,7 +5,7 @@ var Mongo = require("../module/mongodb-communicate/server_mongod")
 
 //homepage router
 router.get('/',function(req, res) {
-    res.render('home',{
+    res.render('home',{/*
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/",
                             description: "이 글을 보고 계시는 누군가가 있다면, 저 자신 혹은 제가 정말 사랑하는 사람 혹은 그저 호기심에 들어온 나그네일 것 입니다." +
@@ -28,7 +28,7 @@ router.get('/',function(req, res) {
                             "그 첫 단추인, 2022년 3월, 독학학위제 1차 시험이 다가오고 있습니다."+
                             "합격하겠습니다."+
                             "그리고 이 곳도 점차 윤곽을 갖추어서, 제가 다시 무너지지 않으면서도 열심히 미래를 위해 준비 중임을 보여드리겠습니다."+
-                            "저 자신과, 여러분들에게 이 공간을 바칩니다."
+                            "저 자신과, 여러분들에게 이 공간을 바칩니다."*/
 
     })
 })
