@@ -40,7 +40,7 @@ app.use('/node_modules',express.static(path.join(__dirname, '/node_modules')))
 app.use('/',crudRouter)
 
 //custom-wares
-var Mongo = require("../module/mongodb-communicate/server_mongod")
+var Mongo = require("./module/mongodb-communicate/server_mongod")
 Mongo.initialize()
 
 //404 error case
