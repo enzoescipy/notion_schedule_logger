@@ -2,7 +2,7 @@ const { Client } = require("@notionhq/client")
 
 const fs = require("fs")
 
-const notion = new Client({ auth: fs.readFileSync("../notion-communicate/keys.key","utf8") })
+const notion = new Client({ auth: fs.readFileSync("notionkeys.key","utf8") })
 
 //fd644186c73345438d5c4ce2c8cfb2ca a5ff1a4fa3c548b992186a05a32cfb1b
 const hobbyId = "a5ff1a4fa3c548b992186a05a32cfb1b"
