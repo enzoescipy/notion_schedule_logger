@@ -6,7 +6,7 @@ var Mongo = require("../module/mongodb-communicate/server_mongod")
 
 //page router
 router.get('/home',function(req, res) {
-    var DBdata = Mongo.debug()
+    var DBdata = await Mongo.debug()
     console.log("(get) show data inside of mongoDB")
     res.render('index',{
                         db: DBdata,
@@ -17,7 +17,7 @@ router.get('/home',function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    Mongo.update()
+    await Mongo.update()
     console.log("(request) update data from notion -> server mongoDB ")
     res.render('warp', {portal: req.body.portal})
 })
