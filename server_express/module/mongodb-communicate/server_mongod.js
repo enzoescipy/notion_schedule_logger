@@ -118,15 +118,14 @@ async function debug(callback)
             {
                 console.log("(server_mongod) mongodb inner document emited.")
                 console.log(doc)
-                
+                if (callback != null){callback(doc)}
+                return doc
             }
         })
     }
     finally
     {
         await client.close()
-        if (callback != null){callback(doc)}
-        return doc
     }
 }
 
