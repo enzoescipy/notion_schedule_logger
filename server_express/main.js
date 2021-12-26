@@ -1,4 +1,4 @@
-await function main()
+async function main()
 {  //express
   const express = require('express')
 
