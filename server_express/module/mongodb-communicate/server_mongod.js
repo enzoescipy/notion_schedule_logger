@@ -53,7 +53,7 @@ async function update(callback)
                             var did_now = date_data_now[date_now] // is true or false.
                             
                             //check if there is same day in db.
-                            var dates_db = date_data_db.keys()
+                            var dates_db = Object.keys(date_data_db)
                             var foundequal = dates_db.find(db => db === date_now)
                             var update_doc
                             var filter
