@@ -10,7 +10,7 @@ router.get('/home',function(req, res) {
         var DBdata = doc
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
-                            db: DBdata,
+                            db: JSON.stringify(DBdata),
                             title: "fuck you, world!",
                             iam: "/home",
                             })

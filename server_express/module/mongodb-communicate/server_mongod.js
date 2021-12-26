@@ -25,9 +25,9 @@ async function update(callback)
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.hobbyId)
+        console.log(calender)
         for (key in calender)
         {
-            console.log("debug")
             //get date data.
             var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
             date_id = date_data_now.id // what i did. ex) study math
@@ -45,7 +45,6 @@ async function update(callback)
                         var date_data_db = doc // the {date1 : true, date2 : false, ...}
                         var id_db = doc.id
                         delete date_data_db.id
-                        console.log(id_db) // debugdebug
                         //compare the _now date and db's date.
                         for (date_now in date_data_now)
                         {
@@ -72,7 +71,6 @@ async function update(callback)
                                 delete date_data_db[foundequal]
                             }
                             var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
-                            console.log("${result.matchedCount} was matched the filter, ${result.modifiedCount} was modified.")
                         }
                     }
                     else
