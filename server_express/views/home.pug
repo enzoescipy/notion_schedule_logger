@@ -1,5 +1,11 @@
 extends layout
 
+script.
+    function change_desc()
+    {
+        $('#desc').text('hello~')
+    }
+
 block content
     h1 #{title}
     |
@@ -7,4 +13,4 @@ block content
     p(id="desc") description
     |
     |
-    button(class="button", onclick="$('p').text('hello~')") 테스트
+    button(class="button", onclick="change_desc()") 테스트
