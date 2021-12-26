@@ -12,9 +12,10 @@ async function initialize()
     const todo = database.collection("todo")
     var result = await todo.deleteMany({})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
+    if (callback != null){callback()}
 }
 
-async function update()
+async function update(callback)
 {
     try
     {
@@ -99,10 +100,11 @@ async function update()
     finally
     {
         await client.close();
+        if (callback != null){callback()}
     }
 }
 
-async function debug()
+async function debug(callback)
 {
     try
     {
@@ -116,13 +118,15 @@ async function debug()
             {
                 console.log("(server_mongod) mongodb inner document emited.")
                 console.log(doc)
-                return doc
+                
             }
         })
     }
     finally
     {
         await client.close()
+        if (callback != null){callback(doc)}
+        return doc
     }
 }
 
