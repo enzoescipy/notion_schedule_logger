@@ -84,11 +84,6 @@ async function update(callback)
             }
             
             var doc = await cursor.next()
-            if (doc === null)
-            {
-                await iter_dbrewrite(doc)
-                break
-            }
             await iter_dbrewrite(doc)   
         }
     }
