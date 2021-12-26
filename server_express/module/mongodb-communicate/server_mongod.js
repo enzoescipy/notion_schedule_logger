@@ -21,11 +21,11 @@ async function update(callback)
     {
         await client.connect()
         const database = client.db("Notionpage_hobbyid")
-	const todo = database.collection("todo")
+        const todo = database.collection("todo")
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.hobbyId)
-	for (key in calender)
+        for (key in calender)
         {
             //get date data.
             var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
@@ -35,7 +35,6 @@ async function update(callback)
             //check if there are already data that has same date_id exist in DB.
             var query = {id : date_id}
             var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
-	    console.log( await  cursor.count())  //debugdebug
             async function iter_dbrewrite(doc)
             {
                 try
@@ -85,16 +84,13 @@ async function update(callback)
                 finally{}
             }
             
-            while (true)
+            var doc = await cursor.next()
+            if (doc === null)
             {
-                var doc = await cursor.next()
-                if (doc === null)
-                {
-                    await iter_dbrewrite(doc)
-                    break
-                }
-                await iter_dbrewrite(doc)   
+                await iter_dbrewrite(doc)
+                break
             }
+            await iter_dbrewrite(doc)   
         }
     }
     finally
