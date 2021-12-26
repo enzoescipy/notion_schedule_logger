@@ -2,11 +2,11 @@ extends layout
 
 block scpt
     script.
-        document.write("haha")
         function change_desc()
         {
             $('#desc').text('hello~')
         }
+        change_desc()
 
 block content
     h1 #{title}
