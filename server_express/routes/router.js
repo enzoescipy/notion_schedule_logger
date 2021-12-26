@@ -6,20 +6,24 @@ var Mongo = require("../module/mongodb-communicate/server_mongod")
 
 //page router
 router.get('/home',function(req, res) {
-    var DBdata = await Mongo.debug()
-    console.log("(get) show data inside of mongoDB")
-    res.render('index',{
-                        db: DBdata,
-                        title: "fuck you, world!",
-                        iam: "/home",
-                        })
+    Mongo.debug(function(doc) {
+        var DBdata = doc
+        console.log("(get) show data inside of mongoDB")
+        res.render('index',{
+                            db: DBdata,
+                            title: "fuck you, world!",
+                            iam: "/home",
+                            })
+    })
+    
 })
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    await Mongo.update()
-    console.log("(request) update data from notion -> server mongoDB ")
-    res.render('warp', {portal: req.body.portal})
+    Mongo.update(() => {
+        console.log("(request) update data from notion -> server mongoDB ")
+        res.render('warp', {portal: req.body.portal})
+    })
 })
 
 
