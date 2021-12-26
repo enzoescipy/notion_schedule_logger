@@ -4,6 +4,9 @@ html
         title #{title}
         link(rel='stylesheet', href="/bulma/css/bulma.css")
         script(src="node_modules/jquery/dist/jquery.js", type="text/javscript") 
+        script.
+            document.write($("#test").text())
         block scpt
     body
+        p(id="test") testtest
         block content
