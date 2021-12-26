@@ -115,6 +115,7 @@ async function debug()
             if (doc != null)
             {
                 console.log("(server_mongod) mongodb inner document emited.")
+                console.log(doc)
                 return doc
             }
         })

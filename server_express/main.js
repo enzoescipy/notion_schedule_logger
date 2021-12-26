@@ -42,6 +42,9 @@ app.use('/',crudRouter)
 //custom-wares
 var Mongo = require("./module/mongodb-communicate/server_mongod")
 Mongo.initialize()
+Mongo.update()
+Mongo.debug()
+
 
 //404 error case
 app.use(function (req, res, next){
