@@ -5,9 +5,9 @@ var Mongo = require("../module/mongodb-communicate/server_mongod")
 
 //homepage router
 router.get('/',function(req, res) {
-    res.render('home',{/*
+    res.render('home',{
                             title: "Dong hyo Ko - enzoescipy's life challenge",
-                            iam: "/",
+                            /*
                             description: "이 글을 보고 계시는 누군가가 있다면, 저 자신 혹은 제가 정말 사랑하는 사람 혹은 그저 호기심에 들어온 나그네일 것 입니다." +
                             "이곳은 저의 미래의 관한 계획이자 계획에 대한 저의 움직임을 실시간으로 기록할, 제 인생을 담을 웹사이트로 만들어질 예정입니다." +
                             "저는 주위의 소중한 사람들로부터 종종 뭐든 열심히, 최선을 다한다는 이야기를 듣곤 합니다."+
