@@ -107,6 +107,7 @@ async function update(callback)
 async function debug(callback)
 {
     var docSum = {}
+    console.log("(server_mongod) mongodb inner document emited.")
     try
     {
         await client.connect()
@@ -117,10 +118,7 @@ async function debug(callback)
         await result.forEach(function(doc){
             if (doc != null)
             {
-                console.log("(server_mongod) mongodb inner document emited.")
-                console.log(doc)
-                Object.assign(docSum, doc)
-
+                docSum[Object.keys(docSum).length] = doc
             }
         })
     }
@@ -128,6 +126,8 @@ async function debug(callback)
     {
         await client.close()
     }
+                    
+    console.log(docSum)
     if (callback != null){callback(docSum)}
     return docSum
 }
