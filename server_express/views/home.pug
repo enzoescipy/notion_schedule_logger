@@ -3,11 +3,7 @@ extends layout
 block scpt
     script.
         $(function () {
-            function change_desc()
-        {
-            document.write($('#desc').html())
-        }
-        change_desc()
+            $("p").css("color","red")
         })
 
 block content
