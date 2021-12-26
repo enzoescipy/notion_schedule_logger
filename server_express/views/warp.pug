@@ -1,5 +1,7 @@
 doctype html
+
+p(id="testid") hello... i am p...
+
 script. 
     var portal = "#{portal}"
-    document.write(portal)
-    location.href = portal
+    location.href = portal + "?send=#{send}"

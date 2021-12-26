@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 var helmet = require('helmet')
 var csp = require('helmet-csp')
 var compression = require('compression')
+var path = require('path')
 
 //project routers
 //var indexRouter = require('./routes/index')
@@ -31,10 +32,11 @@ app.use(
         scriptSrc: ["'self' 'unsafe-inline'"],
       },
     })
-  );
+  )
 
 //routers url and express static.
 app.use(express.static('public'));
+app.use('/node_modules',express.static(path.join(__dirname, '/node_modules')))
 app.use('/',crudRouter)
 
 //404 error case

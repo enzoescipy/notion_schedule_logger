@@ -114,7 +114,8 @@ async function debug()
         await result.forEach(function(doc){
             if (doc != null)
             {
-                console.log(doc)
+                console.log("(server_mongod) mongodb inner document emited.")
+                return doc
             }
         })
     }
@@ -131,4 +132,6 @@ async function main()
     await debug()
 }
 
-main()
+exports.initialize = initialize
+exports.update = update
+exports.debug = debug
