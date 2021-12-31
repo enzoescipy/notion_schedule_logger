@@ -52,6 +52,7 @@ async function update(callback)
                             var did_now = date_data_now[date_now] // is true or false.
                             
                             //check if there is same day in db.
+                            /*
                             var dates_db = Object.keys(date_data_db)
                             var foundequal = dates_db.find(db => db === date_now)
                             var update_doc
@@ -70,6 +71,11 @@ async function update(callback)
                                 //and delete in the db copy.
                                 delete date_data_db[foundequal]
                             }
+                            */
+                            var update_doc
+                            var filter
+                            update_doc = {$set: { date_now:did_now }}
+                            filter = {id:id_db} //update 
                             var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                         }
                     }
