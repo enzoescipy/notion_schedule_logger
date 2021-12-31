@@ -98,7 +98,6 @@ async function getItem(databaseId) {
 
 
 exports.getItemNOTION = getItem
-exports.hobbyId = hobbyId
 exports.workId = workId
 
 
