@@ -18,7 +18,7 @@ router.get('/hardcoading',function(req, res) {
         res.render('index',{
                             db: JSON.stringify(DBdata),
                             title: "Dong hyo Ko - enzoescipy's life challenge",
-                            iam: "/home",
+                            iam: "/hardcoading",
         })
     })
 })
