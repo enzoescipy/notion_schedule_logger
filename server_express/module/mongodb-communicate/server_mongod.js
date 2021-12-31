@@ -8,7 +8,7 @@ const client = new MongoClient(uri);
 async function initialize(callback)
 {
     await client.connect()
-    const database = client.db("Notionpage_hobbyid")
+    const database = client.db("Notionpage_workid")
     const todo = database.collection("todo")
     var result = await todo.deleteMany({})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
@@ -20,11 +20,11 @@ async function update(callback)
     try
     {
         await client.connect()
-        const database = client.db("Notionpage_hobbyid")
+        const database = client.db("Notionpage_workid")
         const todo = database.collection("todo")
         
         //get date data.
-        var calender = await Notion.getItemNOTION(Notion.hobbyId)
+        var calender = await Notion.getItemNOTION(Notion.workId)
         console.log(calender)
         for (key in calender)
         {
@@ -101,7 +101,7 @@ async function debug(callback)
     try
     {
         await client.connect()
-        const database = client.db("Notionpage_hobbyid")
+        const database = client.db("Notionpage_workid")
         const todo = database.collection("todo")
 
         const result = await todo.find()
