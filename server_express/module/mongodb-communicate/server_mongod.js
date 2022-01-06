@@ -48,30 +48,6 @@ async function update(callback)
                         //compare the _now date and db's date.
                         for (date_now in date_data_now)
                         {
-                            //date_now is like 2021-12-21
-                            var did_now = date_data_now[date_now] // is true or false.
-                            
-                            //check if there is same day in db.
-                            /*
-                            var dates_db = Object.keys(date_data_db)
-                            var foundequal = dates_db.find(db => db === date_now)
-                            var update_doc
-                            var filter
-                            if ( foundequal === undefined )
-                            {
-                                //if there is no same date in the db then add it.
-                                update_doc = {date_now:did_now}
-                                filter = {id:id_db} //update 
-                            }
-                            else
-                            {
-                                //if there is same date in the db then update it.
-                                update_doc = {$set: { date_now:did_now }}
-                                filter = {id:id_db} //update 
-                                //and delete in the db copy.
-                                delete date_data_db[foundequal]
-                            }
-                            */
                             var update_doc
                             var filter
                             update_doc = {$set: { date_now:did_now }}
