@@ -8,4 +8,6 @@ block content
 
   a(class="button" , href=iam) reload DB
 
-  form(action="/")
+  form(action="/api/pythonCalc/test")
+    input(type="hidden",name="dir", value="/result/test" )
+    input(class="button", type="submit", value="Python Calculate" )
