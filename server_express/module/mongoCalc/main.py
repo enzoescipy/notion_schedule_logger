@@ -10,6 +10,7 @@ length = len(cursor)
 resultDB = client["PythonCalculation"]
 resultCollection = resultDB["test"]
 
-resultCollection.delete_many({})
 
-resultCollection.insert_one({"value" : length})
+#resultCollection.delete_many({})
+
+#resultCollection.insert_one({"value" : length})
