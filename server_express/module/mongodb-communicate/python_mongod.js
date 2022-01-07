@@ -10,6 +10,7 @@ async function find_test(callback)
     const test = database.collection("test")
     var result = await test.findOne({})
     if (callback != null){callback(result)}
+    return result
 }
 
 exports.find_test = find_test
