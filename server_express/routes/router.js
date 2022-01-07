@@ -34,12 +34,11 @@ router.post('/api/notionUpdate', function(req, res) {
 
 //python test router
 router.post('/api/pythonCalc/test', function(req, res) {
-    var dir = req.body.dir
     //python raise
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0])
     pythonProcess.stdout.on('data', (data) => {
-        console.log(data.toString())
-        res.render('warp', {portal:dir, sending:data.toString()})
+        console.log(data.toString(), req.body.dir)
+        res.render('warp', {portal:req.body.dir, sending:data.toString()})
     })
 })
 //python test result router
