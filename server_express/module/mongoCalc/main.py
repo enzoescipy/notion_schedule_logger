@@ -7,11 +7,5 @@ cursor = client.Notionpage_workid.todo.find()
 
 funclist = []
 
-def test():
-    print(len(cursor))
-    sys.stdout.flush()
-funclist.append(test)
-
-mode = sys.argv[1]
-
-funclist[mode]()
+print("hello, wodld! by python.")
+sys.stdout.flush()
