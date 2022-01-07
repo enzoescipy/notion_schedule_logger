@@ -31,7 +31,7 @@ router.post('/api/notionUpdate', function(req, res) {
         res.render('warp', {portal: req.body.portal, sending:""})
     })
 })
-/*
+
 //python test router
 router.post('/api/pythonCalc/test', function(req, res) {
     var dir = req.body.dir
@@ -47,6 +47,6 @@ router.post('/result/test', function(req, res) {
     res.render('pythonresult_test.pug',{calculated : req.query.sending})
 })
 
-*/
+
 
 module.exports = router
