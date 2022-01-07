@@ -7,8 +7,8 @@ cursor = client.Notionpage_workid.todo.find()
 
 length = len(cursor)
 
-resultDB = client["PythonCalculation"]
-resultCollection = resultDB["test"]
+#resultDB = client["PythonCalculation"]
+#resultCollection = resultDB["test"]
 
 
 #resultCollection.delete_many({})
