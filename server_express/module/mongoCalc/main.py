@@ -7,10 +7,14 @@ cursor = client.Notionpage_workid.todo.find()
 
 length = 123
 
-#resultDB = client["PythonCalculation"]
-#resultCollection = resultDB["test"]
+resultDB = client["PythonCalculation"]
+resultCollection = resultDB["test"]
 
 
-#resultCollection.delete_many({})
+resultCollection.delete_many({})
 
-#resultCollection.insert_one({"value" : length})
+resultCollection.insert_one({"value" : length})
+
+
+print("python : task fin.")
+sys.stdout.flush()
