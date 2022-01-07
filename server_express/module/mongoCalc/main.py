@@ -5,7 +5,10 @@ client = MongoClient(host='localhost', port=27017)
 
 cursor = client.Notionpage_workid.todo.find()
 
-funclist = []
+length = len(cursor)
 
-print("hello, wodld! by python.")
-sys.stdout.flush()
+resultCollection = client.PythonCalculation.test
+
+resultCollection.delete_many({})
+
+resultCollection.insert_one({"value" : length})
