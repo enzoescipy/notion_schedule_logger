@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var Mongo = require("../module/mongodb-communicate/server_mongod")
-var spawn = require("child_process".spawn)
+var spawn = require("child_process").spawn
 
 
 //homepage router
