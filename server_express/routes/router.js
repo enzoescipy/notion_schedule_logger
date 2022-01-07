@@ -38,15 +38,18 @@ router.post('/api/pythonCalc/test', function(req, res) {
     //python raise
     var pythonProcess = spawn('python3-server/bin/python', ["/module/mongoCalc/main.py", 0])
     pythonProcess.stdout.on('data', (data) => {
+        console.log(data.toString())
+        /*
         res.render('warp', {portal:dir, sending:data.toString()})
+        */
     })
 })
-
+/*
 //python test result router
 router.post('/result/test', function(req, res) {
     res.render('pythonresult_test',{calculated : req.query.sending})
 })
 
-
+*/
 
 module.exports = router
