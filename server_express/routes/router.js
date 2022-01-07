@@ -38,7 +38,7 @@ router.post('/api/pythonCalc/test', function(req, res) {
     //python raise
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0])
     pythonProcess.stdout.on('data', (data) => {
-        console.log(data)
+        console.log(data.toString())
         res.render('warp', {portal:req.body.dir})
     })
 })
