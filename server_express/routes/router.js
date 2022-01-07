@@ -44,6 +44,7 @@ router.post('/api/pythonCalc/test', function(req, res) {
 //python test result router
 router.post('/result/test', function(req, res) {
     Mongo_py.find_test((finded) => {
+        console.log(finded)
         res.render('pythonresult_test',{calculated : finded[value]})
     })
 })
