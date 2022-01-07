@@ -37,6 +37,7 @@ router.post('/api/pythonCalc/test', function(req, res) {
     var dir = req.body.dir
     //python raise
     var pythonProcess = spawn('../python3-server/bin/python', ["../module/mongoCalc/main.py", 0])
+    console.log("hello, sorld?")
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString())
         /*
