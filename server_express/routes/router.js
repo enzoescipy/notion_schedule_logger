@@ -44,7 +44,7 @@ router.post('/api/pythonCalc/test', function(req, res) {
 
 //python test result router
 router.post('/result/test', function(req, res) {
-    res.render('pythonresult_test.pug',{calculated : req.query.sending})
+    res.render('pythonresult_test',{calculated : req.query.sending})
 })
 
 
