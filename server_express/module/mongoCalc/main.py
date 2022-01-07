@@ -5,7 +5,7 @@ client = MongoClient(host='localhost', port=27017)
 
 cursor = client.Notionpage_workid.todo.find()
 
-length = len(cursor)
+length = 123
 
 #resultDB = client["PythonCalculation"]
 #resultCollection = resultDB["test"]
