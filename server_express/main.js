@@ -1,7 +1,7 @@
 async function main()
 {  //express
   const express = require('express')
-  const dbnaming = require("./module/mongodb-communicate/server_mongod")
+  const dbnaming = require("./module/mongodb-communicate/mongod_dbnaming")
 
   //middle-wares
   var bodyParser = require('body-parser')
@@ -43,7 +43,7 @@ async function main()
 
   //custom-wares
   var Mongo = require("./module/mongodb-communicate/server_mongod")
-  await Mongo.initialize("Notionpage_workid", "todo")
+  await Mongo.initialize(dbnaming.maindatabase, "todo")
 
 
   //404 error case
