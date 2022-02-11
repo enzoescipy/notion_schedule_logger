@@ -30,6 +30,7 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
         {
             //get date data.
             var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
+            console.log("status:",date_data_now)
             date_id = date_data_now.id // what i did. ex) study math
             delete date_data_now.id
 
@@ -46,7 +47,6 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
                         var id_db = doc.id
                         delete date_data_db.id
                         //compare the _now date and db's date.
-                        console.log("status:",date_data_now)
                         for (date_now in date_data_now)
                         {
                             var update_doc
