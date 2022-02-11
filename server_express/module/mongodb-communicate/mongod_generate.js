@@ -10,6 +10,7 @@ const client = new MongoClient(uri);
 
 async function insertRandomDatepairs(colname, dbname,datestring, callback)
 {
+    Mongo.initialize(colname, dbname, callback) //debug only
     if (dbname === dbnaming.maindatabase)
     {
         return -1
@@ -73,5 +74,7 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
     }
     if (callback != null){callback()}
 }
+
+
 
 exports.insertRandomDatepairs = insertRandomDatepairs
