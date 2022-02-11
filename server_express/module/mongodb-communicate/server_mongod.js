@@ -46,7 +46,7 @@ async function update(callback)
                         var id_db = doc.id
                         delete date_data_db.id
                         //compare the _now date and db's date.
-                        for (date_now in date_data_now)
+                        for (date_now, did_now in date_data_now.items())
                         {
                             var update_doc
                             var filter
