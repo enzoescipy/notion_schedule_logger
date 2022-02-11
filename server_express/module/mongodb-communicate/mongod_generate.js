@@ -40,13 +40,13 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
             {
                 try
                 {
-                    console.log("status:",doc != null)
                     if (doc != null) 
                     {
                         var date_data_db = doc // the {date1 : true, date2 : false, ...}
                         var id_db = doc.id
                         delete date_data_db.id
                         //compare the _now date and db's date.
+                        console.log("status:",date_data_now)
                         for (date_now in date_data_now)
                         {
                             var update_doc
