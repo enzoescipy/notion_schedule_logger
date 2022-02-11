@@ -34,7 +34,7 @@ async function update(callback)
             delete date_data_now.id
 
             //check if there are already data that has same date_id exist in DB.
-            var query = {id : date_id}
+            var query = {"id" : date_id}
             var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
             async function iter_dbrewrite(doc)
             {
@@ -52,7 +52,7 @@ async function update(callback)
                             var filter
                             var did_now = date_data_now[date_now]
                             update_doc = {$set: { date_now: did_now }}
-                            filter = {id:id_db} //update 
+                            filter = {"id":id_db} //update 
                             var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                         }
                     }
