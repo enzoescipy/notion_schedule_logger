@@ -43,7 +43,7 @@ async function main()
 
   //custom-wares
   var Mongo = require("./module/mongodb-communicate/server_mongod")
-  await Mongo.initialize(dbnaming.maindatabase, dbnaming.collection[0])
+  await Mongo.initialize("Notionpage_workid", "todo")
 
 
   //404 error case
