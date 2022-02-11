@@ -40,6 +40,7 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
             {
                 try
                 {
+                    console.log("status:",doc != null)
                     if (doc != null) 
                     {
                         var date_data_db = doc // the {date1 : true, date2 : false, ...}
