@@ -3,8 +3,6 @@ var router = express.Router()
 var Mongo = require("../module/mongodb-communicate/server_mongod")
 var Mongo_py = require("../module/mongodb-communicate/python_mongod")
 var spawn = require("child_process").spawn
-var dbnaming = require("./module/mongodb-communicate/mongod_dbnaming")
-
 
 
 //homepage router
@@ -16,7 +14,7 @@ router.get('/',function(req, res) {
 
 //notion testing router
 router.get('/hardcoading',function(req, res) {
-    Mongo.debug(dbnaming.maindatabase,dbnaming.collection[0],function(doc) {
+    Mongo.debug("Notionpage_workid","todo",function(doc) {
         var DBdata = doc
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
@@ -29,7 +27,7 @@ router.get('/hardcoading',function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    Mongo.update(dbnaming.maindatabase,dbnaming.collection[0],() => {
+    Mongo.update("Notionpage_workid","todo",() => {
         console.log("(request) update data from notion -> server mongoDB ")
         res.render('warp', {portal: req.body.portal})
     })
