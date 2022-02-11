@@ -14,7 +14,7 @@ router.get('/',function(req, res) {
 
 //notion testing router
 router.get('/hardcoading',function(req, res) {
-    Mongo.debug(function(doc) {
+    Mongo.debug("Notionpage_workid",function(doc) {
         var DBdata = doc
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
@@ -27,7 +27,7 @@ router.get('/hardcoading',function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    Mongo.update(() => {
+    Mongo.update("Notionpage_workid",() => {
         console.log("(request) update data from notion -> server mongoDB ")
         res.render('warp', {portal: req.body.portal})
     })

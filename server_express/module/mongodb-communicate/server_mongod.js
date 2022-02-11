@@ -5,22 +5,22 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-async function initialize(callback)
+async function initialize(dbname, callback)
 {
     await client.connect()
-    const database = client.db("Notionpage_workid")
+    const database = client.db(dbname)
     const todo = database.collection("todo")
     var result = await todo.deleteMany({})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
     if (callback != null){callback()}
 }
 
-async function update(callback)
+async function update(dbname, callback)
 {
     try
     {
         await client.connect()
-        const database = client.db("Notionpage_workid")
+        const database = client.db(dbname)
         const todo = database.collection("todo")
         
         //get date data.
@@ -78,14 +78,14 @@ async function update(callback)
     if (callback != null){callback()}
 }
 
-async function debug(callback)
+async function debug(dbname, callback)
 {
     var docSum = {}
     console.log("(server_mongod) mongodb inner document emited.")
     try
     {
         await client.connect()
-        const database = client.db("Notionpage_workid")
+        const database = client.db(dbname)
         const todo = database.collection("todo")
 
         const result = await todo.find()
