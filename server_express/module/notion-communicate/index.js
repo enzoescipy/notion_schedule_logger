@@ -190,6 +190,10 @@ async function testsetget(databaseId, datestring)
     var prop = testcalender[propkey]
     for (date in prop)
     {
+      if (date == 'id')
+      {
+        continue
+      }
       const randbool = Math.random() < 0.5
       testcalender[propkey][date] = randbool
     }
