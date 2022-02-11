@@ -108,7 +108,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
       console.log("invaild datetime. testdb adding rejected.")
       return -1
     }
-    var monday = moment()
+    var monday = moment(datestring,"YYYY-MM-DD")
     //monday.subtract(3,"days")//--debug
     monday = monday.subtract(current_day+1, 'days')
     var week = Array(7)
