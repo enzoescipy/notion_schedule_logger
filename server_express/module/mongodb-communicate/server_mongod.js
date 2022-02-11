@@ -46,10 +46,11 @@ async function update(callback)
                         var id_db = doc.id
                         delete date_data_db.id
                         //compare the _now date and db's date.
-                        for (date_now, did_now in date_data_now.items())
+                        for (date_now in date_data_now)
                         {
                             var update_doc
                             var filter
+                            var did_now = date_data_now[date_now]
                             update_doc = {$set: { date_now: did_now }}
                             filter = {id:id_db} //update 
                             var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
