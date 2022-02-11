@@ -96,6 +96,12 @@ async function getItem(databaseId) {
   }
 }
 
+async function testsetget(databaseId)
+{
+  var testcalender = await getItem(databaseId)
+  
+}                                                   
+
 
 exports.getItemNOTION = getItem
 exports.workId = workId

@@ -25,6 +25,7 @@ async function update(callback)
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
+        console.log("calender debug:")
         console.log(calender)
         for (key in calender)
         {
