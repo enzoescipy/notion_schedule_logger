@@ -5,23 +5,23 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-async function initialize(dbname, callback)
+async function initialize(colname, dbname, callback)
 {
     await client.connect()
     const database = client.db(dbname)
-    const todo = database.collection("todo")
-    var result = await todo.deleteMany({})
+    const collec = database.collection(colname)
+    var result = await collec.deleteMany({})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
     if (callback != null){callback()}
 }
 
-async function update(dbname, callback)
+async function update(colname, dbname, callback)
 {
     try
     {
         await client.connect()
         const database = client.db(dbname)
-        const todo = database.collection("todo")
+        const collec = database.collection(colname)
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
@@ -36,7 +36,7 @@ async function update(dbname, callback)
 
             //check if there are already data that has same date_id exist in DB.
             var query = {"id" : date_id}
-            var cursor = await todo.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
+            var cursor = await collec.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
             async function iter_dbrewrite(doc)
             {
                 try
@@ -54,14 +54,14 @@ async function update(dbname, callback)
                             var did_now = date_data_now[date_now]
                             update_doc = {$set: { [date_now]: did_now }}
                             filter = {"id":id_db} //update 
-                            var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
+                            var result = await collec.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                         }
                     }
                     else
                     {
                         //if there is no date_id(study) in the database, create a new document.
                         date_data_now.id = date_id
-                        await todo.insertOne(date_data_now)
+                        await collec.insertOne(date_data_now)
                     }
                 }
                 finally{}
@@ -78,7 +78,7 @@ async function update(dbname, callback)
     if (callback != null){callback()}
 }
 
-async function debug(dbname, callback)
+async function debug(colname, dbname, callback)
 {
     var docSum = {}
     console.log("(server_mongod) mongodb inner document emited.")
@@ -86,9 +86,9 @@ async function debug(dbname, callback)
     {
         await client.connect()
         const database = client.db(dbname)
-        const todo = database.collection("todo")
+        const collec = database.collection(colname)
 
-        const result = await todo.find()
+        const result = await collec.find()
         await result.forEach(function(doc){
             if (doc != null)
             {
