@@ -182,7 +182,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
   }
 }
 
-async function c(databaseId, datestring)
+async function testsetget(databaseId, datestring)
 {
   var testcalender = await getItem_seletDate(databaseId,datestring)
   for (propkey in testcalender)
