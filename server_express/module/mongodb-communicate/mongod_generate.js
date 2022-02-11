@@ -6,11 +6,14 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-
+async function initialize(colname, dbname,datestring, callback)
+{
+    Mongo.initialize(colname, dbname, callback) //debug only
+}
 
 async function insertRandomDatepairs(colname, dbname,datestring, callback)
 {
-    Mongo.initialize(colname, dbname, callback) //debug only
+    
     if (dbname === dbnaming.maindatabase)
     {
         return -1
