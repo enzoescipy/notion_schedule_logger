@@ -53,7 +53,7 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
                             var did_now = date_data_now[date_now]
                             update_doc = {$set: { [date_now]: did_now }}
                             filter = {"id":id_db} //update 
-                            var result = await collec.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
+                            var result = await collec.updateOne(filter, update_doc, {upsert:true}) //it can be done as asynchronously BUT for now, synchronous action.
                         }
                     }
                     else

@@ -1,0 +1,11 @@
+Mongo = require('./module/mongodb-communicate/mongod_generate')
+
+Mongo.initialize('todo','Notionpage_workid_test')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-02-12')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-02-05')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-01-29')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-01-22')
