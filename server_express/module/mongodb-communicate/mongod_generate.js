@@ -73,3 +73,5 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
     }
     if (callback != null){callback()}
 }
+
+exports.insertRandomDatepairs = insertRandomDatepairs
