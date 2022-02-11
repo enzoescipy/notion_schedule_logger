@@ -81,3 +81,4 @@ async function insertRandomDatepairs(colname, dbname,datestring, callback)
 
 
 exports.insertRandomDatepairs = insertRandomDatepairs
+exports.initialize = initialize
