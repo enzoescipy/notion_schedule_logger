@@ -105,6 +105,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
     var current_day = (Number(currnet_date.format("d")) +6 ) % 7
     if (current_day == 0) 
     {
+      console.log("invaild datetime. testdb adding rejected.")
       return -1
     }
     var monday = moment()
