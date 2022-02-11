@@ -50,7 +50,7 @@ async function update(callback)
                         {
                             var update_doc
                             var filter
-                            update_doc = {$set: { date_now:did_now }}
+                            update_doc = {$set: { date_now:"did_now" }}
                             filter = {id:id_db} //update 
                             var result = await todo.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                         }
