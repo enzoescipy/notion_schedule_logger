@@ -87,7 +87,7 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     } 
     else
     {
-        var collecArray = [collectionType]
+        var collecArray = Array().push(collectionType)
         var newdoc = {'id' : dbname, 'collections' : collecArray}
         await collec.insertOne(newdoc)
     }
