@@ -3,7 +3,7 @@ var router = express.Router()
 var Mongo = require("../module/mongodb-communicate/server_mongod")
 var Mongo_py = require("../module/mongodb-communicate/python_mongod")
 var spawn = require("child_process").spawn
-var dbnaming = require("../module/mongodb-communicate/mongod_dbnaming")
+var dbnaming = require("../module/mongodb-communicate/mongod_dbmanage")
 
 
 

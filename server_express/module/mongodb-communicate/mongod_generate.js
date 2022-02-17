@@ -1,15 +1,19 @@
 const {MongoClient} = require ("mongodb")
 const Notion = require('../notion-communicate/index')
-const dbnaming = require('../mongodb-communicate/mongod_dbnaming')
+const dbnaming = require('./mongod_dbmanage')
 const Mongo = require('../mongodb-communicate/server_mongod')
 const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-async function initialize(colname, dbname,datestring, callback)
-{
-    Mongo.initialize(colname, dbname, callback) //debug only
-}
+const dbnaming = require('./mongod_dbmanage')
+
+
+
+
+
+
+
 
 async function insertRandomDatepairs(colname, dbname,datestring, callback)
 {

@@ -1,7 +1,7 @@
 async function main()
 {  //express
   const express = require('express')
-  const dbnaming = require("./module/mongodb-communicate/mongod_dbnaming")
+  const dbnaming = require("./module/mongodb-communicate/mongod_dbmanage")
 
   //middle-wares
   var bodyParser = require('body-parser')
