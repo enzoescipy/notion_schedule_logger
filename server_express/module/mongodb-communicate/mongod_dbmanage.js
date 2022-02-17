@@ -66,10 +66,9 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
-    var setting_doc = setting.next()
+    var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
-    console.log(setting_doc)
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
@@ -106,7 +105,7 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
-    var setting_doc = setting.next()
+    var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
     const typeofCollection = setting_doc.typeofCollection
