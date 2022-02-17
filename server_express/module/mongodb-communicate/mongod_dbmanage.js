@@ -85,9 +85,10 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
         for (index in doc.collection)
         {
             var colec = doc.collection[index]
+            console.log(colec, collectionType)
             if ( colec === collectionType )
             {
-                return
+                return -1
             }
         }
         doc.collections.push(collectionType)
