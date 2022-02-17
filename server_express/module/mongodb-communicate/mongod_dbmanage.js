@@ -116,6 +116,7 @@ exports.maindatabase = "Notionpage_workid"
 exports.testdatabase = "Notionpage_workid_test"
 exports.collection = ["todo"]
 
+exports.reset_setting = reset_setting
 exports.debug = debug
 exports.putDBnaming = putDBnaming
 exports.getDBnaming = getDBnaming
