@@ -82,6 +82,14 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var doc = await cursor.next()
     if (doc != null) 
     {
+        for (index in doc.collection)
+        {
+            var colec = doc.collection[index]
+            if ( colec === collectionType )
+            {
+                return
+            }
+        }
         doc.collections.push(collectionType)
         await collec.updateOne({'id':dbname}, {$set: {'collections': doc.collections }})
     } 
