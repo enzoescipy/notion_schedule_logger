@@ -30,6 +30,7 @@ async function reset_setting()
 async function debug()
 {
     console.log("(mongod_dbmanage) dbnamingDB inner emited.")
+    var docSum = {}
     try
     {
         await client.connect()
