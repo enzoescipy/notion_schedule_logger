@@ -79,7 +79,7 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     //find if there is already db exists.
     var dbname = dbName + "_" + dbType
     var cursor =  await collec.find({'id':dbname})
-    var doc = cursor.next()
+    var doc = await cursor.next()
     if (doc != null) 
     {
         var new_collec = doc['collections'].push(collectionType)
