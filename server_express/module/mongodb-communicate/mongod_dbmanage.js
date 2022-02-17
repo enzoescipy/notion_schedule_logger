@@ -1,3 +1,4 @@
+const { get } = require("jquery");
 const {MongoClient} = require ("mongodb")
 const uri = "mongodb://localhost:27017"
 
@@ -114,3 +115,7 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 exports.maindatabase = "Notionpage_workid"
 exports.testdatabase = "Notionpage_workid_test"
 exports.collection = ["todo"]
+
+exports.debug = debug
+exports.putDBnaming = putDBnaming
+exports.getDBnaming = getDBnaming
