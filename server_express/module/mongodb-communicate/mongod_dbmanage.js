@@ -69,7 +69,7 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var setting_doc = setting.next()
 
     const typeofDB = setting_doc.typeofDB
-    console.log(typeofDB)
+    console.log(setting_doc)
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
