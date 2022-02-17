@@ -55,6 +55,10 @@ async function debug()
 
 async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 {
+    dbNamenum = Number(dbNamenum)
+    dbTypenum = Number(dbTypenum)
+    collectionTypenum = Number(collectionTypenum)
+
 
     await client.connect()
     const database = client.db(NameDB)
@@ -91,7 +95,10 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 
 async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 {
-    
+    dbNamenum = Number(dbNamenum)
+    dbTypenum = Number(dbTypenum)
+    collectionTypenum = Number(collectionTypenum)
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
