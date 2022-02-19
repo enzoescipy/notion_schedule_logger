@@ -124,8 +124,20 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     const dbType = typeofDB[dbTypenum]
     const collectionType = typeofCollection[collectionTypenum]
     const dbName = nameofDB[dbNamenum]
+    const DBstring = dbName + "_" + dbType
 
-    return {"DB" : dbName + "_" + dbType, "collection" : collectionType}
+
+    var DBnamingDoc = await collec.find({'id':DBstring})
+    if (DBnamingDoc.next() != null) 
+    {
+        return {"DB" : DBstring, "collection" : collectionType}
+    }
+    else
+    {
+        return -1
+    }
+
+
 }
 
 
