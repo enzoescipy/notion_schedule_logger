@@ -26,6 +26,59 @@ async function reset_setting()
     await client.close()
 }
 
+async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
+{
+    await client.connect()
+    const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
+    var whichtoadd = "invaild"
+    if (whichtoadd_num === 0)
+    {
+        whichtoadd = "nameofDB"
+    }
+    else if (whichtoadd_num === 1)
+    {
+        whichtoadd = "typeofDB"
+    }
+    else if (whichtoadd_num === 2)
+    {
+        whichtoadd = "typeofCollection"
+    }
+
+    var filter = {'id': NameDB_setting}
+    var update_doc = {$set: { [whichtoadd]: toString(adding_string) }}
+    await collec.updateOne(filter,update_doc,{})
+
+    await client.close()
+}
+
+async function delete_setting(whichtodel_num,) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
+{
+    await client.connect()
+    const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
+    var whichtodel = "invaild"
+    if (whichtodel_num === 0)
+    {
+        whichtodel = "nameofDB"
+    }
+    else if (whichtodel_num === 1)
+    {
+        whichtodel = "typeofDB"
+    }
+    else if (whichtodel_num === 2)
+    {
+        whichtodel = "typeofCollection"
+    }
+
+    var filter = {'id': NameDB_setting}
+    var update_doc = {$unset:  [whichtodel] }
+    await collec.updateOne(filter,update_doc,{})
+
+    await client.close()
+}
 
 async function debug()
 {
