@@ -49,7 +49,7 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : t
     var filter = {'id': NameDB_setting}
     var current_doc = await collec.findOne(filter)
     var innerArray = current_doc[whichtoadd]
-    innerArray.push(toString(adding_string))
+    innerArray.push(String(adding_string))
 
     var update_doc = {$set: { [whichtoadd]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
