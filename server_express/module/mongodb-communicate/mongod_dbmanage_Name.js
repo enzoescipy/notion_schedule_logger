@@ -57,7 +57,7 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : t
     await client.close()
 }
 
-async function delete_setting(whichtodel_num,) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
+async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
 {
     await client.connect()
     const database = client.db(NameDB)
@@ -78,7 +78,14 @@ async function delete_setting(whichtodel_num,) // 0 : nameofDB, 1 : typeofDB, 2 
     }
 
     var filter = {'id': NameDB_setting}
-    var update_doc = {$unset:  whichtodel }
+    var current_doc = await collec.findOne(filter)
+    var innerArray = current_doc[whichtodel]
+
+    proptodel_string.toString()
+    var propindex = innerArray.find(proptodel_string)
+    innerArray.splice(propindex)
+
+    var update_doc = {$set: { [whichtoadd]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
 
     await client.close()
