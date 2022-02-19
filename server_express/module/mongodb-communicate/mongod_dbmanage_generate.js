@@ -65,7 +65,7 @@ async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,dat
     }
     finally
     {
-        debug(colname, dbname, callback)
+        debug(dbNamenum, dbTypenum, collectionTypenum)
         await client.close();
     }
     if (callback != null){callback()}
