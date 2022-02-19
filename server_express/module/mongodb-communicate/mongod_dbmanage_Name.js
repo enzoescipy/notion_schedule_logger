@@ -82,7 +82,7 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
     var innerArray = current_doc[whichtodel]
 
     proptodel_string = String(proptodel_string)
-    var propindex = innerArray.find(proptodel_string)
+    var propindex = innerArray.indexOf(proptodel_string)
     innerArray.splice(propindex, 1)
 
     var update_doc = {$set: { [whichtodel]:  innerArray}}
