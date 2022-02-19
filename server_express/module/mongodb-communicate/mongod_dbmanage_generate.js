@@ -5,7 +5,6 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-const dbnaming = require('./mongod_dbmanage_Name')
 
 async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,datestring, callback)
 {
