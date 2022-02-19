@@ -231,3 +231,4 @@ exports.initialize = initialize
 exports.update = update
 exports.debug = debug
 exports.copypaste = copypaste
+exports.makeNewDB = makeNewDB
