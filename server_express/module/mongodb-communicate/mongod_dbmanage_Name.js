@@ -19,7 +19,7 @@ async function reset_setting()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
 
-    var result = await collec.deleteMany({})
+    var result = await collec.deleteOne({'id':NameDB_setting})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
     await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
@@ -45,9 +45,13 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : t
     {
         whichtoadd = "typeofCollection"
     }
-
+    
     var filter = {'id': NameDB_setting}
-    var update_doc = {$set: { [whichtoadd]: toString(adding_string) }}
+    var current_doc = collec.findOne(filter)
+    var innerArray = current_doc[whichtoadd]
+    innerArray.push(toString(adding_string))
+
+    var update_doc = {$set: { [whichtoadd]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
 
     await client.close()
