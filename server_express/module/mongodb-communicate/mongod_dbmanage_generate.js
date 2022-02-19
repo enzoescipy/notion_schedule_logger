@@ -80,10 +80,10 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
         // basic connection
         await client.connect()
         const database1 = client.db(seleted_dbnaming1.DB)
-        const collec1 = database.collection(seleted_dbnaming1.collection)
+        const collec1 = database1.collection(seleted_dbnaming1.collection)
 
         const database2 = client.db(seleted_dbnaming2.DB)
-        const collec2 = database.collection(seleted_dbnaming2.collection)
+        const collec2 = database2.collection(seleted_dbnaming2.collection)
 
         //get the copied DB doc.
         var original_db_all = collec1.find()
