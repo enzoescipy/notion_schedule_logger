@@ -81,7 +81,7 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
     var current_doc = await collec.findOne(filter)
     var innerArray = current_doc[whichtodel]
 
-    proptodel_string.toString()
+    proptodel_string = String(proptodel_string)
     var propindex = innerArray.find(proptodel_string)
     innerArray.splice(propindex)
 
