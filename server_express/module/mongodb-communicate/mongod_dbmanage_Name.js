@@ -85,7 +85,7 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
     var propindex = innerArray.find(proptodel_string)
     innerArray.splice(propindex, 1)
 
-    var update_doc = {$set: { [whichtoadd]:  innerArray}}
+    var update_doc = {$set: { [whichtodel]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
 
     await client.close()
