@@ -86,12 +86,12 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
 
         //get the copied DB doc.
         var original_db_all = collec1.find()
-        await client.close
+        
         //remove all of document in pasting DB.         
-        await initialize(dbNamenum2, dbTypenum2, collectionTypenum2)
+        var result = await collec1.deleteMany({})
+        console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
         //write document to pasting DB
-        await client.connect()
         const database2 = client.db(seleted_dbnaming2.DB)
         const collec2 = database2.collection(seleted_dbnaming2.collection)
         await original_db_all.forEach(function(doc){
