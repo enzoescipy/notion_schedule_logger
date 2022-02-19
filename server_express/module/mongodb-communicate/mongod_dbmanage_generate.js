@@ -5,6 +5,12 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
+async function makeNewDB(dbNamenum, dbTypenum, collectionTypenum, callback)
+{
+    dbnaming.putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    initialize(dbNamenum, dbTypenum, collectionTypenum)
+    if (callback != null){callback()}
+}
 
 async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,datestring, callback)
 {
