@@ -42,7 +42,7 @@ async function main()
   app.use('/',crudRouter)
 
   //custom-wares
-  var Mongo = require("./module/mongodb-communicate/server_mongod")
+  var Mongo = require("./module/mongodb-communicate/mongod_dbmanage_generate")
   await Mongo.initialize(dbnaming.maindatabase, dbnaming.collection[0])
 
 

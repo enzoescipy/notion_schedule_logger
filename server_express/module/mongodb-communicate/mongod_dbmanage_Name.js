@@ -9,7 +9,6 @@ const NameDB_collec = "base"
 const NameDB_setting = "setting"
 
 
-
 async function reset_setting()
 {
     const nameofDB = ["NotionpageWorkId"]
@@ -26,6 +25,7 @@ async function reset_setting()
     await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
     await client.close()
 }
+
 
 async function debug()
 {
