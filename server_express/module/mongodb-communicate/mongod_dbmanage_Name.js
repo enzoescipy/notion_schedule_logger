@@ -78,7 +78,7 @@ async function delete_setting(whichtodel_num,) // 0 : nameofDB, 1 : typeofDB, 2 
     }
 
     var filter = {'id': NameDB_setting}
-    var update_doc = {$unset:  [whichtodel] }
+    var update_doc = {$unset:  whichtodel }
     await collec.updateOne(filter,update_doc,{})
 
     await client.close()
