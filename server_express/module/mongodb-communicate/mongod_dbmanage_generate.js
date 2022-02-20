@@ -7,8 +7,8 @@ const client = new MongoClient(uri);
 
 async function makeNewDB(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
-    dbnaming.putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
-    initialize(dbNamenum, dbTypenum, collectionTypenum)
+    await dbnaming.putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    await initialize(dbNamenum, dbTypenum, collectionTypenum)
     if (callback != null){callback()}
 }
 
