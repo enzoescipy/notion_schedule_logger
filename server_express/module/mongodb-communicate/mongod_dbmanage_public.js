@@ -15,9 +15,9 @@ async function reloadDB_main(DB_namenum, collection_namenum)
     await mongoGenerate.update(DB_namenum,1,collection_namenum)
 }
 
-async function generateDB_test(DB_namenum, collection_namenum)
+async function generateDB_test(DB_namenum, collection_namenum, datestring)
 {
-    await mongoGenerate.insertRandomDatepairs(DB_namenum,0,collection_namenum)
+    await mongoGenerate.insertRandomDatepairs(DB_namenum,0,collection_namenum,datestring)
 }
 
 async function saveDB_main(DB_namenum, collection_namenum)
