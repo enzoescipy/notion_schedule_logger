@@ -99,14 +99,19 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
         console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
         //write document to pasting DB
-
-        await original_db_all.forEach(async function(doc){
+        while (true)
+        {
+            var dc = await original_db_all.next()
             if (doc != null)
             {
                 await collec2.insertOne(doc)
             }
-        })
+            else
+            {
+                break
+            }
 
+        }
 
     }
     finally
