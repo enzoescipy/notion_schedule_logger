@@ -101,7 +101,7 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
         //write document to pasting DB
         while (true)
         {
-            var dc = await original_db_all.next()
+            var doc = await original_db_all.next()
             if (doc != null)
             {
                 await collec2.insertOne(doc)
