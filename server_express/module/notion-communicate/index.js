@@ -17,10 +17,6 @@ async function getItem(databaseId) {
     var currnet_date = moment()
     //currnet_date.subtract(3,"days")//--debug
     var current_day = (Number(currnet_date.format("d")) +6 ) % 7
-    if (current_day == 0) 
-    {
-      return -1
-    }
     var monday = moment()
     //monday.subtract(3,"days")//--debug
     monday = monday.subtract(current_day+1, 'days')
