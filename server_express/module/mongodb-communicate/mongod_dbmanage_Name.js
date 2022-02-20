@@ -149,6 +149,7 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
         for (index in doc.collection)
         {
             var colec = doc.collection[index]
+            console.log(colec)
             if ( colec === collectionType )
             {
                 console.log('there is already same document.')
