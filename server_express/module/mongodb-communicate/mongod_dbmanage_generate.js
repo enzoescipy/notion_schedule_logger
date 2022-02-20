@@ -103,7 +103,7 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
         await original_db_all.forEach(function(doc){
             if (doc != null)
             {
-                collec2.insertOne(doc)
+                await ollec2.insertOne(doc)
             }
         })
 
