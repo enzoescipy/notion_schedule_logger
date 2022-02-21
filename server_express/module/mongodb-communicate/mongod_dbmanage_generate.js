@@ -16,6 +16,7 @@ async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,dat
 {
 
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    var callback_return = null
     
     try
     {
