@@ -10,24 +10,24 @@ async function makeNewDBset(DB_namenum, collection_namenum)
     }
 }
 
-async function reloadDB_main(DB_namenum, collection_namenum)
+async function reloadDB_main(DB_namenum, collection_namenum, callback)
 {
-    await mongoGenerate.update(DB_namenum,1,collection_namenum)
+    await mongoGenerate.update(DB_namenum,1,collection_namenum, callback)
 }
 
-async function generateDB_test(DB_namenum, collection_namenum, datestring)
+async function generateDB_test(DB_namenum, collection_namenum, datestring, callback)
 {
-    await mongoGenerate.insertRandomDatepairs(DB_namenum,0,collection_namenum,datestring)
+    await mongoGenerate.insertRandomDatepairs(DB_namenum,0,collection_namenum,datestring, callback)
 }
 
-async function saveDB_main(DB_namenum, collection_namenum)
+async function saveDB_main(DB_namenum, collection_namenum, callback)
 {
-    await mongoGenerate.copypaste(DB_namenum,1,collection_namenum, DB_namenum,2,collection_namenum)
+    await mongoGenerate.copypaste(DB_namenum,1,collection_namenum, DB_namenum,2,collection_namenum, callback)
 }
 
-async function takeDBfromBackUp_test(DB_namenum, collection_namenum)
+async function takeDBfromBackUp_test(DB_namenum, collection_namenum, callback)
 {
-    await mongoGenerate.copypaste(DB_namenum,2,collection_namenum, DB_namenum,0,collection_namenum)
+    await mongoGenerate.copypaste(DB_namenum,2,collection_namenum, DB_namenum,0,collection_namenum, callback)
 }
 
 exports.makeNewDBset = makeNewDBset
