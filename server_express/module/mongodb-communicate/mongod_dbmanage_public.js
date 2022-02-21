@@ -4,7 +4,7 @@ const mongoGenerate = require('./mongod_dbmanage_generate')
 
 async function makeNewDBset(DB_namenum, collection_namenum)
 {
-    for (var i=0; i<3;i++)
+    for (var i=0; i<4;i++)
     {
         console.log(i)
         await mongoGenerate.makeNewDB(DB_namenum,i,collection_namenum)
