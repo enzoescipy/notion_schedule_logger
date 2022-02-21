@@ -12,7 +12,7 @@ const NameDB_setting = "setting"
 async function reset_setting()
 {
     const nameofDB = ["NotionpageWorkId"]
-    const typeofDB = ["test","main","backup","system"]
+    const typeofDB = ["test","main","backup","calculate","system"]
     const typeofCollection = ["todo"]
 
     await client.connect()
