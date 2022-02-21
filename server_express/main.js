@@ -52,7 +52,7 @@ async function main()
 
   //server error case
   app.use(function(err, req, res, next) {
-      console.error(err,stack)
+      console.error(err.stack)
       res.status(500).send("something wrong...")
   })
 
