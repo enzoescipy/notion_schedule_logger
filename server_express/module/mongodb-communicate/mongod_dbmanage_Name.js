@@ -227,7 +227,6 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 
 
 
-exports.reset_setting = reset_setting
 exports.debug = debug
 exports.putDBnaming = putDBnaming
 exports.getDBnaming = getDBnaming
