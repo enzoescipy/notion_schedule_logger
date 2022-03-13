@@ -9,7 +9,22 @@ const NameDB_collec = "base"
 const NameDB_setting = "setting"
 
 
+async function reset_setting()
+{
+    const nameofDB = ["NotionpageWorkId"]
+    const typeofDB = ["test","main","backup","calculate","system"]
+    const typeofCollection = ["todo"]
 
+    await client.connect()
+    const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
+    var result = await collec.deleteOne({'id':NameDB_setting})
+    console.log("\ndeleted" + result.deletedCount + " data first.\n")
+
+    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
+    await client.close()
+}
 
 async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
 {
