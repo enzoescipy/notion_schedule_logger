@@ -1,0 +1,30 @@
+Mongo = require('./module/mongodb-communicate/mongod_generate')
+
+Mongo.initialize('todo','Notionpage_workid_test')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-02-13')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-02-06')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-01-30')
+
+Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-01-23')
+
+
+
+async function reset_setting()
+{
+    const nameofDB = ["NotionpageWorkId"]
+    const typeofDB = ["test","main","backup","calculate","system"]
+    const typeofCollection = ["todo"]
+
+    await client.connect()
+    const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
+    var result = await collec.deleteOne({'id':NameDB_setting})
+    console.log("\ndeleted" + result.deletedCount + " data first.\n")
+
+    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
+    await client.close()
+}
