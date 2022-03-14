@@ -1,4 +1,5 @@
 const mongoGenerate = require('./mongod_dbmanage_generate')
+const mongoNameManage = require('./mongod_dbmanage_Name')
 
 
 
@@ -26,6 +27,7 @@ async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
     {
         console.log(i)
         await mongoGenerate.deleteSelf(dbNamenum,dbVarinum, i, collectionTypenum)
+        await mongoNameManage.delDBnaming(dbNamenum,dbVarinum, i, collectionTypenum)
     }
 }
 
