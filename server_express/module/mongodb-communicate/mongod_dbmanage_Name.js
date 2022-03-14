@@ -180,12 +180,8 @@ async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     await client.close()
 }
 
-async function delDBnaming_depracated(dbNamenum, dbTypenum, collectionTypenum)
+async function delDBnaming_super(target_string)
 {
-    dbNamenum = Number(dbNamenum)
-    dbTypenum = Number(dbTypenum)
-    collectionTypenum = Number(collectionTypenum)
-
 
     await client.connect()
     const database = client.db(NameDB)
@@ -194,15 +190,7 @@ async function delDBnaming_depracated(dbNamenum, dbTypenum, collectionTypenum)
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
-
-    const typeofDB = setting_doc.typeofDB
-    const typeofCollection = setting_doc.typeofCollection
-    const nameofDB = setting_doc.nameofDB
-
-    const dbType = typeofDB[dbTypenum]
-    const dbName = nameofDB[dbNamenum]
-    //find if there is already db exists.
-    var dbname = dbName + "_" + dbType
+    var dbname = target_string
     var cursor =  await collec.find({'id':dbname})
     var doc = await cursor.next()
     if (doc != null) 
