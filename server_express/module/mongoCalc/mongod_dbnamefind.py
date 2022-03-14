@@ -28,7 +28,7 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
     DBstring = dbName + "_" + dbVari + "_" + dbType
 
     DBnamingDoc = collec.find_one({'id':DBstring})
-    if DBnamingDoc == None:
+    if DBnamingDoc != None:
         print(DBnamingDoc)
         return DBstring, collectionType
     else:
