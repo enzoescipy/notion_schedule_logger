@@ -144,7 +144,7 @@ async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
 
 async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
