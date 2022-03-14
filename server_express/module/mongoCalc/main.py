@@ -13,7 +13,8 @@ def post_setRateOfProp(propname, rate, isTest):
     else:
         isTest = "invalid"
     selected_name = getName(0,1,isTest,0)
-    print(selected_name)
+    selected_name, selected_col = selected_name
+    print(selected_name, selected_col)
     # make rate resonable. not int -> to int, over range -> boundary set.
     if rate <= 1 :
         rate = 1
