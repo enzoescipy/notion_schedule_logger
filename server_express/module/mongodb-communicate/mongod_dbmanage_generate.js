@@ -10,7 +10,6 @@ async function makeNewDB(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, call
     var isSame = await dbnaming.putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     if ( isSame === -1 ) {return -1}
     await initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
-    console.log(callback)
     if (callback != null){callback()}
 }
 
@@ -124,7 +123,7 @@ async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,d
     if (callback != null){callback()}
 }
 
-async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
