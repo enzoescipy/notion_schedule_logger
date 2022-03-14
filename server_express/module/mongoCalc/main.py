@@ -27,3 +27,4 @@ def post_setRateOfProp(propname, rate, isTest):
 
     #make dataset
 
+post_setRateOfProp("haha",10,True)
