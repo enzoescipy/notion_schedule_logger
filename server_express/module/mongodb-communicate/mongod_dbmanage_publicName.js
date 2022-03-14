@@ -12,8 +12,10 @@ const NameDB_setting = "setting"
 async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 {
     dbNamenum = Number(dbNamenum)
+    dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
     collectionTypenum = Number(collectionTypenum)
+
 
     await client.connect()
     const database = client.db(NameDB)
@@ -24,13 +26,15 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
+    const variofDB = setting_doc.variationofDB
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
     const dbType = typeofDB[dbTypenum]
+    const dbVari = variofDB[dbVarinum]
     const collectionType = typeofCollection[collectionTypenum]
     const dbName = nameofDB[dbNamenum]
-    const DBstring = dbName + "_" + dbType
+    var DBstring = dbName + "_" + dbVari + "_" + dbType
 
 
     var DBnamingDoc = await collec.find({'id':DBstring})

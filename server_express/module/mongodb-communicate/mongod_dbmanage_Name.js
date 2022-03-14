@@ -12,7 +12,8 @@ const NameDB_setting = "setting"
 async function reset_setting()
 {
     const nameofDB = ["NotionpageWorkId"]
-    const typeofDB = ["test","main","backup","calculate","system"]
+    const variationofDB = ["notion","calculate","system"]
+    const typeofDB = ["test","main","backup"]
     const typeofCollection = ["todo"]
 
     await client.connect()
@@ -22,11 +23,11 @@ async function reset_setting()
     var result = await collec.deleteOne({'id':NameDB_setting})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
-    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
+    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB,"variationofDB":variationofDB, "typeofCollection":typeofCollection})
     await client.close()
 }
 
-async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
+async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB,1:variationofDB, 2 : typeofDB, 3 : typeofCollection
 {
     await client.connect()
     const database = client.db(NameDB)
@@ -37,11 +38,15 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB, 1 : t
     {
         whichtoadd = "nameofDB"
     }
-    else if (whichtoadd_num === 1)
+    else if (whichtoadd_num == 1)
+    {
+        whichtoadd = "variationofDB"
+    }
+    else if (whichtoadd_num === 2)
     {
         whichtoadd = "typeofDB"
     }
-    else if (whichtoadd_num === 2)
+    else if (whichtoadd_num === 3)
     {
         whichtoadd = "typeofCollection"
     }
@@ -64,17 +69,21 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
     const collec = database.collection(NameDB_collec)
 
     var whichtodel = "invaild"
-    if (whichtodel_num === 0)
+    if (whichtoadd_num === 0)
     {
-        whichtodel = "nameofDB"
+        whichtoadd = "nameofDB"
     }
-    else if (whichtodel_num === 1)
+    else if (whichtoadd_num == 1)
     {
-        whichtodel = "typeofDB"
+        whichtoadd = "variationofDB"
     }
-    else if (whichtodel_num === 2)
+    else if (whichtoadd_num === 2)
     {
-        whichtodel = "typeofCollection"
+        whichtoadd = "typeofDB"
+    }
+    else if (whichtoadd_num === 3)
+    {
+        whichtoadd = "typeofCollection"
     }
 
     var filter = {'id': NameDB_setting}
@@ -117,9 +126,10 @@ async function debug()
 
 }
 
-async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
     dbNamenum = Number(dbNamenum)
+    dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
     collectionTypenum = Number(collectionTypenum)
 
@@ -133,15 +143,17 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
+    const variofDB = setting_doc.variationofDB
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
     const dbType = typeofDB[dbTypenum]
+    const dbVari = variofDB[dbVarinum]
     const collectionType = typeofCollection[collectionTypenum]
     const dbName = nameofDB[dbNamenum]
 
     //find if there is already db exists.
-    var dbname = dbName + "_" + dbType
+    var dbname = dbName + "_" + dbVari + "_" + dbType
     var cursor =  await collec.find({'id':dbname})
     var doc = await cursor.next()
     if (doc != null) 
@@ -168,9 +180,10 @@ async function putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     await client.close()
 }
 
-async function delDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+async function delDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
     dbNamenum = Number(dbNamenum)
+    dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
     collectionTypenum = Number(collectionTypenum)
 
@@ -184,15 +197,16 @@ async function delDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
+    const variofDB = setting_doc.variationofDB
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
     const dbType = typeofDB[dbTypenum]
+    const dbVari = variofDB[dbVarinum]
     const collectionType = typeofCollection[collectionTypenum]
     const dbName = nameofDB[dbNamenum]
-
     //find if there is already db exists.
-    var dbname = dbName + "_" + dbType
+    var dbname = dbName + "_" + dbVari + "_" + dbType
     var cursor =  await collec.find({'id':dbname})
     var doc = await cursor.next()
     if (doc != null) 
@@ -201,11 +215,13 @@ async function delDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     } 
     await client.close()
 }
-async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+async function getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
     dbNamenum = Number(dbNamenum)
+    dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
     collectionTypenum = Number(collectionTypenum)
+
 
     await client.connect()
     const database = client.db(NameDB)
@@ -216,13 +232,15 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var setting_doc = await setting.next()
 
     const typeofDB = setting_doc.typeofDB
+    const variofDB = setting_doc.variationofDB
     const typeofCollection = setting_doc.typeofCollection
     const nameofDB = setting_doc.nameofDB
 
     const dbType = typeofDB[dbTypenum]
+    const dbVari = variofDB[dbVarinum]
     const collectionType = typeofCollection[collectionTypenum]
     const dbName = nameofDB[dbNamenum]
-    const DBstring = dbName + "_" + dbType
+    var DBstring = dbName + "_" + dbVari + "_" + dbType
 
 
     var DBnamingDoc = await collec.find({'id':DBstring})
@@ -241,7 +259,7 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 }
 
 
-
+exports.reset_setting = reset_setting
 exports.debug = debug
 exports.putDBnaming = putDBnaming
 exports.getDBnaming = getDBnaming

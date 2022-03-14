@@ -2,33 +2,33 @@ const mongoGenerate = require('./mongod_dbmanage_generate')
 
 
 
-async function makeNewDBset(DB_namenum, collection_namenum)
+async function makeNewDBset(dbNamenum,dbVarinum, collectionTypenum)
 {
-    for (var i=0; i<4;i++)
+    for (var i=0; i<3;i++)
     {
         console.log(i)
-        await mongoGenerate.makeNewDB(DB_namenum,i,collection_namenum)
+        await mongoGenerate.makeNewDB(dbNamenum,dbVarinum, i, collectionTypenum)
     }
 }
 
-async function reloadDB_main(DB_namenum, collection_namenum, callback)
+async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
-    await mongoGenerate.update(DB_namenum,1,collection_namenum, callback)
+    await mongoGenerate.update(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
 }
 
-async function generateDB_test(DB_namenum, collection_namenum, datestring, callback)
+async function generateDB_test(dbNamenum,dbVarinum, collectionTypenum, datestring, callback)
 {
-    await mongoGenerate.insertRandomDatepairs(DB_namenum,0,collection_namenum,datestring, callback)
+    await mongoGenerate.insertRandomDatepairs(dbNamenum,dbVarinum, 0, collectionTypenum,datestring, callback)
 }
 
-async function saveDB_main(DB_namenum, collection_namenum, callback)
+async function saveDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
-    await mongoGenerate.copypaste(DB_namenum,1,collection_namenum, DB_namenum,2,collection_namenum, callback)
+    await mongoGenerate.copypaste(dbNamenum,dbVarinum, 1, collectionTypenum, dbNamenum,dbVarinum, 2, collectionTypenum, callback)
 }
 
-async function takeDBfromBackUp_test(DB_namenum, collection_namenum, callback)
+async function takeDBfromBackUp_test(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
-    await mongoGenerate.copypaste(DB_namenum,2,collection_namenum, DB_namenum,0,collection_namenum, callback)
+    await mongoGenerate.copypaste(dbNamenum,dbVarinum, 2, collectionTypenum, dbNamenum,dbVarinum, 0, collectionTypenum, callback)
 }
 
 exports.makeNewDBset = makeNewDBset

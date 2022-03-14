@@ -5,18 +5,18 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-async function makeNewDB(dbNamenum, dbTypenum, collectionTypenum, callback)
+async function makeNewDB(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
-    var isSame = await dbnaming.putDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    var isSame = await dbnaming.putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     if ( isSame === -1 ) {return -1}
-    await initialize(dbNamenum, dbTypenum, collectionTypenum)
+    await initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     if (callback != null){callback()}
 }
 
-async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,datestring, callback)
+async function insertRandomDatepairs(dbNamenum,dbVarinum, dbTypenum, collectionTypenum,datestring, callback)
 {
 
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var callback_return = null
     
     try
@@ -73,16 +73,16 @@ async function insertRandomDatepairs(dbNamenum, dbTypenum, collectionTypenum,dat
     }
     finally
     {
-        debug(dbNamenum, dbTypenum, collectionTypenum)
+        debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
         await client.close();
     }
     if (callback != null){callback()}
 }
 
-async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, dbTypenum2, collectionTypenum2, callback)     
+async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,dbNamenum2,dbVarinum2, dbTypenum2, collectionTypenum2, callback)     
 {
-    seleted_dbnaming1 = await dbnaming.getDBnaming(dbNamenum1, dbTypenum1, collectionTypenum1)
-    seleted_dbnaming2 = await dbnaming.getDBnaming(dbNamenum2, dbTypenum2, collectionTypenum2)
+    seleted_dbnaming1 = await dbnaming.getDBnaming(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1)
+    seleted_dbnaming2 = await dbnaming.getDBnaming(dbNamenum2,dbVarinum2, dbTypenum2, collectionTypenum2)
     try
     {
         // basic connection
@@ -123,9 +123,9 @@ async function copypaste(dbNamenum1, dbTypenum1, collectionTypenum1,dbNamenum2, 
     if (callback != null){callback()}
 }
 
-async function initialize(dbNamenum, dbTypenum, collectionTypenum, callback)
+async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
@@ -142,7 +142,7 @@ async function initialize(dbNamenum, dbTypenum, collectionTypenum, callback)
 }
 
 
-async function update(dbNamenum, dbTypenum, collectionTypenum, callback)
+async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     try
@@ -206,7 +206,7 @@ async function update(dbNamenum, dbTypenum, collectionTypenum, callback)
     if (callback != null){callback()}
 }
 
-async function debug(dbNamenum, dbTypenum, collectionTypenum, callback)
+async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var docSum = {}
