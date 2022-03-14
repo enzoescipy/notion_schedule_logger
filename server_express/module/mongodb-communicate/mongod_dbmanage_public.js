@@ -55,3 +55,4 @@ exports.generateDB_test = generateDB_test
 exports.saveDB_main = saveDB_main
 exports.takeDBfromBackUp_test = takeDBfromBackUp_test
 exports.clearDBset = clearDBset
+exports.delDBset = delDBset
