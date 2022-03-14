@@ -133,10 +133,8 @@ async function deleteSelf(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
         const database = client.db(seleted_dbnaming.DB)
         const collec = database.collection(seleted_dbnaming.collection)
 
-
-        //remove all of document in pasting DB.    
-        var result = await collec.deleteMany({})
-        console.log("\ndeleted" + result.deletedCount + " data first.\n")
+        //drop database
+        database.dropDatabase()
 
     }
     finally
