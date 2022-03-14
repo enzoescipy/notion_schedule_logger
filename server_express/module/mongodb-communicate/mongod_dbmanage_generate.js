@@ -10,6 +10,7 @@ async function makeNewDB(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, call
     var isSame = await dbnaming.putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     if ( isSame === -1 ) {return -1}
     await initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    console.log(callback)
     if (callback != null){callback()}
 }
 
