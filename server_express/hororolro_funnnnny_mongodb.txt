@@ -15,7 +15,8 @@ Mongo.insertRandomDatepairs('todo','Notionpage_workid_test','2022-01-23')
 async function reset_setting()
 {
     const nameofDB = ["NotionpageWorkId"]
-    const typeofDB = ["test","main","backup","calculate","system"]
+    const variationofDB = ["notion","calculate","system"]
+    const typeofDB = ["test","main","backup"]
     const typeofCollection = ["todo"]
 
     await client.connect()
@@ -25,6 +26,6 @@ async function reset_setting()
     var result = await collec.deleteOne({'id':NameDB_setting})
     console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
-    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB, "typeofCollection":typeofCollection})
+    await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB,"variationofDB":variationofDB, "typeofCollection":typeofCollection})
     await client.close()
 }
