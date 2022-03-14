@@ -123,6 +123,29 @@ async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,d
     if (callback != null){callback()}
 }
 
+async function deleteSelf(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)     
+{
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    try
+    {
+        // basic connection
+        await client.connect()
+        const database = client.db(seleted_dbnaming.DB)
+        const collec = database.collection(seleted_dbnaming.collection)
+
+
+        //remove all of document in pasting DB.    
+        var result = await collec.deleteMany({})
+        console.log("\ndeleted" + result.deletedCount + " data first.\n")
+
+    }
+    finally
+    {
+        await client.close();
+    }
+    if (callback != null){callback()}
+}
+
 async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
@@ -241,3 +264,4 @@ exports.update = update
 exports.debug = debug
 exports.copypaste = copypaste
 exports.makeNewDB = makeNewDB
+exports.deleteSelf = deleteSelf

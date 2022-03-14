@@ -20,6 +20,15 @@ async function clearDBset(dbNamenum,dbVarinum, collectionTypenum)
     }
 }
 
+async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
+{
+    for (var i=0; i<3;i++)
+    {
+        console.log(i)
+        await mongoGenerate.initialize(dbNamenum,dbVarinum, i, collectionTypenum)
+    }
+}
+
 async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
     await mongoGenerate.update(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
