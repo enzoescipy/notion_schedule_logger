@@ -144,7 +144,7 @@ async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
 
 async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
@@ -208,7 +208,7 @@ async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callbac
 
 async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var docSum = {}
     console.log("(mongod_dbmanage_generate) mongodb inner document emited.")
     try
