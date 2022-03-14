@@ -51,6 +51,11 @@ async function takeDBfromBackUp_test(dbNamenum,dbVarinum, collectionTypenum, cal
     await mongoGenerate.copypaste(dbNamenum,dbVarinum, 2, collectionTypenum, dbNamenum,dbVarinum, 0, collectionTypenum, callback)
 }
 
+async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+{
+    await mongoGenerate.debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+}
+
 exports.makeNewDBset = makeNewDBset
 exports.reloadDB_main = reloadDB_main
 exports.generateDB_test = generateDB_test
@@ -58,3 +63,4 @@ exports.saveDB_main = saveDB_main
 exports.takeDBfromBackUp_test = takeDBfromBackUp_test
 exports.clearDBset = clearDBset
 exports.delDBset = delDBset
+exports.debug = debug
