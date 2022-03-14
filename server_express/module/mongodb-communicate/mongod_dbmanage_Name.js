@@ -284,7 +284,7 @@ exports.debug = debug
 exports.putDBnaming = putDBnaming
 exports.getDBnaming = getDBnaming
 exports.delDBnaming = delDBnaming
-exports.delDBnaming_depracated = delDBnaming_depracated
+exports.delDBnaming_super = delDBnaming_super
 
 exports.delete_setting = delete_setting
 exports.add_setting = add_setting
