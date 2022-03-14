@@ -25,7 +25,7 @@ async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
     for (var i=0; i<3;i++)
     {
         console.log(i)
-        await mongoGenerate.initialize(dbNamenum,dbVarinum, i, collectionTypenum)
+        await mongoGenerate.deleteSelf(dbNamenum,dbVarinum, i, collectionTypenum)
     }
 }
 
