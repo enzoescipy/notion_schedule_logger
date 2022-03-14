@@ -131,7 +131,6 @@ async function deleteSelf(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
         // basic connection
         await client.connect()
         const database = client.db(seleted_dbnaming.DB)
-        const collec = database.collection(seleted_dbnaming.collection)
 
         //drop database
         database.dropDatabase()
