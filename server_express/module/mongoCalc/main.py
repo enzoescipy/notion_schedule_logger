@@ -66,12 +66,12 @@ def post_setRateOfProp(propname, rate, isTest):
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
     
-    debug(0,1,isTest,0)
 
     client.close()
 
 if fget == "0":
-    post_setRateOfProp(*fvar)
+    #post_setRateOfProp(*fvar)
+    print("hellohelloohdlle")
     sys.stdout.flush()
 else:
     print("invalid input.")
