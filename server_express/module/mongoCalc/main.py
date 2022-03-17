@@ -3,6 +3,12 @@ from mongod_dbmanage import getName, debug
 import sys
 from datetime import date
 
+#decide what function to excute
+
+fget = sys.argv[1]
+fvar = sys.argv.copy().pop(0)
+fvar.pop(0)
+
 client = MongoClient(host='localhost', port=27017)
 
 def post_setRateOfProp(propname, rate, isTest):
@@ -51,9 +57,7 @@ def post_setRateOfProp(propname, rate, isTest):
         print("star")
         rate_sum += doc[todaystring]["rate_abs"]
 
-    print(rate_sum, len(docs))
     for doc_2 in  docs:
-        print("star")
         doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
@@ -63,4 +67,5 @@ def post_setRateOfProp(propname, rate, isTest):
 
     client.close()
 
-post_setRateOfProp("hoho",10,True)
+if fget == 1:
+    post_setRateOfProp(*fvar)
