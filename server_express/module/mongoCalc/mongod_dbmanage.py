@@ -39,4 +39,5 @@ def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
     selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     collec = client[selected_name][selected_collec]
     docs_all = collec.find({})
-    pprint(docs_all)
+    for i in range(docs_all.count()):
+        pprint(docs_all.next())
