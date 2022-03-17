@@ -54,16 +54,20 @@ async function takeDBfromBackUp_test(dbNamenum,dbVarinum, collectionTypenum, cal
     await mongoGenerate.copypaste(dbNamenum,dbVarinum, 2, collectionTypenum, dbNamenum,dbVarinum, 0, collectionTypenum, callback)
 }
 
-async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
-    await mongoGenerate.debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    await mongoGenerate.debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 }
 
-async function debug_DBset(dbNamenum,dbVarinum, collectionTypenum)
+async function debug_DBset(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
     for (var i=0; i<3; i++)
     {
         await mongoGenerate.debug(dbNamenum,dbVarinum, i, collectionTypenum)
+    }
+    if (callback != null)
+    {
+        callback()
     }
 }
 
