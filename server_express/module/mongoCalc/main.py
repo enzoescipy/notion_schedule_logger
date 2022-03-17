@@ -148,7 +148,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         client.close()
         print(-1)
         sys.stdout.flush()
-        return -1
+        return -1, "rate_rel not calculated"
     else:
         #take the... "how long do you continuously keep your todo."
         client.close()
