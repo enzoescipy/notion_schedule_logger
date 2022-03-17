@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from pprint import pprint
+from datetime import date, timedelta
 
 
 def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
@@ -33,4 +34,31 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
         return DBstring, collectionType
     else:
         return -1
-        
+
+def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypenum):
+    selected_name = getName(dbNamenum,0, dbTypenum, collectionTypenum)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    docs = collec.find_one({"id" : propname})
+    if docs == None:
+        client.close()
+        return 0
+    else:
+        count = 0
+        while True:
+            if docs[targetdate] == False:
+                client.close()
+                return count
+            elif docs[targetdate] == True:
+                count += 1
+                targetdate = date.fromisoformat(targetdate)
+                targetdate += timedelta(days=1)
+                targetdate = date.isoformat(targetdate)
+            else:
+                client.close()
+                raise Exception("wrong type exception!")
+            
+
