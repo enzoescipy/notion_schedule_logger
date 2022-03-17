@@ -105,9 +105,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         fromTest = 0
     else:
         fromTest = 1
-    print("hello!hello!hello!hello!hello!hello!hello!hello!")
-    sys.stdout.flush()
-    '''
+
 
     selected_name = getName(0,1,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
@@ -141,7 +139,9 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         for date in datetime_list:
             if date <= propdate_todateformat and target_date <= date:
                 target_date = date
-    
+    print("hello!hello!hello!hello!hello!hello!hello!hello!")
+    sys.stdout.flush()
+    '''
     target_rate = docs[target_date.isoformat()]["rate_rel"]
     if target_rate == "invalid":
         client.close()
