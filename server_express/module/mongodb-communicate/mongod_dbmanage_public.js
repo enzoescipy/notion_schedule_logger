@@ -1,7 +1,10 @@
 const mongoGenerate = require('./mongod_dbmanage_generate')
 const mongoNameManage = require('./mongod_dbmanage_Name')
 
-
+async function showSetting()
+{
+    mongoNameManage.show_setting()
+}
 
 async function makeNewDBset(dbNamenum,dbVarinum, collectionTypenum)
 {
@@ -64,3 +67,4 @@ exports.takeDBfromBackUp_test = takeDBfromBackUp_test
 exports.clearDBset = clearDBset
 exports.delDBset = delDBset
 exports.debug = debug
+exports.showSetting = showSetting
