@@ -120,7 +120,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         client.close()
         print(-1)
         sys.stdout.flush()
-        return -1
+        return -1, "no match"
     else:
         # find if there are any date match with our purpose.
         datetime_list = []
