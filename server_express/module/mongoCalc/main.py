@@ -6,7 +6,8 @@ from datetime import date
 #decide what function to excute
 
 fget = sys.argv[1]
-fvar = sys.argv.copy().pop(0)
+fvar = sys.argv.copy()
+fvar.pop(0)
 fvar.pop(0)
 
 client = MongoClient(host='localhost', port=27017)
@@ -71,6 +72,9 @@ def post_setRateOfProp(propname, rate, isTest):
 
     client.close()
 
-if fget == 0:
+if fget == "0":
     post_setRateOfProp(*fvar)
+    sys.stdout.flush()
+else:
+    print("invalid input.")
     sys.stdout.flush()
