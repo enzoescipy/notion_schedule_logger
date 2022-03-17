@@ -133,8 +133,6 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                 current_datetime = date.fromisoformat(date)
             except:
                 continue
-            if current_datetime == "invalid":
-                continue
             datetime_list.append(current_datetime)
         if len(datetime_list) == 0:
             print(-1)
