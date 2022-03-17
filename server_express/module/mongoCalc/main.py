@@ -39,9 +39,7 @@ def post_setRateOfProp(propname, rate, isTest):
     todaystring = date.today().isoformat()
 
     # find dataset.
-    print(selected_name)
-    sys.stdout.flush()
-    '''
+
     docs = collec.find_one({"id" : propname})
 
     if docs == None:
@@ -53,7 +51,9 @@ def post_setRateOfProp(propname, rate, isTest):
         else:
             docs[todaystring] = {"rate_abs" : rate, "rate_rel" : "invalid"}
         collec.replace_one({"id" : propname}, docs)
-    
+    print(selected_name)
+    sys.stdout.flush()
+    '''
     # put and calculate the rate_rel
     docs = collec.find({todaystring:{'$exists': 1}})
     docs = list(docs)
