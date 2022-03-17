@@ -1,5 +1,3 @@
-
-
 try:
     from pymongo import MongoClient
     from mongod_dbmanage import getName, debug
@@ -17,14 +15,14 @@ try:
             isTest = int(isTest)
             # get name and collectionName
             if type(propname) != type(" "):
-                return -1
-            if not (isTest == 0 or isTest == 1):
-                isTest = "invalid"
+                return "invalid input."
+
+            if isTest == 1:
+                isTest = 0
+            elif isTest == 0:
+                isTest = 1
             else:
-                if isTest == 1:
-                    isTest = 0
-                else:
-                    isTest = 1
+                return "invalid input."
             selected_name = getName(0,1,isTest,0)
             selected_col = selected_name[1]
             selected_name = selected_name[0]
