@@ -56,7 +56,7 @@ def post_setRateOfProp(propname, rate, isTest):
         collec.replace_one({"id" : doc_id}, doc)
 
     #debug
-    #debug(0,1,isTest,0)
+    debug(0,1,isTest,0)
 
     client.close()
 
