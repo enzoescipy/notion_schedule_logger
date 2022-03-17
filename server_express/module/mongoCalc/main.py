@@ -10,14 +10,6 @@ fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
 
-def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
-    selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
-    client = MongoClient(host='localhost', port=27017)
-    collec = client[selected_name][selected_collec]
-    docs_all = collec.find({})
-    client.close()
-    return list(docs_all)
-
 def post_setRateOfProp(propname, rate, isTest):
     propname = str(propname)
     rate = int(rate)
@@ -71,9 +63,9 @@ def post_setRateOfProp(propname, rate, isTest):
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
     
-
+    debug  = list(collec.find({}))
     client.close()
-    print(debug(0,1,isTest,0))
+    print(debug)
     sys.stdout.flush()
 if fget == "0":
     post_setRateOfProp(*fvar)
