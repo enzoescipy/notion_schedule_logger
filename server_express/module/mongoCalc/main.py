@@ -70,3 +70,4 @@ def post_setRateOfProp(propname, rate, isTest):
 
 if fget == 0:
     post_setRateOfProp(*fvar)
+    sys.stdout.flush()

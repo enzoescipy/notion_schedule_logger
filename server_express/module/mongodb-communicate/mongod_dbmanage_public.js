@@ -59,6 +59,14 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     await mongoGenerate.debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 }
 
+async function debug_DBset(dbNamenum,dbVarinum, collectionTypenum)
+{
+    for (var i=0; i<3; i++)
+    {
+        await mongoGenerate.debug(dbNamenum,dbVarinum, i, collectionTypenum)
+    }
+}
+
 exports.makeNewDBset = makeNewDBset
 exports.reloadDB_main = reloadDB_main
 exports.generateDB_test = generateDB_test
@@ -68,3 +76,4 @@ exports.clearDBset = clearDBset
 exports.delDBset = delDBset
 exports.debug = debug
 exports.showSetting = showSetting
+exports.debug_DBset = debug_DBset
