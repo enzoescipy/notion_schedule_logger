@@ -35,11 +35,8 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
         return -1
         
 def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
-    NameDB = "NAMING_system"
-    NameDB_collec = "base"
-    NameDB_setting = "setting"
-    client = MongoClient(host='localhost', port=27017)
     selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    client = MongoClient(host='localhost', port=27017)
     collec = client[selected_name][selected_collec]
     docs_all = collec.find({})
     
