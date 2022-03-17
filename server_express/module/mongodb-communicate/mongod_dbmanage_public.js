@@ -64,7 +64,7 @@ async function debug_DBset(dbNamenum,dbVarinum, collectionTypenum, callback)
     var docSum
     for (var i=0; i<3; i++)
     {
-        docSum += await mongoGenerate.debug(dbNamenum,dbVarinum, i, collectionTypenum)
+        docSum = docSum + await mongoGenerate.debug(dbNamenum,dbVarinum, i, collectionTypenum)
     }
     if (callback != null)
     {
