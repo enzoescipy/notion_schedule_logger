@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from mongod_dbmanage import getName, checkHowContinuous
 import sys
-from datetime import date, datetime
+from datetime import date
 
 #decide what function to excute
 
@@ -132,7 +132,6 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                     datetime_list.append(current_datetime)
                     print(len(datetime_list))
             except Exception as exp:
-                print(exp)
                 continue
 
         if len(datetime_list) == 0:
