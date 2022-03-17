@@ -12,6 +12,9 @@ fvar.pop(0)
 client = MongoClient(host='localhost', port=27017)
 
 def post_setRateOfProp(propname, rate, isTest):
+    propname = str(propname)
+    rate = int(rate)
+    isTest = int(isTest)
     # get name and collectionName
     if type(propname) != type(" "):
         return -1
