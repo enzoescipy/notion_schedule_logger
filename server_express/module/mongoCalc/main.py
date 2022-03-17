@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from mongod_dbmanage import getName, debug
+from mongod_dbmanage import getName
 import sys
 from datetime import date
 
@@ -10,6 +10,13 @@ fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
 
+def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
+    selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    client = MongoClient(host='localhost', port=27017)
+    collec = client[selected_name][selected_collec]
+    docs_all = collec.find({})
+    client.close()
+    return list(docs_all)
 
 def post_setRateOfProp(propname, rate, isTest):
     propname = str(propname)

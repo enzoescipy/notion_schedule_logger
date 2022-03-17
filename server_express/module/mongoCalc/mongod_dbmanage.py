@@ -34,12 +34,3 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
     else:
         return -1
         
-def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
-    selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
-    client = MongoClient(host='localhost', port=27017)
-    collec = client[selected_name][selected_collec]
-    docs_all = collec.find({})
-    
-    client.close()
-
-    return list(docs_all)
