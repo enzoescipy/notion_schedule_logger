@@ -58,15 +58,15 @@ def post_setRateOfProp(propname, rate, isTest):
     rate_sum = 0
     for doc in  docs: 
         rate_sum += doc[todaystring]["rate_abs"]
-    print(selected_name)
-    sys.stdout.flush()
-    '''
+
     for doc_2 in  docs:
         doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
     
-
+    print(selected_name)
+    sys.stdout.flush()
+    '''
     client.close()
     '''
 
