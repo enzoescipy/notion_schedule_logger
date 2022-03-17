@@ -59,7 +59,6 @@ def post_setRateOfProp(propname, rate, isTest):
     docs = list(docs)
     rate_sum = 0
     for doc in  docs: 
-        print("star")
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
