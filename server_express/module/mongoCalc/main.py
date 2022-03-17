@@ -120,7 +120,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         client.close()
         print(-1)
         sys.stdout.flush()
-        return -1, "no match"
+        return -1, "no match propname"
     else:
         # find if there are any date match with our purpose.
         datetime_list = []
@@ -136,7 +136,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         if len(datetime_list) == 0:
             print(-1)
             sys.stdout.flush()
-            return -1
+            return -1, "no date in propdocument"
         target_date = datetime_list[0]
         propdate_todateformat = date.fromisoformat(propdate)
         for day in datetime_list:
