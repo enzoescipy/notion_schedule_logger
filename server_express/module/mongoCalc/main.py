@@ -126,11 +126,12 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         datetime_list = []
         for date in docs.keys():
             current_datetime = "invalid"
-            print(date)
+
             try:
                 if not(date[4] == "-" and date[7] == "-"):
                     continue
                 current_datetime = date.fromisoformat(date)
+                print(current_datetime)
             except:
                 continue
             datetime_list.append(current_datetime)
