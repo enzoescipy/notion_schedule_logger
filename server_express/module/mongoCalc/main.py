@@ -174,4 +174,3 @@ elif fget == "1":
 else:
     print("invalid input.")
     sys.stdout.flush()
-    return
