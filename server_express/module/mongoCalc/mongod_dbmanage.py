@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from soupsieve import select
 from pprint import pprint
 
 client = MongoClient(host='localhost', port=27017)
