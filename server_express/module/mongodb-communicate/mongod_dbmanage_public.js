@@ -24,6 +24,11 @@ async function clearDBset(dbNamenum,dbVarinum, collectionTypenum)
     }
 }
 
+async function clear(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+{
+    await mongoGenerate.initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+}
+
 async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
 {
     for (var i=0; i<3;i++)
@@ -78,6 +83,7 @@ exports.generateDB_test = generateDB_test
 exports.saveDB_main = saveDB_main
 exports.takeDBfromBackUp_test = takeDBfromBackUp_test
 exports.clearDBset = clearDBset
+exports.clear = clear
 exports.delDBset = delDBset
 exports.debug = debug
 exports.showSetting = showSetting
