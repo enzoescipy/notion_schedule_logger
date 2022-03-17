@@ -105,6 +105,9 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         fromTest = 0
     else:
         fromTest = 1
+    print("hello!hello!hello!hello!hello!hello!hello!hello!")
+    sys.stdout.flush()
+    '''
 
     selected_name = getName(0,1,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
@@ -156,6 +159,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
 
     print(-1)
     sys.stdout.flush()
+    '''
 
 if fget == "0":
     post_setRateOfProp(*fvar)
