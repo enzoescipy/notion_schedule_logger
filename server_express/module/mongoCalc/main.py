@@ -124,6 +124,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         datetime_list = []
         for date in docs.keys():
             current_datetime = "invalid"
+            print(date)
             if not(date[4] == "-" and date[7] == "-"):
                 continue
             try:
@@ -139,9 +140,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         for date in datetime_list:
             if date <= propdate_todateformat and target_date <= date:
                 target_date = date
-    print("hello!hello!hello!hello!hello!hello!hello!hello!")
-    sys.stdout.flush()
-    '''
+
     target_rate = docs[target_date.isoformat()]["rate_rel"]
     if target_rate == "invalid":
         client.close()
@@ -159,7 +158,6 @@ def calc_getPointOfProp(propname, propdate, fromTest):
 
     print(-1)
     sys.stdout.flush()
-    '''
 
 if fget == "0":
     post_setRateOfProp(*fvar)
