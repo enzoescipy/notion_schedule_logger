@@ -1,13 +1,12 @@
 from pymongo import MongoClient
 from pprint import pprint
 
-client = MongoClient(host='localhost', port=27017)
-
-NameDB = "NAMING_system"
-NameDB_collec = "base"
-NameDB_setting = "setting"
 
 def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
+    NameDB = "NAMING_system"
+    NameDB_collec = "base"
+    NameDB_setting = "setting"
+    client = MongoClient(host='localhost', port=27017)
     dbNamenum = int(dbNamenum)
     dbVarinum = int(dbVarinum)
     dbTypenum = int(dbTypenum)
@@ -29,13 +28,19 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
     DBstring = dbName + "_" + dbVari + "_" + dbType
 
     DBnamingDoc = collec.find_one({'id':DBstring})
+    client.close()
     if DBnamingDoc != None:
         return DBstring, collectionType
     else:
         return -1
         
 def debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
+    NameDB = "NAMING_system"
+    NameDB_collec = "base"
+    NameDB_setting = "setting"
+    client = MongoClient(host='localhost', port=27017)
     selected_name, selected_collec = getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     collec = client[selected_name][selected_collec]
     docs_all = collec.find({})
     pprint(list(docs_all))
+    client.close()
