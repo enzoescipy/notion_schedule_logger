@@ -1,7 +1,5 @@
-from pymongo import MongoClient
-from mongod_dbmanage import getName, debug
+
 import sys
-from datetime import date
 
 #decide what function to excute
 
