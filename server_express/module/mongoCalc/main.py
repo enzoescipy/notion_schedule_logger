@@ -12,7 +12,6 @@ fvar.pop(0)
 
 
 def post_setRateOfProp(propname, rate, isTest):
-    client = MongoClient(host='localhost', port=27017)
     propname = str(propname)
     rate = int(rate)
     isTest = int(isTest)
@@ -23,6 +22,7 @@ def post_setRateOfProp(propname, rate, isTest):
         isTest = 1
 
     selected_name = getName(0,1,isTest,0)
+    client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
