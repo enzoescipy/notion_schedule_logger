@@ -70,8 +70,7 @@ def post_setRateOfProp(propname, rate, isTest):
     client.close()
 
 if fget == "0":
-    post_setRateOfProp(*fvar)
-    print("hellohelloohdlle")
+    post_setRateOfProp(fvar[0],fvar[1],fvar[2])
     sys.stdout.flush()
 else:
     print("invalid input.")
