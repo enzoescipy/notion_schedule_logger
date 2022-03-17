@@ -58,4 +58,4 @@ def post_setRateOfProp(propname, rate, isTest):
     #debug
     debug(0,1,isTest,0)
 
-post_setRateOfProp("haha",10,True)
+post_setRateOfProp("hoho",10,True)
