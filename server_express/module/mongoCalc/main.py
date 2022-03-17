@@ -131,7 +131,8 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                     current_datetime = date.fromisoformat(day)
                     datetime_list.append(current_datetime)
                     print(len(datetime_list))
-            except:
+            except Exception as exp:
+                print(exp)
                 continue
 
         if len(datetime_list) == 0:
