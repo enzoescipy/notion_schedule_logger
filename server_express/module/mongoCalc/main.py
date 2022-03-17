@@ -124,11 +124,11 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     else:
         # find if there are any date match with our purpose.
         datetime_list = []
-        for date in docs.keys():
+        for day in docs.keys():
             current_datetime = "invalid"
             try:
-                if date[4] == "-" and date[7] == "-":
-                    current_datetime = date.fromisoformat(date)
+                if day[4] == "-" and day[7] == "-":
+                    current_datetime = date.fromisoformat(day)
                 print(current_datetime)
             except:
                 continue
@@ -139,9 +139,9 @@ def calc_getPointOfProp(propname, propdate, fromTest):
             return -1
         target_date = datetime_list[0]
         propdate_todateformat = date.fromisoformat(propdate)
-        for date in datetime_list:
-            if date <= propdate_todateformat and target_date <= date:
-                target_date = date
+        for day in datetime_list:
+            if day <= propdate_todateformat and target_date <= day:
+                target_date = day
 
     target_rate = docs[target_date.isoformat()]["rate_rel"]
     if target_rate == "invalid":
