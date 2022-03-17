@@ -35,7 +35,8 @@ router.post('/api/notionUpdate', function(req, res) {
 
 //python test router
 router.post('/api/pythonCalc/test', function(req, res) {
-
+    //python raise
+    res.render('warp', {portal:req.body.dir})
 })
 
 
