@@ -3,20 +3,17 @@ try:
     from mongod_dbmanage import getName, debug
     import sys
     from datetime import date
-
+    client = MongoClient(host='localhost', port=27017)
     #decide what function to excute
 
 
     def post_setRateOfProp(propname, rate, isTest):
         try:        
-            client = MongoClient(host='localhost', port=27017)
+            
             propname = str(propname)
             rate = int(rate)
             isTest = int(isTest)
             # get name and collectionName
-            if type(propname) != type(" "):
-                return "invalid input."
-
             if isTest == 1:
                 isTest = 0
             elif isTest == 0:
