@@ -1,8 +1,5 @@
 import sys
 
-print("hihihihihi")
-sys.stdout.flush()
-
 fget = sys.argv[1]
 fvar = sys.argv.copy()
 fvar.pop(0)
