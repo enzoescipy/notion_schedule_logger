@@ -52,11 +52,11 @@ def post_setRateOfProp(propname, rate, isTest):
         rate_sum += doc[todaystring]["rate_abs"]
 
     print(rate_sum, len(docs))
-    for doc in  docs:
+    for doc_2 in  doc_2s:
         print("star")
-        doc[todaystring]["rate_rel"] = doc[todaystring]["rate_abs"] / rate_sum
-        doc_id = doc["id"]
-        collec.replace_one({"id" : doc_id}, doc)
+        doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
+        doc_2_id = doc_2["id"]
+        collec.replace_one({"id" : doc_2_id}, doc_2)
 
     #debug
     debug(0,1,isTest,0)
