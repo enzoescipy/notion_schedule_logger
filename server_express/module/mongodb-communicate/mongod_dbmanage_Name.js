@@ -8,6 +8,17 @@ const NameDB = "NAMING_system"
 const NameDB_collec = "base"
 const NameDB_setting = "setting"
 
+async function show_setting()
+{
+    await client.connect()
+    const collec = database.collection(NameDB_collec)
+    const database = client.db(NameDB)
+
+    //get settings.
+    var setting = await collec.find({'id':NameDB_setting})
+    var setting_doc = await setting.next()
+    console.log(setting_doc)
+}
 
 async function reset_setting()
 {
@@ -288,3 +299,4 @@ exports.delDBnaming_super = delDBnaming_super
 
 exports.delete_setting = delete_setting
 exports.add_setting = add_setting
+exports.show_setting = show_setting
