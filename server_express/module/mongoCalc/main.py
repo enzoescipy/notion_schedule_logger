@@ -67,5 +67,5 @@ def post_setRateOfProp(propname, rate, isTest):
 
     client.close()
 
-if fget == 1:
+if fget == 0:
     post_setRateOfProp(*fvar)
