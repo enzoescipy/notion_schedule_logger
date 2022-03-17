@@ -19,7 +19,6 @@ def post_setRateOfProp(propname, rate, isTest):
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
-    print(selected_name, selected_col)
     # make rate resonable. not int -> to int, over range -> boundary set.
     if rate <= 1 :
         rate = 1
@@ -57,6 +56,6 @@ def post_setRateOfProp(propname, rate, isTest):
         collec.replace_one({"id" : doc_id}, doc)
 
     #debug
-    debug(0,1,isTest,0)
+    #debug(0,1,isTest,0)
 
 post_setRateOfProp("hoho",10,True)
