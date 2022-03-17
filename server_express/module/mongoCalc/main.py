@@ -10,9 +10,9 @@ fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
 
-client = MongoClient(host='localhost', port=27017)
 
 def post_setRateOfProp(propname, rate, isTest):
+    client = MongoClient(host='localhost', port=27017)
     propname = str(propname)
     rate = int(rate)
     isTest = int(isTest)
