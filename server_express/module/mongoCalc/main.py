@@ -158,11 +158,11 @@ def calc_getPointOfProp(propname, propdate, fromTest):
             client.close()
             print(final_point)
             sys.stdout.flush()
-            return
+            return 1
 
     print(-1)
     sys.stdout.flush()
-    return
+    return 1
 
 if fget == "0":
     post_setRateOfProp(*fvar)
