@@ -96,7 +96,7 @@ def post_setRateOfProp(propname, rate, isTest):
     client.close()
     print(debug)
     sys.stdout.flush()
-    return
+    return 1
 
 def calc_getPointOfProp(propname, propdate, fromTest):
     propname = str(propname)
@@ -120,7 +120,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         client.close()
         print(-1)
         sys.stdout.flush()
-        return
+        return -1
     else:
         # find if there are any date match with our purpose.
         datetime_list = []
@@ -137,9 +137,9 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                 continue
             datetime_list.append(current_datetime)
         if len(datetime_list) == 0:
-            sys.stdout.flush()
-            return
             print(-1)
+            sys.stdout.flush()
+            return -1
         target_date = datetime_list[0]
         propdate_todateformat = date.fromisoformat(propdate)
         for date in datetime_list:
@@ -151,7 +151,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         client.close()
         print(-1)
         sys.stdout.flush()
-        return
+        return -1
     else:
         #take the... "how long do you continuously keep your todo."
         client.close()
