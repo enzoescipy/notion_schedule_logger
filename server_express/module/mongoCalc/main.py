@@ -22,6 +22,9 @@ def post_setRateOfProp(propname, rate, isTest):
         isTest = 1
 
     selected_name = getName(0,1,isTest,0)
+    print(selected_name)
+    sys.stdout.flush()
+    '''
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -64,6 +67,7 @@ def post_setRateOfProp(propname, rate, isTest):
     
 
     client.close()
+    '''
 
 if fget == "0":
     post_setRateOfProp(*fvar)
