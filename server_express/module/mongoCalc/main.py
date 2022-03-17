@@ -1,9 +1,14 @@
 from pymongo import MongoClient
 from mongod_dbmanage import getName, debug
-from datetime import date
 import sys
+from datetime import date
 
 #decide what function to excute
+
+fget = sys.argv[1]
+fvar = sys.argv.copy()
+fvar.pop(0)
+fvar.pop(0)
 
 
 def post_setRateOfProp(propname, rate, isTest):
@@ -60,19 +65,13 @@ def post_setRateOfProp(propname, rate, isTest):
         doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
+    
+    debug(0,1,isTest,0)
 
     client.close()
 
-
-
-fget = sys.argv[1]
-fvar = sys.argv.copy()
-fvar.pop(0)
-fvar.pop(0)
-
-
 if fget == "0":
-    print(fget, fvar, "hello?")
+    post_setRateOfProp(*fvar)
     sys.stdout.flush()
 else:
     print("invalid input.")
