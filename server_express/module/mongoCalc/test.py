@@ -2,10 +2,9 @@ import sys
 import copy
 
 fget = sys.argv[1]
-fvar = copy.deepcopy(sys.argv)
+fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
 
-if fget == 0:
-    print(fvar ,"hello?")
-    sys.stdout.flush()
+print(fvar,"hello?")
+sys.stdout.flush()
