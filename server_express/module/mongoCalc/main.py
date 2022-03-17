@@ -20,7 +20,7 @@ def post_setRateOfProp(propname, rate, isTest):
         # get name and collectionName
         if type(propname) != type(" "):
             return -1
-        if (isTest == 0 or isTest == 1):
+        if not (isTest == 0 or isTest == 1):
             isTest = "invalid"
         else:
             if isTest == 1:
