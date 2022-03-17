@@ -36,7 +36,7 @@ router.post('/api/notionUpdate', function(req, res) {
 //python test router
 router.post('/api/pythonCalc/test', function(req, res) {
     //python raise
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0, "hehehe", 50, 1])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0, "면도", 50, 1])
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString())
         res.render('warp', {portal:req.body.dir})

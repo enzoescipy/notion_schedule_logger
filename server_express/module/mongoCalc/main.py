@@ -159,6 +159,8 @@ def calc_getPointOfProp(propname, propdate, fromTest):
 
 if fget == "0":
     post_setRateOfProp(*fvar)
+if fget == "1":
+    calc_getPointOfProp(*fvar)
 else:
     print("invalid input.")
     sys.stdout.flush()
