@@ -229,7 +229,6 @@ async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callbac
 async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
-    console.log(seleted_dbnaming)
     var docSum = {}
     console.log("(mongod_dbmanage_generate) mongodb inner document emited.")
     try
