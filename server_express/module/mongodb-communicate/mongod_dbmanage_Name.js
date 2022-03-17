@@ -11,8 +11,9 @@ const NameDB_setting = "setting"
 async function show_setting()
 {
     await client.connect()
-    const collec = database.collection(NameDB_collec)
     const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
 
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
