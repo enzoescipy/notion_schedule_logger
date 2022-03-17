@@ -130,6 +130,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                 if day[4] == "-" and day[7] == "-":
                     current_datetime = date.fromisoformat(day)
                     datetime_list.append(current_datetime)
+                    print(len(datetime_list))
             except:
                 continue
 
