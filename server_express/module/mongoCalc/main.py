@@ -1,11 +1,14 @@
 from pymongo import MongoClient
-from mongod_dbnamefind import getName
+from mongod_dbmanage import getName, debug
 import sys
 from datetime import date
 
 client = MongoClient(host='localhost', port=27017)
 
 def post_setRateOfProp(propname, rate, isTest):
+    # get name and collectionName
+    if type(propname) != type(" "):
+        return -1
     if isTest == True:
         isTest = 0
     elif isTest == False:
@@ -13,7 +16,9 @@ def post_setRateOfProp(propname, rate, isTest):
     else:
         isTest = "invalid"
     selected_name = getName(0,1,isTest,0)
-    selected_name, selected_col = selected_name
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
     print(selected_name, selected_col)
     # make rate resonable. not int -> to int, over range -> boundary set.
     if rate <= 1 :
@@ -26,6 +31,31 @@ def post_setRateOfProp(propname, rate, isTest):
     # when is today?
     todaystring = date.today().isoformat()
 
-    #make dataset
+    # find dataset.
+    docs = collec.find_one({"id" : propname})
 
+    if docs == None:
+        docs = {todaystring : {"rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
+        collec.insert_one(docs)
+    else:
+        if todaystring in docs:
+            docs[todaystring]["rate_abs"] = rate
+        else:
+            docs[todaystring] = {"rate_abs" : rate, "rate_rel" : "invalid"}
+        collec.replace_one({"id" : propname}, docs)
+    
+    # put and calculate the rate_rel
+    docs = collec.find({todaystring:{'$exists': 1}})
+    rate_sum = 0
+    for doc in docs : 
+        rate_sum += doc[todaystring]["rate_abs"]
+    for doc in docs :
+        doc[todaystring]["rate_rel"] = doc[todaystring]["rate_abs"] / rate_sum
+    for doc in docs : 
+        doc_id = doc["id"]
+        collec.replace_one({"id" : doc_id}, doc)
+
+    #debug
+    debug(0,1,isTest,0)
+        
 post_setRateOfProp("haha",10,True)
