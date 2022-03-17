@@ -15,12 +15,13 @@ def post_setRateOfProp(propname, rate, isTest):
     # get name and collectionName
     if type(propname) != type(" "):
         return -1
-    if isTest == True:
-        isTest = 0
-    elif isTest == False:
-        isTest = 1
-    else:
+    if (isTest == 0 or isTest == 1):
         isTest = "invalid"
+    else:
+        if isTest == 1:
+            isTest = 0
+        else:
+            isTest = 1
     selected_name = getName(0,1,isTest,0)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
