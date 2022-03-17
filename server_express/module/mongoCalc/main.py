@@ -46,10 +46,10 @@ def post_setRateOfProp(propname, rate, isTest):
     
     # put and calculate the rate_rel
     docs = collec.find({todaystring:{'$exists': 1}})
-    print(list(docs), "debug")
     rate_sum = 0
     for doc in docs : 
         rate_sum += doc[todaystring]["rate_abs"]
+    print(rate_sum)
     for doc in docs :
         doc[todaystring]["rate_rel"] = doc[todaystring]["rate_abs"] / rate_sum
     for doc in docs : 
