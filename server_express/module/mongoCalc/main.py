@@ -118,7 +118,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     docs = collec.find_one({"id" : propname})
     if docs == None:
         client.close()
-        print(-1)
+        print(-1,"no match propname")
         sys.stdout.flush()
         return -1, "no match propname"
     else:
@@ -134,7 +134,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                 continue
             datetime_list.append(current_datetime)
         if len(datetime_list) == 0:
-            print(-1)
+            print(-1,"no date in propdocument")
             sys.stdout.flush()
             return -1, "no date in propdocument"
         target_date = datetime_list[0]
@@ -146,7 +146,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     target_rate = docs[target_date.isoformat()]["rate_rel"]
     if target_rate == "invalid":
         client.close()
-        print(-1)
+        print(-1,"rate_rel not calculated")
         sys.stdout.flush()
         return -1, "rate_rel not calculated"
     else:
@@ -160,7 +160,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
             sys.stdout.flush()
             return 1
 
-    print(-1)
+    print(-1, "function ended")
     sys.stdout.flush()
     return 1
 
