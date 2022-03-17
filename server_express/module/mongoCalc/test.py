@@ -1,7 +1,8 @@
 import sys
+import copy
 
 fget = sys.argv[1]
-fvar = sys.argv.copy()
+fvar = copy.copy(sys.argv)
 fvar.pop(0)
 fvar.pop(0)
 
