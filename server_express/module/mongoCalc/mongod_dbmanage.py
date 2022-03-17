@@ -35,7 +35,7 @@ def getName(dbNamenum,dbVarinum, dbTypenum, collectionTypenum):
     else:
         return -1
 
-def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypenum):
+def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypenum,ignorance=1): # ignorance=2 : one day fault would be acceptable.
     selected_name = getName(dbNamenum,0, dbTypenum, collectionTypenum)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
@@ -48,11 +48,15 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
         return 0
     else:
         count = 0
+        ignore = 0
         while True:
             if docs[targetdate] == False:
-                client.close()
-                return count
+                ignore += 1
+                if ignore >= ignorance:
+                    client.close()
+                    return count
             elif docs[targetdate] == True:
+                ignore = 0
                 count += 1
                 targetdate = date.fromisoformat(targetdate)
                 targetdate += timedelta(days=1)

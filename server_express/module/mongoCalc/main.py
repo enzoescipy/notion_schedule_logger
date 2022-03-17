@@ -39,7 +39,7 @@ Mathfunc.normal_rewardfunc = normal_rewardfunc
 
 
 
-def post_setRateOfProp(propname, rate, isTest):
+def post_setRateOfProp(propname, rate, isTest,ignorance=1):
     propname = str(propname)
     rate = int(rate)
     isTest = int(isTest)
@@ -71,13 +71,13 @@ def post_setRateOfProp(propname, rate, isTest):
     docs = collec.find_one({"id" : propname})
 
     if docs == None:
-        docs = {todaystring : {"rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
+        docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
         collec.insert_one(docs)
     else:
         if todaystring in docs:
             docs[todaystring]["rate_abs"] = rate
         else:
-            docs[todaystring] = {"rate_abs" : rate, "rate_rel" : "invalid"}
+            docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
         collec.replace_one({"id" : propname}, docs)
 
     # put and calculate the rate_rel
@@ -143,8 +143,9 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         for day in datetime_list:
             if day <= propdate_todateformat and target_date <= day:
                 target_date = day
-
-    target_rate = docs[target_date.isoformat()]["rate_rel"]
+    target_date_str = target_date.isoformat()
+    target_rate = docs[target_date_str]["rate_rel"]
+    target_ignorance = docs[target_date_str]["ignorance"]
     if target_rate == "invalid":
         client.close()
         print(-1,"rate_rel not calculated")
@@ -153,7 +154,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     else:
         #take the... "how long do you continuously keep your todo."
         client.close()
-        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0)
+        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
             client.close()
