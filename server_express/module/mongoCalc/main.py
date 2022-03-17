@@ -5,11 +5,6 @@ from datetime import date
 
 #decide what function to excute
 
-fget = sys.argv[1]
-fvar = sys.argv.copy()
-fvar.pop(0)
-fvar.pop(0)
-
 
 def post_setRateOfProp(propname, rate, isTest):
     try:        
@@ -74,9 +69,19 @@ def post_setRateOfProp(propname, rate, isTest):
         sys.stdout.flush()
 
 
-if fget == "0":
-    post_setRateOfProp(*fvar)
-    sys.stdout.flush()
-else:
-    print("invalid input.")
+try:
+    fget = sys.argv[1]
+    fvar = sys.argv.copy()
+    fvar.pop(0)
+    fvar.pop(0)
+
+
+    if fget == "0":
+        post_setRateOfProp(*fvar)
+        sys.stdout.flush()
+    else:
+        print("invalid input.")
+        sys.stdout.flush()
+except Exception as exp:
+    print(exp)
     sys.stdout.flush()
