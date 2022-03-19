@@ -1,6 +1,12 @@
 extends layout
 
 block content
+  div
+    p this is the bulma tester.
+
+
+
+
   p #{db}
   form(action="/api/notionUpdate", method="post") 
     input(type="hidden",name="portal", value=iam )
