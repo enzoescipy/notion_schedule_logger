@@ -255,6 +255,34 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback
     return docSum
 }
 
+async function debug_nolog(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
+{
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    var docSum = {}
+    console.log("(mongod_dbmanage_generate) mongodb inner document emited.")
+    try
+    {
+        await client.connect()
+        const database = client.db(seleted_dbnaming.DB)
+        const collec = database.collection(seleted_dbnaming.collection)
+
+        const result = await collec.find()
+        await result.forEach(function(doc){
+            if (doc != null)
+            {
+                docSum[Object.keys(docSum).length] = doc
+            }
+        })
+    }
+    finally
+    {
+        await client.close()
+    }
+                    
+    if (callback != null){callback(docSum)}
+    return docSum
+}
+
 exports.insertRandomDatepairs = insertRandomDatepairs
 exports.initialize = initialize
 exports.update = update
@@ -262,3 +290,4 @@ exports.debug = debug
 exports.copypaste = copypaste
 exports.makeNewDB = makeNewDB
 exports.deleteSelf = deleteSelf
+exports.debug_nolog = debug_nolog

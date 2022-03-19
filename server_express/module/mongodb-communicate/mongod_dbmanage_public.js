@@ -77,6 +77,7 @@ async function debug_DBset(dbNamenum,dbVarinum, collectionTypenum, callback)
     }
 }
 
+async function get(dbNamenum,dbVarinum, collectionTypenum, callback)
 exports.makeNewDBset = makeNewDBset
 exports.reloadDB_main = reloadDB_main
 exports.generateDB_test = generateDB_test
