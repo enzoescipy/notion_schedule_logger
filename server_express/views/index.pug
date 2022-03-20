@@ -8,7 +8,7 @@ block content
     div.column.is-two-thirds
       form()
         input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range" )
-        output(for="sliderWithValue") 50
+        output(for="sliderWithValue" value=50 ) 
         input(class="button", type="submit", value="submit" )
 
     div.column
@@ -39,6 +39,5 @@ block script
         }
       }
     }) 
-  - console.log(sliders)
     
     
