@@ -21,7 +21,7 @@ async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypen
 
     var doc = {"what" : whatprop, "where" : whereprop, "value": value}
 
-    await collec.replaceOne({"what" : whatprop, "where" : whereprop}, doc, true )
+    await collec.replaceOne({"what" : whatprop, "where" : whereprop}, doc, {upsert : true} )
 
     await client.close()
     if (callback != null){callback()}
