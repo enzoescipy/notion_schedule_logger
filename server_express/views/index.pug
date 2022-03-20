@@ -9,13 +9,15 @@ block content
     p testtest
   div.columns
     div.column.is-two-thirds
-      p hi
+      p hi. this is the empty space that "set" Xdays.
+    div.column
+      p hi. this is the empty space that "save" Xdays.
     div.column
       form(action="/api/notionUpdate", method="post") 
         input(type="hidden",name="portal", value=iam )
-        input(class="button", type="submit", value="get Notion -> DB" )
+        input(class="button", type="submit", value="refresh Data" )
     div.column
       form(action="/api/pythonCalc/test", method="post")
         input(type="hidden",name="dir", value=iam )
-        input(class="button", type="submit", value="Python Calculate" )
+        input(class="button", type="submit", value="Set density of props" )
     
