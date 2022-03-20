@@ -19,7 +19,6 @@
   },
   "scripts":{
     "css-build": "sass public/scss/mystyles.scss public/css/mystyles.css",
-    "css-watch": "npm run css-build -- --watch",
-    "start": "npm run css-watch"
+    "start_server" : "node main"
   }
 }
