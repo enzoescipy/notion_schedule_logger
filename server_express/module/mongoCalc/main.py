@@ -39,7 +39,7 @@ Mathfunc.normal_rewardfunc = normal_rewardfunc
 
 
 
-def post_setRateOfProp(propname, rate, isTest,ignorance=1):
+def post_setRateOfProp(propname, rate, isTest,ignorance=1, propdate="XXXX-XX-XX"):
     propname = str(propname)
     rate = int(rate)
     isTest = int(isTest)
@@ -64,7 +64,17 @@ def post_setRateOfProp(propname, rate, isTest,ignorance=1):
         rate = int(rate)
 
     # when is today?
-    todaystring = date.today().isoformat()
+    todaystring = "invalid"
+    if propdate == "XXXX-XX-XX":
+        todaystring = date.today().isoformat()
+    elif propdate[4] == "-" and propdate[7] == "-":
+        todaystring = propdate
+    else:
+        client.close()
+        print("inappriate date property.")
+        sys.stdout.flush()
+        return -1
+
 
     # find dataset.
 
@@ -114,30 +124,34 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
 
-    # find docs that has same id property.
-    docs = collec.find_one({"id" : propname})
-    if docs == None:
-        client.close()
-        print(-1,"no match propname")
-        sys.stdout.flush()
-        return -1, "no match propname"
-    else:
-        # find if there are any date match with our purpose.
-        datetime_list = []
-        for day in docs.keys():
-            current_datetime = "invalid"
-            try:
-                if day[4] == "-" and day[7] == "-":
-                    current_datetime = date.fromisoformat(day)
-                    datetime_list.append(current_datetime)
-                    print(len(datetime_list))
-            except Exception as exp:
-                continue
-
-        if len(datetime_list) == 0:
-            print(-1,"no date in propdocument")
+    while True:
+        # find docs that has same id property.
+        docs = collec.find_one({"id" : propname})
+        if docs == None:
+            client.close()
+            print(-1,"no match propname")
             sys.stdout.flush()
-            return -1, "no date in propdocument"
+            return -1, "no match propname"
+        else:
+            # find if there are any date match with our purpose.
+            datetime_list = []
+            for day in docs.keys():
+                current_datetime = "invalid"
+                try:
+                    if day[4] == "-" and day[7] == "-":
+                        current_datetime = date.fromisoformat(day)
+                        datetime_list.append(current_datetime)
+                        print(len(datetime_list))
+                except Exception as exp:
+                    continue
+
+            if len(datetime_list) == 0:
+                # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
+                post_setRateOfProp(propname, 25, fromTest, propdate=propdate)
+            else:
+                break
+
+
         target_date = datetime_list[0]
         propdate_todateformat = date.fromisoformat(propdate)
         for day in datetime_list:

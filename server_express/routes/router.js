@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
+var mongo
 var spawn = require("child_process").spawn
 
 

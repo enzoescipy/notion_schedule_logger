@@ -9,10 +9,10 @@ block content
     p testtest
   div.columns
     div.column.is-two-thirds
-      p hi. this is the empty space that "set" Xdays.
-    div.column
       form()
         input.slider.is-fullwidth(step="1" min="0" max="100" value="50" type="range")
+    div.column
+      p hi. this is the empty space that "save" Xdays.
     div.column
       form(action="/api/notionUpdate", method="post") 
         input(type="hidden",name="portal", value=iam )

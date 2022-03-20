@@ -41,7 +41,7 @@ async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
 
 async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
-    await mongoGenerate.update(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
+    await mongoGenerate.update_mainNotion(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
 }
 
 async function generateDB_test(dbNamenum,dbVarinum, collectionTypenum, datestring, callback) // datestring means when to set today.

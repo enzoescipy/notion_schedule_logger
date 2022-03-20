@@ -1,6 +1,7 @@
 const {MongoClient} = require ("mongodb")
 const Notion = require('../notion-communicate/index')
 const dbnaming = require('./mongod_dbmanage_Name')
+const 
 const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
@@ -162,9 +163,10 @@ async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
 }
 
 
-async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
+async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    var dbVarinum = 0
+    var seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
@@ -184,39 +186,30 @@ async function update(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callbac
 
             //check if there are already data that has same date_id exist in DB.
             var query = {"id" : date_id}
-            var cursor = await collec.find(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
-            async function iter_dbrewrite(doc)
+            var docs = await collec.findOne(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
+
+            if (docs != null) 
             {
-                try
+                var date_data_db = doc // the {date1 : true, date2 : false, ...}
+                var id_db = doc.id
+                delete date_data_db.id
+                //compare the _now date and db's date.
+                for (date_now in date_data_now)
                 {
-                    if (doc != null) 
-                    {
-                        var date_data_db = doc // the {date1 : true, date2 : false, ...}
-                        var id_db = doc.id
-                        delete date_data_db.id
-                        //compare the _now date and db's date.
-                        for (date_now in date_data_now)
-                        {
-                            var update_doc
-                            var filter
-                            var did_now = date_data_now[date_now]
-                            update_doc = {$set: { [date_now]: did_now }}
-                            filter = {"id":id_db} //update 
-                            var result = await collec.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
-                        }
-                    }
-                    else
-                    {
-                        //if there is no date_id(study) in the database, create a new document.
-                        date_data_now.id = date_id
-                        await collec.insertOne(date_data_now)
-                    }
+                    var update_doc
+                    var filter
+                    var did_now = date_data_now[date_now]
+                    update_doc = {$set: { [date_now]: did_now }}
+                    filter = {"id":id_db} //update 
+                    var result = await collec.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
                 }
-                finally{}
             }
-            
-            var doc = await cursor.next()
-            await iter_dbrewrite(doc)   
+            else
+            {
+                //if there is no date_id(study) in the database, create a new document.
+                date_data_now.id = date_id
+                await collec.insertOne(date_data_now)
+            }
         }
     }
     finally
@@ -285,7 +278,7 @@ async function debug_nolog(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, ca
 
 exports.insertRandomDatepairs = insertRandomDatepairs
 exports.initialize = initialize
-exports.update = update
+exports.update_mainNotion = update_mainNotion
 exports.debug = debug
 exports.copypaste = copypaste
 exports.makeNewDB = makeNewDB
