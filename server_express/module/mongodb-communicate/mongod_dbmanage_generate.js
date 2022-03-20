@@ -1,7 +1,6 @@
 const {MongoClient} = require ("mongodb")
 const Notion = require('../notion-communicate/index')
 const dbnaming = require('./mongod_dbmanage_Name')
-const 
 const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
