@@ -28,4 +28,29 @@ html
       
 
       script.
-        document.write("start test")
+        try 
+        {
+          document.write("start test")
+          var sliders = document.querySelectorAll('input[type="range"].slider')
+          [].forEach.call(sliders, (slider) => {
+            document.write("hello1")
+            var id = slider.id 
+            var outputsSet = document.getElementByTagName('output')
+            for (i in outputsSet)
+            {
+              var output = outputSet[i]
+              if (output.htmlFor == idVal)
+              {
+                // connect the output and slider.
+                slider.addEventListener('input', (event) => {
+                  output.value = event.target.value
+                })
+              }
+            }
+            
+          }) 
+        } catch (err) {
+          document.write(err.message)
+        }
+
+        
