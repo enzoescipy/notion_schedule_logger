@@ -31,6 +31,7 @@ html
         var sliders = document.querySelectorAll('input[type="range"].slider')
         [].forEach.call(sliders, (slider) => {
           console.log("hello1")
+          /*
           var id = slider.id 
           var outputsSet = document.getElementByTagName('output')
           for (i in outputsSet)
@@ -38,10 +39,11 @@ html
             var output = outputSet[i]
             if (output.htmlFor == idVal)
             {
-              //- connect the output and slider.
+              // connect the output and slider.
               slider.addEventListener('input', (event) => {
                 output.value = event.target.value
               })
             }
           }
-        }) //
+          */
+        }) 
