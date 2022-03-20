@@ -8,7 +8,7 @@ block content
     div.column.is-two-thirds
       form()
         input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range" )
-        output(for="sliderWithValue" value=50 ) 
+        output(for="sliderWithValue" ) 50
         input(class="button", type="submit", value="submit" )
 
     div.column
@@ -23,6 +23,7 @@ block content
 
 block script 
   script.
+    document.write("hehahsdflkjnrwer")
     var sliders = document.querySelectorAll('input[type="range"].slider')
     [].forEach.call((slider) => {
       var id = slider.id 
