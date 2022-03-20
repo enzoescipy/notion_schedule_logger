@@ -22,9 +22,9 @@ block content
         input(class="button", type="submit", value="Set density of props" )
 
 block script 
-  script
+  script.
     var sliders = document.querySelectorAll('input[type="range"].slider')
-    console.log(sliders)
+    - console.log(sliders)
 //-
     [].forEach.call((slider) => {
       var id = slider.id 
