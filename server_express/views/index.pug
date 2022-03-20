@@ -1,32 +1,35 @@
-extends layout
+doctype html
+html
+    head
+        title #{title}
+        link(rel='stylesheet', href="/css/mystyles.css")
+        script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
-block content
-  div
-    p.is-size-1.has-text-centered this is the bulma tester.
+    body
+      div
+        p.is-size-1.has-text-centered this is the bulma tester.
 
-  div.columns
-    div.column.is-two-thirds
-      form()
-        input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range" )
-        output(for="sliderWithValue" ) 50
-        input(class="button", type="submit", value="submit" )
+      div.columns
+        div.column.is-two-thirds
+          form()
+            input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range" )
+            output(for="sliderWithValue" ) 50
+            input(class="button", type="submit", value="submit" )
 
-    div.column
-      form(action="/api/notionUpdate", method="post") 
-        input(type="hidden",name="portal", value=iam )
-        input(class="button", type="submit", value="refresh Data" )
+        div.column
+          form(action="/api/notionUpdate", method="post") 
+            input(type="hidden",name="portal", value=iam )
+            input(class="button", type="submit", value="refresh Data" )
 
-    div.column
-      form(action="/api/pythonCalc/test", method="post")
-        input(type="hidden",name="dir", value=iam )
-        input(class="button", type="submit", value="Set density of props" )
+        div.column
+          form(action="/api/pythonCalc/test", method="post")
+            input(type="hidden",name="dir", value=iam )
+            input(class="button", type="submit", value="Set density of props" )
+      
 
-block script 
-  html 
-    body 
       script.
         document.write("hello, world!")
-
+//-
         var sliders = document.querySelectorAll('input[type="range"].slider')
         [].forEach.call((slider) => {
           var id = slider.id 
@@ -42,6 +45,4 @@ block script
               })
             }
           }
-        }) 
-        
-    
+        }) //
