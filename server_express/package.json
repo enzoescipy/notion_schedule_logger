@@ -16,5 +16,9 @@
     "pug": "^3.0.2",
     "bulma": "^0.7.2",
     "node-sass": "^4.9.2"
+  },
+  "scripts":{
+    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-watch": "npm run css-build -- --watch",
   }
 }
