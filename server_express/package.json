@@ -19,6 +19,7 @@
   },
   "scripts":{
     "css-build": "sass public/scss/mystyles.scss public/css/mystyles.css",
+    "css-watch": "npm run css-build -- --watch",
     "start" : "node main"
   }
 }

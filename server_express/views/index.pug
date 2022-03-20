@@ -1,19 +1,19 @@
 extends layout
 
 block content
-  div.section
-    p.is-size-1.has-text-centered this is the bulma tester.
-    p testtest
-    div 
-      a(class="button" , href=iam, style={}) iammoving!!
-    p testtest
-
-  form(action="/api/notionUpdate", method="post") 
-    input(type="hidden",name="portal", value=iam )
-    input(class="button", type="submit", value="get Notion -> DB" )
-
-  a(class="button" , href=iam) reload DB
-
-  form(action="/api/pythonCalc/test", method="post")
-    input(type="hidden",name="dir", value=iam )
-    input(class="button", type="submit", value="Python Calculate" )
+  div.coloumns
+    div.coloumn
+      p.is-size-1.has-text-centered this is the bulma tester.
+      p testtest
+      div 
+        a(class="button" , href=iam, style={}) iammoving!!
+      p testtest
+    div.coloumns
+      form(action="/api/notionUpdate", method="post") 
+        input(type="hidden",name="portal", value=iam )
+        input(class="button", type="submit", value="get Notion -> DB" )
+    div.cououmns   
+      form(action="/api/pythonCalc/test", method="post")
+        input(type="hidden",name="dir", value=iam )
+        input(class="button", type="submit", value="Python Calculate" )
+    
