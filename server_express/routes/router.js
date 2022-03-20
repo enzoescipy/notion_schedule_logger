@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
-var mongo
+var mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 var spawn = require("child_process").spawn
 
 
@@ -15,16 +15,18 @@ router.get('/',function(req, res) {
 
 //notion testing router
 router.get('/hardcoading',function(req, res) {
-    mongoPublic.debug_DBset(0,0,0,function(doc) {
-        var DBdata = doc
+
+    mongoSETTING.get(0,0,0,1,0,function(value) {
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
-                            db: JSON.stringify(DBdata),
+                            showday_amount: toString(value),
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/hardcoading",
         })
     })
 })
+
+
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {

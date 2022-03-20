@@ -4,8 +4,8 @@ const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
 
-const where = []
-const what = []
+const where = ["home"]
+const what = ["showday_amount"]
 
 async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypenum, callback)
 {
@@ -27,7 +27,7 @@ async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypen
     if (callback != null){callback()}
 }
 
-async function get(dbNamenum,dbTypenum,collectionTypenum, callback)
+async function get(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum, callback)
 {
     const whereprop = where[wherenum]
     const whatprop = what[whatnum]
@@ -41,7 +41,7 @@ async function get(dbNamenum,dbTypenum,collectionTypenum, callback)
 
     doc = await collec.findOne({"what" : whatprop, "where" : whereprop})
     
-    if (callback != null){callback()}
+    if (callback != null){callback(doc["value"])}
 
     return doc["value"]
 
