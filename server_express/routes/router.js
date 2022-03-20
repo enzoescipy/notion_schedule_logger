@@ -17,7 +17,7 @@ router.get('/hardcoading',function(req, res) {
     mongoPublic.debug_DBset(0,0,0,function(doc) {
         var DBdata = doc
         console.log("(get) show data inside of mongoDB")
-        res.render('movingBox',{
+        res.render('index',{
                             db: JSON.stringify(DBdata),
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/hardcoading",
