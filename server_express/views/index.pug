@@ -22,4 +22,20 @@ block content
         input(class="button", type="submit", value="Set density of props" )
 
 block script 
-  - console.log("hello?")
+  - 
+    var sliders = document.querySelectorAll('input[type="range"].slider')
+    [].forEach.call((slider) => {
+      var id = slider.id 
+      var outputsSet = document.getElementByTagName('output')
+      for (i in outputsSet)
+      {
+        var output = outputSet[i]
+        if (output.htmlFor == idVal)
+        {
+          //- connect the output and slider.
+          slider.addEventListener('input', (event) => {
+            output.value = event.target.value
+          })
+        }
+      }
+    })
