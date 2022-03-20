@@ -4,13 +4,9 @@ block content
   div.section
     p.is-size-1.has-text-centered this is the bulma tester.
     p testtest
-    "#{db}"
+    #{db}
     p testtest
 
-
-
-
-  p #{db}
   form(action="/api/notionUpdate", method="post") 
     input(type="hidden",name="portal", value=iam )
     input(class="button", type="submit", value="get Notion -> DB" )
