@@ -17,7 +17,6 @@ router.get('/',function(req, res) {
 router.get('/hardcoading',function(req, res) {
 
     mongoSETTING.get(0,0,0,1,0,function(value) {
-        console.log(value)
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
                             showday_amount: value,
@@ -34,6 +33,13 @@ router.post('/api/notionUpdate', function(req, res) {
     mongoPublic.reloadDB_main(0,0,0,() => {
         console.log("(request) update data from notion -> server mongoDB ")
         res.render('warp', {portal: req.body.portal})
+    })
+})
+
+router.post('/api/SETTINGsSet/', function(req, res) {
+    mongoSETTING.set(0,0,req.body.slider1,0,1,0,function() {
+        console.log("(request) update local settings in server. ")
+        res.render('warp', {portal: req.body.portal2})
     })
 })
 

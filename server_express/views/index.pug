@@ -12,9 +12,10 @@ html
       div.columns
         div.column.is-two-thirds
           form()
+            input(type="hidden", name="portal2", value=iam)
             div.columns
               div.column
-                input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="14" value=showday_amount type="range" )
+                input.slider.has-output.is-fullwidth(id="sliderWithValue" name="slider1" step="1" min="0" max="14" value=showday_amount type="range" )
                 output(for="sliderWithValue" ) #{showday_amount}
               div.column
                 input(class="button", type="submit", value="submit" )
