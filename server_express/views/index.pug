@@ -28,30 +28,23 @@ html
       
 
       script.
-        try 
-        {
-          document.write("start test")
-          var sliders = document.querySelectorAll('input[type="range"].slider')
-          [].forEach.call(sliders, (slider) => {
-            document.write("hello1")
-            var id = slider.id 
-            var outputsSet = document.getElementByTagName('output')
-            for (i in outputsSet)
+        var sliders = document.querySelectorAll('input[type="range"].slider')
+        sliders.forEach((slider) => {
+          
+          var id = slider.id 
+
+          var outputsSet = document.getElementsByTagName('output')
+          for (var i=0; i < outputsSet.length; i++) 
+          {
+            var output = outputsSet[i]
+            if (output.htmlFor == id)
             {
-              var output = outputSet[i]
-              if (output.htmlFor == idVal)
-              {
-                // connect the output and slider.
-                slider.addEventListener('input', (event) => {
-                  output.value = event.target.value
-                })
-              }
+              // connect the output and slider.
+              slider.addEventListener('input', (event) => {
+                output.value = event.target.value
+              })
             }
-            
-          }) 
-        } catch (err) {
-          var blob = new Blob([err.message], type:"text/plain;charset=utf-8")
-          saveAs(blob, "errLog.txt")
-        }
+          }
+        }) 
 
         

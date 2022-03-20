@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><title></title><link rel="stylesheet" href="/css/mystyles.css"><script src="node_modules/jquery/dist/jquery.js" type="text/javscript"></script></head><body><div><p class="is-size-1 has-text-centered">this is the bulma tester.</p></div><div class="columns"><div class="column is-two-thirds"><form><input class="slider has-output is-fullwidth" id="sliderWithValue" step="1" min="0" max="100" value="50" type="range"><output for="sliderWithValue">50</output><input class="button" type="submit" value="submit"></form></div><div class="column"><form action="/api/notionUpdate" method="post"> <input type="hidden" name="portal"><input class="button" type="submit" value="refresh Data"></form></div><div class="column"><form action="/api/pythonCalc/test" method="post"><input type="hidden" name="dir"><input class="button" type="submit" value="Set density of props"></form></div></div><script>var sliders = document.querySelectorAll('input[type="range"].slider')
+sliders.forEach((slider) => {
+  
+  var id = slider.id 
+
+  var outputsSet = document.getElementsByTagName('output')
+  for (var i=0; i < outputsSet.length; i++) 
+  {
+    var output = outputsSet[i]
+    if (output.htmlFor == id)
+    {
+      // connect the output and slider.
+      slider.addEventListener('input', (event) => {
+        output.value = event.target.value
+      })
+    }
+  }
+}) </script></body></html>
