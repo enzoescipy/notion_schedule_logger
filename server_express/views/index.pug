@@ -50,7 +50,8 @@ html
             
           }) 
         } catch (err) {
-          document.write(err.message)
+          var blob = new Blob([err.message], type:"text/plain;charset=utf-8")
+          saveAs(blob, "errLog.txt")
         }
 
         
