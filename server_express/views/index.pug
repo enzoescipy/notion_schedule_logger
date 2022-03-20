@@ -29,7 +29,7 @@ html
 
       script.
         var sliders = document.querySelectorAll('input[type="range"].slider')
-        sliders.forEach.call((slider) => {
+        [].forEach.call(sliders, (slider) => {
           var id = slider.id 
           var outputsSet = document.getElementByTagName('output')
           for (i in outputsSet)
