@@ -19,6 +19,6 @@
   },
   "scripts":{
     "css-build": "sass public/scss/mystyles.scss public/css/mystyles.css",
-    "start_server" : "node main"
+    "start" : "node main"
   }
 }
