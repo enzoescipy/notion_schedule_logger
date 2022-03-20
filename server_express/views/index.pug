@@ -12,10 +12,13 @@ html
       div.columns
         div.column.is-two-thirds
           form()
-            input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="14" value="7" type="range" )
-            output(for="sliderWithValue" ) 50
-            input(class="button", type="submit", value="submit" )
-
+            div.columns
+              div.column
+                input.slider.has-output.is-fullwidth(id="sliderWithValue" step="1" min="0" max="14" value="7" type="range" )
+                output(for="sliderWithValue" ) 7
+              div.column
+                input(class="button", type="submit", value="submit" )
+            
         div.column
           form(action="/api/notionUpdate", method="post") 
             input(type="hidden",name="portal", value=iam )
