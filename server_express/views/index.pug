@@ -4,7 +4,9 @@ block content
   div.section
     p.is-size-1.has-text-centered this is the bulma tester.
     p testtest
-    script fs.readFileSync("./style/movingBox.pug","utf8")
+    - 
+      var inserted = fs.readFileSync("./style/movingBox.pug","utf8")
+      inserted
     p testtest
 
 
