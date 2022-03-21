@@ -54,20 +54,12 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         function replacer(finderkey,insertkey,value)
         {
             console.log(finderkey,insertkey,value)
-            try
-            {
-                isreplaceable = calender[finderkey]
-            }
-            catch
+            if (calender[finderkey] === undefined)
             {
                 calender[finderkey] = {}
             }
 
-            try
-            {
-                isreplaceable = calender[finderkey][insertkey]
-            }
-            catch
+            if (calender[finderkey][insertkey] === undefined)
             {
                 calender[finderkey][insertkey] = value
             }
