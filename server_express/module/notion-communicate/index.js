@@ -97,6 +97,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
   try {
     //prepare to change day of week to date
     var currnet_date = moment(datestring,"YYYY-MM-DD")
+    console.log(currnet_date)
     //currnet_date.subtract(3,"days")//--debug
     var current_day = (Number(currnet_date.format("d")) +6 ) % 7
     if (current_day == 0) 
