@@ -139,6 +139,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
+
     target_date = "invalid"
     while True:
         # find docs that has same id property.
@@ -173,7 +174,8 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         for day in datetime_list:
             if day <= propdate_todateformat and target_date <= day:
                 target_date = day
-    target_date_str = date.isoformat(target_date)
+
+    target_date_str = target_date.isoformat()
     target_rate = docs[target_date_str]["rate_rel"]
     target_ignorance = docs[target_date_str]["ignorance"]
     if target_rate == "invalid":
