@@ -19,7 +19,7 @@ router.get('/hardcoading',function(req, res) {
     mongoSETTING.get(0,0,0,1,0,function(value) {
         console.log("(get) show data inside of mongoDB")
         res.render('index',{
-                            isdataloaded :req.url,
+                            isdataloaded :((req.url).split("?"))[1],
                             showday_amount: value,
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/hardcoading",
