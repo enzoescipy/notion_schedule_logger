@@ -47,13 +47,13 @@ async function main()
 
   //404 error case
   app.use(function (req, res, next){
-      res.status(404).send('cannot find any objects...')
+      res.status(404).send('404 cannot find any objects...')
   })
 
   //server error case
   app.use(function(err, req, res, next) {
+      res.status(500).send("500 something wrong...")
       console.error(err.stack)
-      res.status(500).send("something wrong...")
   })
 
   app.listen(port, () => console.log("app launched..."))

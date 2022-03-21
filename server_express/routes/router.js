@@ -34,7 +34,7 @@ router.get('/home',function(req, res) {
 })
 
 //python test router
-router.post('/home/rate_adjust', function(req, res) {
+router.get('/home/rate_adjust', function(req, res) {
     res.render('set_rate', {iam: '/home/rate_adjust'})
 })
 
