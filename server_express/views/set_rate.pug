@@ -11,7 +11,7 @@ html
       div.column
         div.coloumns
           div.couumn
-            form(action="/api/ratesSet/")
+            form(action="/api/ratesSet/", method="post")
               input(type="hidden",name="portal3", value=iam )
 
               input.input(type="text" placeholder="Property name")
