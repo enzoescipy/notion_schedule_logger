@@ -55,6 +55,20 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
+
+    selected_notionName = getName(0,0,fromTest, 0)
+    selected_col = selected_notionName[1]
+    selected_name = selected_notionName[0]
+    collec_notion = client[selected_name][selected_col]
+    # search for if propname exist in the notion DB. if not, reject.
+    propname_test = collec_notion.find({"id":propname})
+    if propname_test == None:
+        client.close()
+        print("no propname found in server. refresh it first.")
+        sys.stdout.flush()
+        return -1
+    
+
     # make rate resonable. not int -> to int, over range -> boundary set.
     if rate <= 1 :
         rate = 1
