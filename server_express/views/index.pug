@@ -23,7 +23,7 @@ html
         div.column
           form(action="/api/notionUpdate", method="post") 
             input(type="hidden",name="portal", value=iam )
-            input(class="button", type="submit", value="#{isdataloaded}" )
+            input(class="button", type="submit", value="refresh Data" )
 
         div.column
           form(action="/api/pythonCalc/test", method="post")
@@ -32,6 +32,11 @@ html
       
 
       script.
+        //refresh Data result showing code
+        document.write(isdataloaded)
+        
+
+        //sliders value showing code
         var sliders = document.querySelectorAll('input[type="range"].slider')
         sliders.forEach((slider) => {
           
