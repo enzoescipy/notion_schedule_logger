@@ -71,7 +71,7 @@ router.post('/api/SETTINGsSet/', function(req, res) {
 
 router.post('/api/ratesSet/', function(req, res) {
     //mongoCalc spawn
-    var propname = Number(req.body.prop_name)
+    var propname = req.body.prop_name
     var proprate = Number(req.body.rate_abs)
     var ignorance = Number(req.body.ignorance)
 
