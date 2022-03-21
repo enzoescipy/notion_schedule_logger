@@ -1,12 +1,9 @@
 doctype html
+
+p(id="testid") hello... i am p...
+
 script. 
-    var sending = "#{send}"
-    if (sending != Null)
-    {
-        var warp = "#{portal}?send=#{send}"
-    }
-    else 
-    {
-        var warp = "#{portal}"
-    }
+    var send = "#{send}"
+    document.write(send) 
+    var warp = "#{portal}"
     location.href = warp
