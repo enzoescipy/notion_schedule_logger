@@ -33,13 +33,16 @@ html
       
 
       script.
-        //refresh hidden datas
+        //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
         var hiddens = document.getElementsByClassName('hiddendata')
+        var hidden_values = []
         for (var i=0;i < hiddens.length; i++)
         {
           var target = hiddens[i]
           target.hidden = true
+          hidden_values.push(target.outerText)
         }
+        document.write(hidden_values)
         
 
         //sliders value showing code
