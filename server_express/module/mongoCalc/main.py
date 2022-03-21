@@ -171,7 +171,7 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     docs = collec.find_one({"id" : propname})
 
     if docs == None:
-        docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
+        docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname, "sub-collec":"rater"}
         collec.insert_one(docs)
     else:
         if todaystring in docs:
@@ -342,8 +342,19 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
     def override_true(processor):
         doc_all = collec.find({})
         doc_all = list(doc_all)
-        proceeded = map(processor,doc_all)
-        return list(proceeded)
+        proceeded = list(map(processor,doc_all))
+        
+        client.close()
+        client = MongoClient(host='localhost', port=27017)
+        selected_name = getName(0,1,fromTest,0)
+        selected_col = selected_name[1]
+        selected_name = selected_name[0]
+        collec = client[selected_name][selected_col]
+        for doc in proceeded:
+            doc["sub-collec" : "pointer"]
+            collec.replace_one({"sub-collec" : "pointer"}, doc, upsert=True)
+
+        return proceeded
 
     def doc_processor(doc):
         propname = doc["id"]
