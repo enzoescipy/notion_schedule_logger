@@ -97,7 +97,6 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
   try {
     //prepare to change day of week to date
     var currnet_date = moment(datestring,"YYYY-MM-DD")
-    if (toString(currnet_date) === "[object Undefined]") {return -1}
     //currnet_date.subtract(3,"days")//--debug
     var current_day = (Number(currnet_date.format("d")) +6 ) % 7
     if (current_day == 0) 
@@ -112,6 +111,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
     for (var i=0; i<7;i++)
     {
       var dateText = monday.add(1,'days').format("YYYY-MM-DD")
+      console.log(dateText)
       var difference = Math.ceil(currnet_date.diff(monday,"days",true))
       if (1 + difference <= 0 || dateText === 'Invalid date')
       {
