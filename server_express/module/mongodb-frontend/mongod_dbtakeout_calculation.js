@@ -22,10 +22,11 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     function doc_spliter(onlyfor_pointer)
     {   
-        organized_calender = {}
-        onlyfor_pointer.forEach((doc) => {
-            organized_calender = doc_seleter(doc,organized_calender)
-        })
+        var organized_calender = {}
+        for (let i=0;i<onlyfor_pointer.count();i++)
+        {
+            organized_calender = doc_seleter(onlyfor_pointer.next(),organized_calender)
+        }
         console.log(organized_calender)
 
 
