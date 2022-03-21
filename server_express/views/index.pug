@@ -24,7 +24,7 @@ html
         div.column
           form(action="/api/notionUpdate", method="post") 
             input(type="hidden",name="portal", value=iam )
-            input.refreshData(class="button", type="submit" ) refresh Data
+            input.refreshData(class="button", type="submit", value="refresh Data" )
 
         div.column
           form(action="/api/pythonCalc/test", method="post")
@@ -51,8 +51,7 @@ html
         
         if (isdataloaded === "-1")
         {
-          document.write(inputTarget, inputTarget.vaule)
-          inputTarget.vaule = "request Blocked!"
+          inputTarget.setAttribute("value", "request Blocked!")
         }
 
 
