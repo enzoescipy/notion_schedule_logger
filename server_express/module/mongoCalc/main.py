@@ -120,6 +120,82 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     sys.stdout.flush()
     return 1
 
+def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
+    propname = str(propname)
+    rate = int(rate)
+    fromTest = int(fromTest)
+    ignorance = int(ignorance)
+    # get name and collectionName
+
+    selected_name = getName(0,1,fromTest,0)
+
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    selected_notionName = getName(0,0,fromTest, 0)
+    selected_col = selected_notionName[1]
+    selected_name = selected_notionName[0]
+    collec_notion = client[selected_name][selected_col]
+    # search for if propname exist in the notion DB. if not, reject.
+    propname_test = collec_notion.find({"id":propname})
+    if len(list(propname_test)) == 0:
+        client.close()
+        print("no propname found in server. refresh it first.")
+        return -1
+    
+
+    # make rate resonable. not int -> to int, over range -> boundary set.
+    if rate <= 1 :
+        rate = 1
+    elif rate >= 100:
+        rate = 100
+    else:
+        rate = int(rate)
+
+    # when is today?
+    todaystring = "invalid"
+    if propdate == "XXXX-XX-XX":
+        todaystring = date.today().isoformat()
+    elif propdate[4] == "-" and propdate[7] == "-":
+        todaystring = propdate
+    else:
+        client.close()
+        print("inappriate date property.")
+        return -1
+
+
+    # find dataset.
+
+    docs = collec.find_one({"id" : propname})
+
+    if docs == None:
+        docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
+        collec.insert_one(docs)
+    else:
+        if todaystring in docs:
+            docs[todaystring]["rate_abs"] = rate
+            docs[todaystring]["ignorance"] = ignorance
+        else:
+            docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
+        collec.replace_one({"id" : propname}, docs)
+
+    # put and calculate the rate_rel
+    docs = collec.find({todaystring:{'$exists': 1}})
+    docs = list(docs)
+    rate_sum = 0
+    for doc in  docs: 
+        rate_sum += doc[todaystring]["rate_abs"]
+
+    for doc_2 in  docs:
+        doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
+        doc_2_id = doc_2["id"]
+        collec.replace_one({"id" : doc_2_id}, doc_2)
+    
+    client.close()
+    return 1
+
 def calc_getPointOfProp(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
@@ -211,7 +287,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         docs = collec.find_one({"id" : propname})
         if docs == None:
             # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-            post_setRateOfProp(propname, 25, fromTest,1, propdate)
+            post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
             continue
         else:
             # find if there are any date match with our purpose.
@@ -228,7 +304,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
 
             if len(datetime_list) == 0:
                 # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-                post_setRateOfProp(propname, 25, fromTest,1, propdate)
+                post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
             else:
                 break
 
