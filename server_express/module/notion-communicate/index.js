@@ -112,7 +112,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
     {
       var dateText = monday.add(1,'days').format("YYYY-MM-DD")
       var difference = Math.ceil(currnet_date.diff(monday,"days",true))
-      if (1 + difference <= 0)
+      if (1 + difference <= 0 || dateText === 'Invalid date')
       {
         week[i] = false
       } 
