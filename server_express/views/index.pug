@@ -24,7 +24,7 @@ html
         div.column
           form(action="/api/notionUpdate", method="post") 
             input(type="hidden",name="portal", value=iam )
-            input(class="button", type="submit", value="refresh Data" )
+            input.refreshData(class="button", type="submit", value="refresh Data" )
 
         div.column
           form(action="/api/pythonCalc/test", method="post")
@@ -36,17 +36,18 @@ html
         //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
         var hiddens = document.getElementsByClassName('hiddendata')
         var hidden_values = {}
+        var hidden_bodys = {}
         for (var i=0;i < hiddens.length; i++)
         {
           var target = hiddens[i]
           target.hidden = true
           var targetquerry = (target.outerText).split("?")
-          document.write(targetquerry[0])
           hidden_values[targetquerry[0]] = targetquerry[1]
+          hidden_bodys[targetquerry[0]] = target
         }
         //refresh Data result showing
         var isdataloaded = hidden_values["isdataloaded"]
-        document.write(isdataloaded)
+        var inputTarget = document.getElementsByClassName('refreshData')
 
         //sliders value showing code
         var sliders = document.querySelectorAll('input[type="range"].slider')
