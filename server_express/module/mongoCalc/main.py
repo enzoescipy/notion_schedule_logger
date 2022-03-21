@@ -205,7 +205,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         doc_all = collec.find({})
         doc_all = list(doc_all)
         proceeded = map(processor,doc_all)
-        return proceeded
+        return dict(zip(proceeded, range(len(proceeded))))
 
     def doc_processor(doc):
         propname = doc["id"]
