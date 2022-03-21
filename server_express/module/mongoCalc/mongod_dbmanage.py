@@ -50,12 +50,19 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
         count = 0
         ignore = 0
         while True:
-            if docs[targetdate] == False:
+            isdone = "invalid"
+            try:
+                isdone = docs[targetdate]
+            except KeyError:
+                client.close()
+                return count
+                
+            if isdone == False:
                 ignore += 1
                 if ignore >= ignorance:
                     client.close()
                     return count
-            elif docs[targetdate] == True:
+            elif isdone == True:
                 ignore = 0
                 count += 1
                 targetdate = date.fromisoformat(targetdate)
