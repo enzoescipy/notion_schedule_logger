@@ -36,6 +36,10 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     function doc_seleter(doc, organized_calender)
     {
+        //debug
+        organized_calender["foo"]="goo"
+        return organized_calender
+        //debug
         var propname = doc["id"] 
         for (key in doc)
         {
