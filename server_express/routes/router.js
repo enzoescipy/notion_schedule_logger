@@ -72,7 +72,7 @@ router.post('/api/notionUpdate', function(req, res) {
         else
         {
             console.log("(request_) update data from notion -> server mongoDB ")
-            res.render('warp', {portal: req.body.portal, send: 1})
+            res.render('warp', {portal: req.body.portal1, send: 1})
         }
 
     })
