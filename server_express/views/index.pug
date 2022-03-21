@@ -47,8 +47,9 @@ html
         }
         //refresh Data result showing
         var isdataloaded = hidden_values["isdataloaded"]
-        var inputTarget = document.getElementsByClassName('refreshData')
-        
+        var inputTarget = document.getElementsByClassName('refreshData')[0]
+        inputTarget.value = isdataloaded
+
 
         //sliders value showing code
         var sliders = document.querySelectorAll('input[type="range"].slider')
