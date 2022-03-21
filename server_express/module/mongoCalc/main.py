@@ -39,7 +39,7 @@ Mathfunc.normal_rewardfunc = normal_rewardfunc
 
 
 
-def post_setRateOfProp(propname, rate, fromTest,ignorance=1, propdate="XXXX-XX-XX"):
+def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
