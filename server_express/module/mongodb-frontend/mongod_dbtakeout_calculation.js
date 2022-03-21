@@ -47,6 +47,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             }
 
         }
+        console.log(organized_calender)
         return organized_calender
     }
 
