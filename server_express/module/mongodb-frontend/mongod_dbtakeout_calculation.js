@@ -36,11 +36,11 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             var value = doc[key]
             if (key == "sub-collec" || key == "id" | key == "_id")
             {
-                data_saver(-1,organized_calender)
+                organized_calender = data_saver(-1,organized_calender)
             }
             else
             {
-                data_saver([propname, key, value],organized_calender)
+                organized_calender = data_saver([propname, key, value],organized_calender)
             }
 
         }
@@ -74,6 +74,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         }
 
         replacer(data[1],data[0],data[2])
+        return calender
     }
     var organized_calender = await pointer_finder(collec)
     console.log(organized_calender)
