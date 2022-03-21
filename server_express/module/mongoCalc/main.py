@@ -349,11 +349,14 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         propname = doc["id"]
         proceeded = map(for_all_date_in_doc_process(propname),doc.items())
         proceeded = dict(list(proceeded))
+        del_keys = []
         for key in proceeded.keys():
             if proceeded[key] == -1:
-                del(proceeded[key])
+                del_keys.append(key)
+        for delkey in del_keys:
+            del(proceeded[delkey])
 
-        return (propname, )
+        return (propname, proceeded)
     
     def for_all_date_in_doc_process(propname):
         def date_processer(item):
