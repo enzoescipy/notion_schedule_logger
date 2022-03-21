@@ -169,11 +169,11 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                 break
 
 
-        target_date = datetime_list[0]
-        propdate_todateformat = date.fromisoformat(propdate)
-        for day in datetime_list:
-            if day <= propdate_todateformat and target_date <= day:
-                target_date = day
+    target_date = datetime_list[0]
+    propdate_todateformat = date.fromisoformat(propdate)
+    for day in datetime_list:
+        if day <= propdate_todateformat and target_date <= day:
+            target_date = day
     print(target_date)
     target_date_str = target_date.isoformat()
     target_rate = docs[target_date_str]["rate_rel"]
