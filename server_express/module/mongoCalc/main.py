@@ -198,7 +198,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     return -1
 
 
-def calc_getPointOfProp(propname, propdate, fromTest):
+def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
