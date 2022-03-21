@@ -1,5 +1,6 @@
 const mongoGenerate = require('./mongod_dbmanage_generate')
 const mongoNameManage = require('./mongod_dbmanage_Name')
+const mongoSETTINGs = require('./mongod_dbmanage_SETTINGs')
 
 async function showSetting()
 {
@@ -41,7 +42,16 @@ async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
 
 async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
 {
-    await mongoGenerate.update_mainNotion(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
+    current_lock = await mongoSETTINGs.get(1,1,0,1,0)
+    if (current_lock == true)
+    {
+        return -1
+    }
+    else
+    {
+        await mongoGenerate.update_mainNotion(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
+    }
+
 }
 
 async function generateDB_test(dbNamenum,dbVarinum, collectionTypenum, datestring, callback) // datestring means when to set today.
