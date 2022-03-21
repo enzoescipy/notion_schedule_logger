@@ -349,12 +349,6 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         propname = doc["id"]
         proceeded = map(for_all_date_in_doc_process(propname),doc.items())
         proceeded = dict(list(proceeded))
-        del_keys = []
-        for key in proceeded.keys():
-            if proceeded[key] == -1:
-                del_keys.append(key)
-        for delkey in del_keys:
-            del(proceeded[delkey])
 
         return (propname, proceeded)
     
@@ -368,9 +362,9 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
                     point = calc_getPointOfProp_noflush(propname, key, fromTest)
                     return (key, point)
                 else:
-                    return (key, -1)
+                    return (key, value)
             except IndexError:
-                return (key, -1)
+                return (key, value)
         return date_processer
 
     #override false line
