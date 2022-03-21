@@ -43,6 +43,7 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
+    ignorance = int(ignorance)
     # get name and collectionName
     if fromTest == 1:
         fromTest = 0
@@ -100,6 +101,7 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     else:
         if todaystring in docs:
             docs[todaystring]["rate_abs"] = rate
+            docs[todaystring]["ignorance"] = ignorance
         else:
             docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
         collec.replace_one({"id" : propname}, docs)
