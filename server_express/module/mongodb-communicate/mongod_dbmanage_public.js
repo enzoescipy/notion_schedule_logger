@@ -45,6 +45,7 @@ async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
     current_lock = await mongoSETTINGs.get(1,1,0,1,0)
     if (current_lock == true)
     {
+        if (callback != null){callback(-1)}
         return -1
     }
     else
