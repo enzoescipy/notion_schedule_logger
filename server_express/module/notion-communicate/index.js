@@ -108,6 +108,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
     //monday.subtract(3,"days")//--debug
     monday = monday.subtract(current_day+1, 'days')
     var week = Array(7)
+    var count = 0
     for (var i=0; i<7;i++)
     {
       var dateText = monday.add(1,'days').format("YYYY-MM-DD")
@@ -116,13 +117,14 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
       if (1 + difference <= 0 || dateText === 'Invalid date')
       {
         week[i] = false
+        count  = count + 1
       } 
       else 
       {
         week[i] = dateText
       }
     }
-    console.log(week == [false,false,false,false,false,false,false])
+    if (count === 7 ) {console.log("hahahahaha")}
 
     const response = await notion.databases.query({
       database_id : databaseId,
