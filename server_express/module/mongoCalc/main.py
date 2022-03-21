@@ -62,7 +62,6 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     collec_notion = client[selected_name][selected_col]
     # search for if propname exist in the notion DB. if not, reject.
     propname_test = collec_notion.find({"id":propname})
-    print(propname_test)
     if len(list(propname_test)) == 0:
         client.close()
         print("no propname found in server. refresh it first.")

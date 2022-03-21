@@ -63,7 +63,7 @@ router.get('/home/rate_adjust', function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    mongoPublic.reloadDB_main(0,0,(para) => {
+    mongoPublic.reloadDB_main(0,0,dbtype(mongo),(para) => {
         if (para == -1)
         {
             console.log("(request_1_denied) update data from notion -> server mongoDB, blocked by pre-settings ")
