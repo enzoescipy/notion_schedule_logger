@@ -329,7 +329,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     print(-1, "function ended")
     return -1
 
-def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
+def calc_gPP_doAllExcept(exceptiondate, fromTest):
     fromTest = int(fromTest)
     override = bool(override)
 
@@ -373,7 +373,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         def date_processer(item):
             key = item[0]
             value = item[1]
-            if key == "_id":
+            if key == "_id" or key == exceptiondate:
                 return (key, -1)
             try:
                 if key[4] == "-" and key[7] == "-":
@@ -385,24 +385,17 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
             except IndexError:
                 return (key, value)
         return date_processer
-
-    #override false line
-    def override_false():
-        pass
     
     #functional_excute
-    if override == True:
-        proceeded_list_docAll = override_true(collec, client)
-        print(proceeded_list_docAll)
-    else:
-        pass #override_false()
+    proceeded_list_docAll = override_true(collec, client)
+    print(proceeded_list_docAll)
 
 if fget == "0":
     post_setRateOfProp(*fvar)
 elif fget == "1":
     calc_getPointOfProp(*fvar)
 elif fget == "2" :
-    calc_gPP_doAllExceptOver(*fvar)
+    calc_gPP_doAllExcept(*fvar)
 else:
     print("invalid input.")
     sys.stdout.flush()
