@@ -43,10 +43,9 @@ html
           var targetquerry = (target.outerText).split("?")
           hidden_values[targetquerry[0]] = targetquerry[1]
         }
-          document.write(hidden_values)
-
         //refresh Data result showing
-
+        var isdataloaded = hidden_values["isdataloaded"]
+        document.write(isdataloaded)
 
         //sliders value showing code
         var sliders = document.querySelectorAll('input[type="range"].slider')
