@@ -139,7 +139,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
-
+    target_date = "invalid"
     while True:
         # find docs that has same id property.
         docs = collec.find_one({"id" : propname})
