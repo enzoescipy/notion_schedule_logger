@@ -39,17 +39,17 @@ Mathfunc.normal_rewardfunc = normal_rewardfunc
 
 
 
-def post_setRateOfProp(propname, rate, isTest,ignorance=1, propdate="XXXX-XX-XX"):
+def post_setRateOfProp(propname, rate, fromTest,ignorance=1, propdate="XXXX-XX-XX"):
     propname = str(propname)
     rate = int(rate)
-    isTest = int(isTest)
+    fromTest = int(fromTest)
     # get name and collectionName
-    if isTest == 1:
-        isTest = 0
+    if fromTest == 1:
+        fromTest = 0
     else:
-        isTest = 1
+        fromTest = 1
 
-    selected_name = getName(0,1,isTest,0)
+    selected_name = getName(0,1,fromTest,0)
 
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]

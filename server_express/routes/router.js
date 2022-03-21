@@ -3,6 +3,23 @@ var router = express.Router()
 var mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 var mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 
+var dbtype_fixed = "test"
+function dbtype(whoperspective)
+{
+    if (dbtype_fixed == "test")
+    {
+        if (whoperspective == "human"){return 1}else if (whoperspective == "mongo"){return 0}
+    }
+    else if (dbtype_fixed == "main")
+    {
+        if (whoperspective == "human"){return 0}else if (whoperspective == "mongo"){return 1}
+    }
+    else if (dbtype_fixed == "backup")
+    {
+        return 2
+    }
+}
+
 var spawn = require("child_process").spawn
 
 
@@ -16,8 +33,7 @@ router.get('/',function(req, res) {
 
 //notion testing router
 router.get('/home',function(req, res) {
-
-    mongoSETTING.get(0,0,0,1,0,function(value) {
+    mongoSETTING.get(0,0,0,dbtype(mongo),0,function(value) {
         console.log("(get) show data inside of mongoDB")
         var isDBloadSucced = "0"
         if (((req.url).includes("?")) )
@@ -63,7 +79,7 @@ router.post('/api/notionUpdate', function(req, res) {
 })
 
 router.post('/api/SETTINGsSet/', function(req, res) {
-    mongoSETTING.set(0,0,req.body.slider1,0,1,0,function() {
+    mongoSETTING.set(0,0,req.body.slider1,0,dbtype("mongo"),0,function() {
         console.log("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
@@ -76,7 +92,7 @@ router.post('/api/ratesSet/', function(req, res) {
     var ignorance = Number(req.body.ignorance)
 
     console.log(propname, proprate, ignorance)
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,ignorance])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,dbtype("human"),ignorance])
     
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString())
