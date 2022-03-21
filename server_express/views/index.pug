@@ -23,7 +23,7 @@ html
         div.column
           form(action="/api/notionUpdate", method="post") 
             input(type="hidden",name="portal", value=iam )
-            input(class="button", type="submit", value="refresh Data#{send}" )
+            input(class="button", type="submit", value="refresh Data#{isdataloaded}" )
 
         div.column
           form(action="/api/pythonCalc/test", method="post")
