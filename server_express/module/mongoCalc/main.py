@@ -212,7 +212,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         if docs == None:
             client.close()
             print(-1,"no match propname")
-            return -1, "no match propname"
+            return -1
         else:
             # find if there are any date match with our purpose.
             datetime_list = []
@@ -244,7 +244,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     if target_rate == "invalid":
         client.close()
         print(-1,"rate_rel not calculated")
-        return -1, "rate_rel not calculated"
+        return -1
     else:
         #take the... "how long do you continuously keep your todo."
         client.close()
