@@ -14,9 +14,12 @@ html
             form(action="/api/ratesSet/", method="post")
               input(type="hidden",name="portal3", value=iam )
 
-              input.input(type="text" placeholder="Property name")
+              input.slider.is-fullwidth(id="sliderWithValue2" name="ignorance" step="1" min="1" max="5" value="1" type="range")
+              output(for="sliderWithValue2" ) iamoutput2
 
-              input.slider.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range")
+              input.input(type="text" name="prop_name" placeholder="Property name")
+
+              input.slider.is-fullwidth(id="sliderWithValue" name="rate_abs" step="1" min="0" max="100" value="50" type="range")
               output(for="sliderWithValue" ) iamoutput
 
               input.button(type="submit", value="submit")

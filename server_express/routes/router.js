@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 var mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
+
 var spawn = require("child_process").spawn
 
 
@@ -69,8 +70,24 @@ router.post('/api/SETTINGsSet/', function(req, res) {
 })
 
 router.post('/api/ratesSet/', function(req, res) {
-    console.log("(request_3) update calculation rate_abs in server. ")
-    res.render('warp', {portal: req.body.portal3})
+    //mongoCalc spawn
+    var propname = int(req.body.prop_name)
+    var proprate = int(req.body.rate_abs)
+    var ignorance = int(req.body.ignorance)
+
+    console.log(propname, proprate, ignorance)
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,ignorance])
+    
+    /*
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(data.toString())
+        console.log("(request_3) update calculation rate_abs in server. ")
+        res.render('warp', {portal: req.body.portal3})
+    })
+    */
+
+    
+
 })
 
 
