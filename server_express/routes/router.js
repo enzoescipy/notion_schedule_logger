@@ -30,9 +30,18 @@ router.get('/hardcoading',function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    mongoPublic.reloadDB_main(0,0,() => {
-        console.log("(request) update data from notion -> server mongoDB ")
-        res.render('warp', {portal: req.body.portal})
+    mongoPublic.reloadDB_main(0,0,(para) => {
+        if (para == -1)
+        {
+            console.log("(request) update data from notion -> server mongoDB ")
+            res.render('warp', {portal: req.body.portal, send: -1})
+        }
+        else
+        {
+            console.log("(request) update data from notion -> server mongoDB ")
+            res.render('warp', {portal: req.body.portal, send: 1})
+        }
+
     })
 })
 
