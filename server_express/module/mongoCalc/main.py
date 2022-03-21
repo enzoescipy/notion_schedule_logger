@@ -339,7 +339,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
     #override true line
-    def override_true(collec):
+    def override_true(collec, client):
         doc_all = collec.find({})
         doc_all = list(doc_all)
         proceeded = list(map(doc_processor,doc_all))
@@ -392,7 +392,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
     
     #functional_excute
     if override == True:
-        proceeded_list_docAll = override_true(collec)
+        proceeded_list_docAll = override_true(collec, client)
         print(proceeded_list_docAll)
     else:
         pass #override_false()
