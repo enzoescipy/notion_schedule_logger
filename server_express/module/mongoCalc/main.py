@@ -222,9 +222,9 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
                     point = calc_getPointOfProp(propname, key, fromTest)
                     return (key, point)
                 else:
-                    return -1
+                    return (key, -1)
             except IndexError:
-                return -1
+                return (key, -1)
         return date_processer
 
     #override false line
