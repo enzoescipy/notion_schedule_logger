@@ -29,7 +29,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     function doc_seleter(doc)
     {
-        var organized_calender={}
+        var organized_calender = {}
         var propname = doc["id"] 
         for (key in doc)
         {
@@ -49,6 +49,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     function data_saver(data, calender)
     {
+        console.log(calender)
         if (data == -1){return}
         function replacer(finderkey,insertkey,value)
         {
@@ -61,6 +62,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             {
                 calender[finderkey] = {}
             }
+
             try
             {
                 isreplaceable = calender[finderkey][insertkey]
