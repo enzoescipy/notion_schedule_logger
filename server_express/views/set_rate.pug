@@ -1,18 +1,26 @@
 doctype html
 html
-    head
-        title #{title}
-        link(rel='stylesheet', href="/css/mystyles.css")
-        script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
-    body
-        div.columns
-            div.column.is-10
-                p this is empty space for rate visualgraphics.
-            div.column
-                form(action="/home")
-                    input(class="button", type="submit", value="Back" )
-            
-        
+  head
+    title #{title}
+    link(rel='stylesheet', href="/css/mystyles.css")
+    script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
+  body
+    div.columns
+      div.column.is-10
+        p this is empty space for rate visualgraphics.
+      div.column
+        div.coloumns
+          div.couumn
+            form()
+              input.input(type="text" placeholder="Property name")
+              input.slider.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range")
+              output(for="sliderWithValue" ) iamoutput
+              input.button(type="submit", value = "submit")
+          div.column
+            form(action="/home")
+              input(class="button", type="submit", value="Back" )
+      
+    
 
-        script.
-            
+    script.
+        

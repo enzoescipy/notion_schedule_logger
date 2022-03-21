@@ -1,78 +1,78 @@
 doctype html
 html
-    head
-        title #{title}
-        link(rel='stylesheet', href="/css/mystyles.css")
-        script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
+  head
+    title #{title}
+    link(rel='stylesheet', href="/css/mystyles.css")
+    script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
-    body
-      p.hiddendata isdataloaded?#{isdataloaded}
-      div
-        p.is-size-1.has-text-centered this is the bulma tester.
+  body
+    p.hiddendata isdataloaded?#{isdataloaded}
+    div
+      p.is-size-1.has-text-centered this is the bulma tester.
 
-      div.columns
-        div.column.is-two-thirds
-          form(action='/api/SETTINGsSet/', method="post")
-            input(type="hidden", name="portal2", value=iam)
-            div.columns
-              div.column
-                input.slider.has-output.is-fullwidth(id="sliderWithValue" name="slider1" step="1" min="0" max="14" value=showday_amount type="range" )
-                output(for="sliderWithValue" ) #{showday_amount}
-              div.column
-                input(class="button", type="submit", value="submit" )
-            
-        div.column
-          form(action="/api/notionUpdate", method="post") 
-            input(type="hidden",name="portal", value=iam )
-            input.refreshData(class="button", type="submit", value="refresh Data" )
-
-        div.column
-          form(action="/home/rate_adjust", method="post")
-            input(type="hidden",name="portal3", value=iam )
-            input(class="button", type="submit", value="Set density of props" )
-      
-
-      script.
-        //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
-        var hiddens = document.getElementsByClassName('hiddendata')
-        var hidden_values = {}
-        var hidden_bodys = {}
-        for (var i=0;i < hiddens.length; i++)
-        {
-          var target = hiddens[i]
-          target.hidden = true
-          var targetquerry = (target.outerText).split("?")
-          hidden_values[targetquerry[0]] = targetquerry[1]
-          hidden_bodys[targetquerry[0]] = target
-        }
-        //refresh Data result showing
-        var isdataloaded = hidden_values["isdataloaded"]
-        var inputTarget = document.getElementsByClassName('refreshData')[0]
-        
-        if (isdataloaded === "-1")
-        {
-          inputTarget.setAttribute("value", "request Blocked!")
-        }
-
-
-        //sliders value showing code
-        var sliders = document.querySelectorAll('input[type="range"].slider')
-        sliders.forEach((slider) => {
+    div.columns
+      div.column.is-two-thirds
+        form(action='/api/SETTINGsSet/', method="post")
+          input(type="hidden", name="portal2", value=iam)
+          div.columns
+            div.column
+              input.slider.has-output-tooltip.is-fullwidth(id="sliderWithValue" name="slider1" step="1" min="0" max="14" value=showday_amount type="range" )
+              output(for="sliderWithValue" ) #{showday_amount}
+            div.column
+              input(class="button", type="submit", value="submit" )
           
-          var id = slider.id 
+      div.column
+        form(action="/api/notionUpdate", method="post") 
+          input(type="hidden",name="portal", value=iam )
+          input.refreshData(class="button", type="submit", value="refresh Data" )
 
-          var outputsSet = document.getElementsByTagName('output')
-          for (var i=0; i < outputsSet.length; i++) 
-          {
-            var output = outputsSet[i]
-            if (output.htmlFor == id)
-            {
-              // connect the output and slider.
-              slider.addEventListener('input', (event) => {
-                output.value = event.target.value
-              })
-            }
-          }
-        }) 
+      div.column
+        form(action="/home/rate_adjust", method="post")
+          input(type="hidden",name="portal3", value=iam )
+          input(class="button", type="submit", value="Set density of props" )
+    
 
+    script.
+      //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
+      var hiddens = document.getElementsByClassName('hiddendata')
+      var hidden_values = {}
+      var hidden_bodys = {}
+      for (var i=0;i < hiddens.length; i++)
+      {
+        var target = hiddens[i]
+        target.hidden = true
+        var targetquerry = (target.outerText).split("?")
+        hidden_values[targetquerry[0]] = targetquerry[1]
+        hidden_bodys[targetquerry[0]] = target
+      }
+      //refresh Data result showing
+      var isdataloaded = hidden_values["isdataloaded"]
+      var inputTarget = document.getElementsByClassName('refreshData')[0]
+      
+      if (isdataloaded === "-1")
+      {
+        inputTarget.setAttribute("value", "request Blocked!")
+      }
+
+
+      //sliders value showing code
+      var sliders = document.querySelectorAll('input[type="range"].slider')
+      sliders.forEach((slider) => {
         
+        var id = slider.id 
+
+        var outputsSet = document.getElementsByTagName('output')
+        for (var i=0; i < outputsSet.length; i++) 
+        {
+          var output = outputsSet[i]
+          if (output.htmlFor == id)
+          {
+            // connect the output and slider.
+            slider.addEventListener('input', (event) => {
+              output.value = event.target.value
+            })
+          }
+        }
+      }) 
+
+      
