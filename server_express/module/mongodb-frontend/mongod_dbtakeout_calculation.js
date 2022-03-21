@@ -25,7 +25,6 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         var organized_calender = {}
         onlyfor_pointer.forEach((doc) => {
             organized_calender = doc_seleter(doc,organized_calender)
-            console.log(organized_calender)
         })
         console.log(organized_calender)
 
