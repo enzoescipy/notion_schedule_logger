@@ -22,35 +22,32 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     function doc_spliter(onlyfor_pointer)
     {   
-        onlyfor_pointer.forEach((doc) => {doc_seleter(doc)()})
+        var organized_calender = {}
+        onlyfor_pointer.forEach((doc) => {
+            organized_calender = doc_seleter(doc,organized_calender)
+        })
         
-        var organized_calender = onlyfor_pointer
+
         return organized_calender
     }
 
-    function doc_seleter(doc)
+    function doc_seleter(doc, organized_calender)
     {
-        
-        var organized_calender = {}
         var propname = doc["id"] 
-        function handler()
+        for (key in doc)
         {
-            for (key in doc)
+            var value = doc[key]
+            if (key == "sub-collec" || key == "id" | key == "_id")
             {
-                var value = doc[key]
-                if (key == "sub-collec" || key == "id" | key == "_id")
-                {
-                    organized_calender = data_saver(-1,organized_calender)
-                }
-                else
-                {
-                    organized_calender = data_saver([propname, key, value],organized_calender)
-                }
-    
+                organized_calender = data_saver(-1,organized_calender)
             }
-        }
+            else
+            {
+                organized_calender = data_saver([propname, key, value],organized_calender)
+            }
 
-        return handler
+        }
+        return organized_calender
     }
 
     function data_saver(data, calender)
