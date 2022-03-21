@@ -18,8 +18,14 @@ router.get('/hardcoading',function(req, res) {
 
     mongoSETTING.get(0,0,0,1,0,function(value) {
         console.log("(get) show data inside of mongoDB")
+        var isDBloadSucced = "0"
+        if (((req.url).includes("?")) )
+        {
+            isDBloadSucced = ((req.url).split("?"))[1].split("=")[1]
+        }
+
         res.render('index',{
-                            isdataloaded :((req.url).split("?"))[1],
+                            isdataloaded : isDBloadSucced,
                             showday_amount: value,
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/hardcoading",
