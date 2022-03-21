@@ -40,7 +40,7 @@ async function delDBset(dbNamenum,dbVarinum, collectionTypenum)
     }
 }
 
-async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
+async function reloadDB_main(dbNamenum, collectionTypenum, callback)
 {
     current_lock = await mongoSETTINGs.get(1,1,0,1,0)
     if (current_lock == true)
@@ -50,8 +50,7 @@ async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
     }
     else
     {
-        console.log(dbNamenum,dbVarinum, 1, collectionTypenum)
-        await mongoGenerate.update_mainNotion(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
+        await mongoGenerate.update_mainNotion(dbNamenum, 1, collectionTypenum, callback)
     }
 
 }
