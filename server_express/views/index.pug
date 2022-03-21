@@ -41,6 +41,7 @@ html
           var target = hiddens[i]
           target.hidden = true
           var targetquerry = (target.outerText).split("?")
+          document.write(targetquerry[0])
           hidden_values[targetquerry[0]] = targetquerry[1]
         }
         //refresh Data result showing
