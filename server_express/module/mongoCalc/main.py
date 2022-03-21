@@ -195,10 +195,10 @@ def calc_getPointOfProp(propname, propdate, fromTest):
 
     print(-1, "function ended")
     sys.stdout.flush()
-    return 1
+    return -1
 
 
-def calc_getPointOfProp_noflush(propname, propdate, fromTest):
+def calc_getPointOfProp(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
@@ -214,11 +214,13 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
 
+    target_date = "invalid"
     while True:
         # find docs that has same id property.
         docs = collec.find_one({"id" : propname})
         if docs == None:
             client.close()
+            print(-1,"no match propname")
             return -1, "no match propname"
         else:
             # find if there are any date match with our purpose.
@@ -240,16 +242,17 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
                 break
 
 
-        target_date = datetime_list[0]
-        propdate_todateformat = date.fromisoformat(propdate)
-        for day in datetime_list:
-            if day <= propdate_todateformat and target_date <= day:
-                target_date = day
+    target_date = datetime_list[0]
+    propdate_todateformat = date.fromisoformat(propdate)
+    for day in datetime_list:
+        if day <= propdate_todateformat and target_date <= day:
+            target_date = day
     target_date_str = target_date.isoformat()
     target_rate = docs[target_date_str]["rate_rel"]
     target_ignorance = docs[target_date_str]["ignorance"]
     if target_rate == "invalid":
         client.close()
+        print(-1,"rate_rel not calculated")
         return -1, "rate_rel not calculated"
     else:
         #take the... "how long do you continuously keep your todo."
@@ -260,7 +263,9 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
             client.close()
             return final_point
 
+    print(-1, "function ended")
     return -1
+
 
 def calc_gPP_iter(propname, propdate_start, propdate_end, fromTest): # includes both start and end, not work if they are same
     try:
