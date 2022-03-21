@@ -271,12 +271,12 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         doc_all = collec.find({})
         doc_all = list(doc_all)
         proceeded = map(processor,doc_all)
-        return list(proceeded)
+        return dict(proceeded)
 
     def doc_processor(doc):
         propname = doc["id"]
         proceeded = map(for_all_date_in_doc_process(propname),doc.items())
-        return dict(list(proceeded))
+        return (propname, dict(list(proceeded)))
     
     def for_all_date_in_doc_process(propname):
         def date_processer(item):
