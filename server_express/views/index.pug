@@ -6,7 +6,7 @@ html
         script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
     body
-      div.hiddendata(value="isdataloaded") #{isdataloaded}
+      div.hiddendata #{isdataloaded}?isdataloaded
       div
         p.is-size-1.has-text-centered this is the bulma tester.
 
@@ -40,7 +40,8 @@ html
         {
           var target = hiddens[i]
           target.hidden = true
-          hidden_values[target.value:target.outerText]
+          var targetquerry = target.outerText.split("?")
+          hidden_values[targetquerry[0]:targetquerry[1]]
         }
         document.write(hidden_values)
         //refresh Data result showing
