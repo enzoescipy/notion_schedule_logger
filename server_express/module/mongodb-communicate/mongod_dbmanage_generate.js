@@ -166,6 +166,7 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
 {
     var dbVarinum = 0
     var seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    console.log(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
