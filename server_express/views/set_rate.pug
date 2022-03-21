@@ -11,11 +11,15 @@ html
       div.column
         div.coloumns
           div.couumn
-            form()
+            form(action="/api/ratesSet/")
+              input(type="hidden",name="portal3", value=iam )
+
               input.input(type="text" placeholder="Property name")
+
               input.slider.is-fullwidth(id="sliderWithValue" step="1" min="0" max="100" value="50" type="range")
               output(for="sliderWithValue" ) iamoutput
-              input.button(type="submit", value = "submit")
+
+              input.button(type="submit", value="submit")
           div.column
             form(action="/home")
               input(class="button", type="submit", value="Back" )

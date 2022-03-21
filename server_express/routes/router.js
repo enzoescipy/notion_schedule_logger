@@ -35,7 +35,7 @@ router.get('/home',function(req, res) {
 
 //python test router
 router.post('/home/rate_adjust', function(req, res) {
-    res.render('set_rate', {})
+    res.render('set_rate', {iam: '/home/rate_adjust'})
 })
 
 
@@ -49,12 +49,12 @@ router.post('/api/notionUpdate', function(req, res) {
     mongoPublic.reloadDB_main(0,0,(para) => {
         if (para == -1)
         {
-            console.log("(request) update data from notion -> server mongoDB ")
-            res.render('warp', {portal: req.body.portal, send: -1})
+            console.log("(request_1_denied) update data from notion -> server mongoDB, blocked by pre-settings ")
+            res.render('warp', {portal: req.body.portal1, send: -1})
         }
         else
         {
-            console.log("(request) update data from notion -> server mongoDB ")
+            console.log("(request_) update data from notion -> server mongoDB ")
             res.render('warp', {portal: req.body.portal, send: 1})
         }
 
@@ -63,9 +63,14 @@ router.post('/api/notionUpdate', function(req, res) {
 
 router.post('/api/SETTINGsSet/', function(req, res) {
     mongoSETTING.set(0,0,req.body.slider1,0,1,0,function() {
-        console.log("(request) update local settings in server. ")
+        console.log("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
+})
+
+router.post('/api/ratesSet/', function(req, res) {
+    console.log("(request_3) update calculation rate_abs in server. ")
+    res.render('warp', {portal: req.body.portal3})
 })
 
 
