@@ -216,11 +216,14 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         def date_processer(item):
             key = item[0]
             value = item[1]
-            if key[4] == "-" and key[7] == "-":
-                #then, key is propdate!
-                point = calc_getPointOfProp(propname, key, fromTest)
-                return (key, point)
-            else:
+            try:
+                if key[4] == "-" and key[7] == "-":
+                    #then, key is propdate!
+                    point = calc_getPointOfProp(propname, key, fromTest)
+                    return (key, point)
+                else:
+                    return -1
+            except IndexError:
                 return -1
         return date_processer
 
