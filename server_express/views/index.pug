@@ -6,7 +6,7 @@ html
         script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
     body
-      div.hiddendata #{isdataloaded}
+      div.hiddendata(value="isdataloaded") #{isdataloaded}
       div
         p.is-size-1.has-text-centered this is the bulma tester.
 
@@ -35,15 +35,16 @@ html
       script.
         //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
         var hiddens = document.getElementsByClassName('hiddendata')
-        var hidden_values = []
+        var hidden_values = {}
         for (var i=0;i < hiddens.length; i++)
         {
           var target = hiddens[i]
           target.hidden = true
-          hidden_values.push(target.outerText)
+          hidden_values[target.value:target.outerText]
         }
         document.write(hidden_values)
-        
+        //refresh Data result showing
+
 
         //sliders value showing code
         var sliders = document.querySelectorAll('input[type="range"].slider')
