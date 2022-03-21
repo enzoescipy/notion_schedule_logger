@@ -65,6 +65,7 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     if propname_test == None:
         client.close()
         print("no propname found in server. refresh it first.")
+        print(propname_test)
         sys.stdout.flush()
         return -1
     
