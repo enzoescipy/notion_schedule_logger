@@ -4,15 +4,15 @@ const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_publi
 const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 
 var dbtype_fixed = "test"
-function dbtype(whoperspective)
+function dbtype()
 {
     if (dbtype_fixed == "test")
     {
-        if (whoperspective == "human"){return 1}else if (whoperspective == "mongo"){return 0}
+        return 0
     }
     else if (dbtype_fixed == "main")
     {
-        if (whoperspective == "human"){return 0}else if (whoperspective == "mongo"){return 1}
+        return 1
     }
     else if (dbtype_fixed == "backup")
     {
@@ -50,11 +50,11 @@ router.get('/home',function(req, res) {
     }
 
     const getscore = () => {
-        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,dbtype("human")])
+        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,dbtype()])
         pythonProcess.stdout.on()
     }
 
-    mongoSETTING.get(0,0,0,dbtype("mongo"),0,rendering )
+    mongoSETTING.get(0,0,0,dbtype(),0,rendering )
 })
 
 //python test router
@@ -70,7 +70,7 @@ router.get('/home/rate_adjust', function(req, res) {
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    mongoPublic.reloadDB_main(0,0,dbtype("mongo"),(para) => {
+    mongoPublic.reloadDB_main(0,0,dbtype(),(para) => {
         if (para == -1)
         {
             console.log("(request_1_denied) update data from notion -> server mongoDB, blocked by pre-settings ")
@@ -86,7 +86,7 @@ router.post('/api/notionUpdate', function(req, res) {
 })
 
 router.post('/api/SETTINGsSet/', function(req, res) {
-    mongoSETTING.set(0,0,req.body.slider1,0,dbtype("mongo"),0,function() {
+    mongoSETTING.set(0,0,req.body.slider1,0,dbtype(),0,function() {
         console.log("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
@@ -99,7 +99,7 @@ router.post('/api/ratesSet/', function(req, res) {
     var ignorance = Number(req.body.ignorance)
 
     console.log(propname, proprate, ignorance)
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,dbtype("human"),ignorance,"XXXX-XX-XX"])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,dbtype(),ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString())

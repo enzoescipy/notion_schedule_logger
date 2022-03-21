@@ -45,10 +45,6 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     fromTest = int(fromTest)
     ignorance = int(ignorance)
     # get name and collectionName
-    if fromTest == 1:
-        fromTest = 0
-    else:
-        fromTest = 1
 
     selected_name = getName(0,1,fromTest,0)
 
@@ -128,10 +124,6 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
-    if fromTest == 1:
-        fromTest = 0
-    else:
-        fromTest = 1
 
 
     selected_name = getName(0,1,fromTest,0)
@@ -198,106 +190,56 @@ def calc_getPointOfProp(propname, propdate, fromTest):
     return -1
 
 
-def calc_getPointOfProp_noflush(propname, propdate, fromTest):
-    propname = str(propname)
-    propdate = str(propdate)
+
+def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
     fromTest = int(fromTest)
-    if fromTest == 1:
-        fromTest = 0
-    else:
-        fromTest = 1
+    override = bool(override)
 
-
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(0,0,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
+    #override true line
+    def override_true():
+        doc_all = collec.find({})
+        doc_all = list(doc_all)
+        proceeded = map(for_all_doc_process,doc_all)
+        return proceeded
 
-    target_date = "invalid"
-    while True:
-        # find docs that has same id property.
-        docs = collec.find_one({"id" : propname})
-        if docs == None:
-            client.close()
-            print(-1,"no match propname")
-            return -1, "no match propname"
-        else:
-            # find if there are any date match with our purpose.
-            datetime_list = []
-            for day in docs.keys():
-                current_datetime = "invalid"
-                try:
-                    if day[4] == "-" and day[7] == "-":
-                        current_datetime = date.fromisoformat(day)
-                        datetime_list.append(current_datetime)
-                        print(len(datetime_list))
-                except Exception as exp:
-                    continue
-
-            if len(datetime_list) == 0:
-                # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-                post_setRateOfProp(propname, 25, fromTest, propdate=propdate)
+    def for_all_doc_process(doc):
+        propname = doc["id"]
+        proceeded = map(for_all_date_in_doc_process(propname),doc.items())
+        return dict(proceeded)
+    
+    def for_all_date_in_doc_process(propname):
+        def date_processer(item):
+            key = item[0]
+            value = item[1]
+            if key[4] == "-" and key[7] == "-":
+                #then, key is propdate!
+                point = calc_getPointOfProp(propname, key, fromTest)
+                return (key, point)
             else:
-                break
+                return -1
 
-
-    target_date = datetime_list[0]
-    propdate_todateformat = date.fromisoformat(propdate)
-    for day in datetime_list:
-        if day <= propdate_todateformat and target_date <= day:
-            target_date = day
-    target_date_str = target_date.isoformat()
-    target_rate = docs[target_date_str]["rate_rel"]
-    target_ignorance = docs[target_date_str]["ignorance"]
-    if target_rate == "invalid":
-        client.close()
-        print(-1,"rate_rel not calculated")
-        return -1, "rate_rel not calculated"
+    #override false line
+    def override_false():
+        pass
+    
+    #functional_excute
+    if override == True:
+        proceeded_list_docAll = override_true(for_all_doc_process)
+        print(proceeded_list_docAll)
     else:
-        #take the... "how long do you continuously keep your todo."
-        client.close()
-        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
-        final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
-        if final_point >= 0 :
-            client.close()
-            return final_point
+        pass #override_false()
 
-    print(-1, "function ended")
-    return -1
-
-
-def calc_gPP_iter(propname, propdate_start, propdate_end, fromTest): # includes both start and end, not work if they are same
-    try:
-        start = date.fromisoformat(propdate_start)
-        end = date.fromisoformat(propdate_end)
-
-        if start >= end:
-            print("start date bigger than or same as end date.")
-            sys.stdout.flush()
-            return -1
-        day = start - datetime.timedelta(days=1)
-        sending = {}
-        while True:
-            day += datetime.timedelta(days=1)
-            if day > end:
-                print(sending)
-                sys.stdout.flush()
-                return 1
-            sending_day_point = calc_getPointOfProp_noflush(propname, day, fromTest)
-            if sending_day_point != -1:
-                sending.append(sending_day_point)
-
-    except ValueError:
-        print("propdate value wrong format.")
-        sys.stdout.flush()
-        return -1
 if fget == "0":
     post_setRateOfProp(*fvar)
 elif fget == "1":
     calc_getPointOfProp(*fvar)
-elif fget == "2":
-    calc_gPP_iter(*fvar)
+elif fget == "2" :
+    calc_gPP_doAllExceptOver(*fvar)
 else:
     print("invalid input.")
     sys.stdout.flush()
