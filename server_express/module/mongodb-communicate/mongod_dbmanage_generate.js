@@ -27,6 +27,7 @@ async function insertRandomDatepairs(dbNamenum,dbVarinum, dbTypenum, collectionT
         
         //get date data.
         var calender = await Notion.testsetget(Notion.workId,datestring)
+        if (calender == -1) {client.close(); return -1 }
         for (key in calender)
         {
             //get date data.

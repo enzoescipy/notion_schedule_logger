@@ -57,7 +57,8 @@ async function reloadDB_main(dbNamenum,dbTypenum, collectionTypenum, callback)
 
 async function generateDB_test(dbNamenum,dbVarinum, collectionTypenum, datestring, callback) // datestring means when to set today. if today is wed -> mon, tue, wed are saved.
 {
-    await mongoGenerate.insertRandomDatepairs(dbNamenum,dbVarinum, 0, collectionTypenum,datestring, callback)
+    check = await mongoGenerate.insertRandomDatepairs(dbNamenum,dbVarinum, 0, collectionTypenum,datestring, callback)
+    print(check)
 }
 
 async function saveDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
