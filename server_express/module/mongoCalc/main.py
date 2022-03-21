@@ -351,7 +351,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         selected_name = selected_name[0]
         collec = client[selected_name][selected_col]
         for doc in proceeded:
-            doc["sub-collec" : "pointer"]
+            doc["sub-collec"] = "pointer"
             collec.replace_one({"sub-collec" : "pointer"}, doc, upsert=True)
 
         return proceeded
