@@ -210,9 +210,9 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         # find docs that has same id property.
         docs = collec.find_one({"id" : propname})
         if docs == None:
-            client.close()
-            print(-1,"no match propname")
-            return -1
+            # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
+            post_setRateOfProp(propname, 25, fromTest,1, propdate)
+            continue
         else:
             # find if there are any date match with our purpose.
             datetime_list = []
@@ -228,7 +228,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
 
             if len(datetime_list) == 0:
                 # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-                post_setRateOfProp(propname, 25, fromTest, propdate=propdate)
+                post_setRateOfProp(propname, 25, fromTest,1, propdate)
             else:
                 break
 
