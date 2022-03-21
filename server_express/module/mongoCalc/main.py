@@ -222,6 +222,7 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
                 return (key, point)
             else:
                 return -1
+        return date_processer
 
     #override false line
     def override_false():
