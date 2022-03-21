@@ -61,7 +61,7 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     propname_test = collec_notion.find({"id":propname})
     if len(list(propname_test)) == 0:
         client.close()
-        print("no propname found in server. refresh it first.")
+        print("no propname found in server. refresh it first. propname : ",propname)
         sys.stdout.flush()
         return -1
     
