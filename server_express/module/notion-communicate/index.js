@@ -204,6 +204,7 @@ async function testsetget(databaseId, datestring)
 
 
 exports.getItemNOTION = getItem
+exports.workId = workId
 exports.testsetget = testsetget
 
 
