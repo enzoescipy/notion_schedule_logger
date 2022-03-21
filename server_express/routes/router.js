@@ -71,9 +71,9 @@ router.post('/api/SETTINGsSet/', function(req, res) {
 
 router.post('/api/ratesSet/', function(req, res) {
     //mongoCalc spawn
-    var propname = int(req.body.prop_name)
-    var proprate = int(req.body.rate_abs)
-    var ignorance = int(req.body.ignorance)
+    var propname = Number(req.body.prop_name)
+    var proprate = Number(req.body.rate_abs)
+    var ignorance = Number(req.body.ignorance)
 
     console.log(propname, proprate, ignorance)
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,ignorance])
