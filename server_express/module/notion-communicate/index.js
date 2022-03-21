@@ -112,7 +112,6 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
     for (var i=0; i<7;i++)
     {
       var dateText = monday.add(1,'days').format("YYYY-MM-DD")
-      console.log(dateText)
       var difference = Math.ceil(currnet_date.diff(monday,"days",true))
       if (1 + difference <= 0 || dateText === 'Invalid date')
       {
@@ -205,7 +204,6 @@ async function testsetget(databaseId, datestring)
 
 
 exports.getItemNOTION = getItem
-exports.workId = workId
 exports.testsetget = testsetget
 
 
