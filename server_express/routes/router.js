@@ -76,7 +76,7 @@ router.post('/api/ratesSet/', function(req, res) {
     var ignorance = Number(req.body.ignorance)
 
     console.log(propname, proprate, ignorance)
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,ignorance])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,ignorance])
     
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString())
