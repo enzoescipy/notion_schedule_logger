@@ -6,7 +6,7 @@ html
         script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
     body
-      p.hiddendata.isdataloaded(type="hidden") #{isdataloaded}
+      p.hiddendata #{isdataloaded}
 
       div
         p.is-size-1.has-text-centered this is the bulma tester.
@@ -35,7 +35,7 @@ html
 
       script.
         //refresh hidden datas
-        var hiddens = document.querySelectorAll('p[type="hidden"].hiddendata')
+        var hiddens = document.getElementsByTagName('p')getElementsByClassName('hiddendata')
         hiddens.forEach((hidden) => {
           document.write(hidden.value)
 
