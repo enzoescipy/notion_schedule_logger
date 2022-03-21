@@ -349,6 +349,12 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         propname = doc["id"]
         proceeded = map(for_all_date_in_doc_process(propname),doc.items())
         proceeded = dict(list(proceeded))
+        del_keys = []
+        for key in proceeded.keys():
+            if proceeded[key] == -1:
+                del_keys.append(key)
+        for delkey in del_keys:
+            del(proceeded[delkey])
 
         return (propname, proceeded)
     
@@ -356,6 +362,8 @@ def calc_gPP_doAllExceptOver(exceptiondateStart, fromTest, override):
         def date_processer(item):
             key = item[0]
             value = item[1]
+            if key == "_id":
+                return (key, -1)
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
