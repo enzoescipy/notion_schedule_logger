@@ -173,7 +173,7 @@ def calc_getPointOfProp(propname, propdate, fromTest):
         for day in datetime_list:
             if day <= propdate_todateformat and target_date <= day:
                 target_date = day
-    target_date_str = target_date.isoformat()
+    target_date_str = date.isoformat(target_date)
     target_rate = docs[target_date_str]["rate_rel"]
     target_ignorance = docs[target_date_str]["ignorance"]
     if target_rate == "invalid":
