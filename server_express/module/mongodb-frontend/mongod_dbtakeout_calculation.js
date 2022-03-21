@@ -50,7 +50,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     function data_saver(data, calender)
     {
         console.log(calender)
-        if (data == -1){return}
+        if (data == -1){return calender}
         function replacer(finderkey,insertkey,value)
         {
             console.log(finderkey,insertkey,value)
