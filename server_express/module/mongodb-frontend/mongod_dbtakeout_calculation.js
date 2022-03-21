@@ -13,7 +13,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     const database = client.db(seleted_dbnaming.DB)
     const collec = database.collection(seleted_dbnaming.collection)
 
-    function pointer_finder(collec)
+    async function pointer_finder(collec)
     {
         onlyfor_pointer = await collec.find({"sub-collec" : "pointer"})
         var organized_calender = doc_spliter(onlyfor_pointer)
@@ -72,7 +72,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
         replacer(data[1],data[0],data[2])
     }
-    var organized_calender = pointer_finder(collec)
+    var organized_calender = await pointer_finder(collec)
     console.log(organized_calender)
     return organized_calender
 }
