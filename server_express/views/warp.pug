@@ -4,9 +4,9 @@ p(id="testid") hello... i am p...
 
 script. 
     var send = "#{send}"
+    var warp = "#{portal}"
     if (send != "")
     {
-        document.write(send) 
+        warp = warp + "/?send=" + send
     }
-    var warp = "#{portal}"
     location.href = warp
