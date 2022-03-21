@@ -1,7 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
-var mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
+const express = require('express')
+const router = express.Router()
+const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
+const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 
 var dbtype_fixed = "test"
 function dbtype(whoperspective)
@@ -33,7 +33,7 @@ router.get('/',function(req, res) {
 
 //notion testing router
 router.get('/home',function(req, res) {
-    mongoSETTING.get(0,0,0,dbtype("mongo"),0,function(value) {
+    const rendering = (value) => {
         console.log("(get) show data inside of mongoDB")
         var isDBloadSucced = "0"
         if (((req.url).includes("?")) )
@@ -47,7 +47,14 @@ router.get('/home',function(req, res) {
                             title: "Dong hyo Ko - enzoescipy's life challenge",
                             iam: "/home",
         })
-    })
+    }
+
+    const getscore = () => {
+        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,dbtype("human")])
+        pythonProcess.stdout.on()
+    }
+
+    mongoSETTING.get(0,0,0,dbtype("mongo"),0,rendering )
 })
 
 //python test router
