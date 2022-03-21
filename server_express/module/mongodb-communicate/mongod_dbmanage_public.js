@@ -50,6 +50,7 @@ async function reloadDB_main(dbNamenum,dbVarinum, collectionTypenum, callback)
     }
     else
     {
+        console.log(dbNamenum,dbVarinum, 1, collectionTypenum)
         await mongoGenerate.update_mainNotion(dbNamenum,dbVarinum, 1, collectionTypenum, callback)
     }
 
