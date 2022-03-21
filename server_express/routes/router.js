@@ -14,7 +14,7 @@ router.get('/',function(req, res) {
 })
 
 //notion testing router
-router.get('/hardcoading',function(req, res) {
+router.get('/home',function(req, res) {
 
     mongoSETTING.get(0,0,0,1,0,function(value) {
         console.log("(get) show data inside of mongoDB")
@@ -28,10 +28,19 @@ router.get('/hardcoading',function(req, res) {
                             isdataloaded : isDBloadSucced,
                             showday_amount: value,
                             title: "Dong hyo Ko - enzoescipy's life challenge",
-                            iam: "/hardcoading",
+                            iam: "/home",
         })
     })
 })
+
+//python test router
+router.post('/home/rate_adjust', function(req, res) {
+    res.render('set_rate', {})
+})
+
+
+
+
 
 
 
@@ -56,16 +65,6 @@ router.post('/api/SETTINGsSet/', function(req, res) {
     mongoSETTING.set(0,0,req.body.slider1,0,1,0,function() {
         console.log("(request) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
-    })
-})
-
-//python test router
-router.post('/api/pythonCalc/test', function(req, res) {
-    //python raise
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,"면도","2022-03-17",1])
-    pythonProcess.stdout.on('data', (data) => {
-        console.log(data.toString())
-        res.render('warp', {portal:req.body.dir})
     })
 })
 
