@@ -269,10 +269,6 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
-    if fromTest == 1:
-        fromTest = 0
-    else:
-        fromTest = 1
 
 
     selected_name = getName(0,1,fromTest,0)
