@@ -124,7 +124,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
         week[i] = dateText
       }
     }
-    if (count === 7 ) {console.log("hahahahaha")}
+    if (count === 7 ) {return -1}
 
     const response = await notion.databases.query({
       database_id : databaseId,
