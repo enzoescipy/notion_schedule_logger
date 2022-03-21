@@ -6,8 +6,7 @@ html
         script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
     body
-      div(type="hidden") sljtnlwekljsdf
-      div.hiddendata(type="hidden") #{isdataloaded}
+      div.hiddendata #{isdataloaded}
       div
         p.is-size-1.has-text-centered this is the bulma tester.
 
@@ -38,7 +37,9 @@ html
         var hiddens = document.getElementsByClassName('hiddendata')
         for (var i=0;i < hiddens.length; i++)
         {
-          document.write(hiddens[i].outerText)
+          var target = hiddens[i]
+          target.hide()
+          document.write(target.outerText)
         }
         
 
