@@ -73,7 +73,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     return organized_calender
 }
 
-async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
+async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
@@ -108,7 +108,6 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
             for (i in colorized)
             {
                 var color = colorized[i]
-                console.log(color)
                 if (color === suggested)
                 {
                     suggested = -1
@@ -122,8 +121,10 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
         return "no color left error"
     }
 
+    if (callback != null){callback({"index": color_indexer(calender_legacy), "data" : calender})}
+
     return {"index": color_indexer(calender_legacy), "data" : calender}
 }
 
 exports.calc_pointer_organize = calc_pointer_organize
-exports.calc_ratingOrganize = calc_ratingOrganize
+exports.calc_pointer_reOrganize = calc_pointer_reOrganize

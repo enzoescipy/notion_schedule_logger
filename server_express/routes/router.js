@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
+const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculation")
 
 var dbtype_fixed = "test"
 function dbtype()
@@ -31,31 +32,48 @@ router.get('/',function(req, res) {
                     })
 })
 
-//notion testing router
-router.get('/home',function(req, res) {
-    const rendering = (value) => {
-        console.log("(get) show data inside of mongoDB")
-        var isDBloadSucced = "0"
-        if (((req.url).includes("?")) )
-        {
-            isDBloadSucced = ((req.url).split("?"))[1].split("=")[1]
-        }
+//main page router
+router.get('/home', home_rendernow)
+async function home_rendernow(req, res)
+{
+    var dataset = {
+        mainScoreData : undefined,
+        isdataloaded : undefined,
+        showday_amount: undefined,
+        title: "Dong hyo Ko - enzoescipy's life challenge",
+        iam: "/home", }
+    
+    dataset["mainScoreData"] = await home_get_mainScoreData(0,dbtype(),0)
 
-        res.render('index',{
-                            isdataloaded : isDBloadSucced,
-                            showday_amount: value,
-                            title: "Dong hyo Ko - enzoescipy's life challenge",
-                            iam: "/home",
-        })
+    dataset["isdataloaded"] = await home_get_isdataloaded(req)
+
+    dataset["showday_amount"] = await home_get_showday_amount(0,0,0,dbtype(),0)
+
+    res.render('index',dataset)
+}
+
+async function home_get_mainScoreData(dbNamenum, dbTypenum, collectionTypenum)
+{
+    var organized_table = await calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum)
+    return organized_table
+}
+
+async function home_get_isdataloaded(req)
+{
+    var isDBloadSucced = "0"
+    if (((req.url).includes("?")) )
+    {
+        isDBloadSucced = ((req.url).split("?"))[1].split("=")[1]
     }
+    return isDBloadSucced
+}
 
-    const getscore = () => {
-        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,propname,proprate,dbtype()])
-        pythonProcess.stdout.on()
-    }
+async function home_get_showday_amount(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum)
+{
+    return await mongoSETTING.get(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum)
+}
 
-    mongoSETTING.get(0,0,0,dbtype(),0,rendering )
-})
+
 
 //python test router
 router.get('/home/rate_adjust', function(req, res) {
