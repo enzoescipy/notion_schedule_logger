@@ -95,11 +95,11 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
     function colorputter(doc, colorized)
     {
         var id = doc["id"]
-        var color = colorsampler(colorized)
+        var color = colorsampler(colorized, id)
         colorized[id] = color
         return colorized
     }
-    function colorsampler(colorized)
+    function colorsampler(colorized, id)
     {
         var sample = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
         for (j in sample)
@@ -107,7 +107,7 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
             var suggested = sample[j]
             for (i in colorized)
             {
-                var color = colorized[i][1]
+                var color = colorized[id]
                 if (color === suggested)
                 {
                     suggested = -1
