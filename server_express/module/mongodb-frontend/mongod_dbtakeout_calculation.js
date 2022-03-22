@@ -86,8 +86,7 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
     // color index
     function color_indexer(calender_legacy)
     {   
-        var color_index
-        var colorized = []
+        var colorized = {}
         calender_legacy.forEach((doc) => {
             colorized = colorputter(doc, colorized)
         })
@@ -97,7 +96,7 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
     {
         var id = doc["id"]
         var color = colorsampler(colorized)
-        colorized.push([id, color])
+        colorized[id] = color
         return colorized
     }
     function colorsampler(colorized)
