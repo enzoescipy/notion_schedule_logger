@@ -73,7 +73,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     return organized_calender
 }
 
-async function calc_ratingOrganize()
+async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
