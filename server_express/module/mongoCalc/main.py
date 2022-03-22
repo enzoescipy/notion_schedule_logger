@@ -332,9 +332,8 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     print(-1, "function ended")
     return -1
 
-def calc_gPP_doAllExcept(exceptiondate, fromTest, override):
+def calc_gPP_doAllExcept(exceptiondate, fromTest):
     fromTest = int(fromTest)
-    override = bool(override)
 
     selected_name = getName(0,0,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
