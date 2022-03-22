@@ -99,7 +99,7 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
         colorized[id] = color
         return colorized
     }
-    function colorsampler(colorized, id)
+    function colorsampler(colorized)
     {
         var sample = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
         for (j in sample)
@@ -107,7 +107,8 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
             var suggested = sample[j]
             for (i in colorized)
             {
-                var color = colorized[id]
+                var color = colorized[i]
+                console.log(color)
                 if (color === suggested)
                 {
                     suggested = -1
