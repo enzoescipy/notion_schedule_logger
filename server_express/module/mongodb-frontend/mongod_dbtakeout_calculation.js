@@ -69,8 +69,14 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         return calender
     }
     var organized_calender = await pointer_finder(collec)
-    console.log(organized_calender)
+    if (callback != null){callback(organized_calender); return }
     return organized_calender
+}
+
+async function calc_ratingOrganize()
+{
+    var calender = await calc_pointer_organize()
+    
 }
 
 exports.calc_pointer_organize = calc_pointer_organize
