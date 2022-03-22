@@ -54,7 +54,7 @@ async function home_rendernow(req, res)
 
 async function home_get_mainScoreData(dbNamenum, dbTypenum, collectionTypenum)
 {
-    var organized_table = await calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum)
+    var organized_table = await mongoFront.calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum)
     return organized_table
 }
 
