@@ -75,8 +75,54 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
 async function calc_ratingOrganize()
 {
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
+    await client.connect()
+    const database = client.db(seleted_dbnaming.DB)
+    const collec = database.collection(seleted_dbnaming.collection)
+
     var calender = await calc_pointer_organize()
-    
+    var calender_legacy = await collec.find({'sub-collec': 'pointer'}, {"id":1})
+
+    // color index
+    function color_indexer(calender_legacy)
+    {   
+        var color_index
+        var colorized = []
+        calender_legacy.forEach((doc) => {
+            colorized = colorputter(doc, colorized)
+        })
+        return colorized
+    }
+    function colorputter(doc, colorized)
+    {
+        var id = doc["id"]
+        var color = colorsampler(colorized)
+        colorized.push([id, color])
+        return colorized
+    }
+    function colorsampler(colorized)
+    {
+        var sample = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
+        for (j in sample)
+        {
+            var suggested = sample[j]
+            for (i in colorized)
+            {
+                var color = colorized[i][1]
+                if (color === suggested)
+                {
+                    suggested = -1
+                }
+            }
+            if (suggested !== -1)
+            {
+                return suggested
+            }
+        }
+        return "no color left error"
+    }
+
+    return {"index": color_indexer(calender_legacy), "data" : calender}
 }
 
 exports.calc_pointer_organize = calc_pointer_organize
