@@ -25,11 +25,14 @@ class Mathfunc:
         return adjusted_function
 
 def normal_rewardfunc(num):
+    num = num - 1
     base = Mathfunc.smallDip_increase_maintain()
     if 0 <= num <= 6:
         return base[num][1]
     elif num > 6:
         return base[6][1]
+    elif num == -1:
+        return 0.0
     else:
         return -1
 Mathfunc.normal_rewardfunc = normal_rewardfunc
