@@ -126,3 +126,4 @@ async function calc_ratingOrganize()
 }
 
 exports.calc_pointer_organize = calc_pointer_organize
+exports.calc_ratingOrganize = calc_ratingOrganize
