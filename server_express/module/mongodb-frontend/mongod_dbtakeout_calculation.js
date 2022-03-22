@@ -80,7 +80,7 @@ async function calc_ratingOrganize(dbNamenum, dbTypenum, collectionTypenum)
     const database = client.db(seleted_dbnaming.DB)
     const collec = database.collection(seleted_dbnaming.collection)
 
-    var calender = await calc_pointer_organize()
+    var calender = await calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum)
     var calender_legacy = await collec.find({'sub-collec': 'pointer'}, {"id":1})
 
     // color index
