@@ -45,9 +45,8 @@ async function home_rendernow(req, res)
         iam: "/home", }
     
     mainScoreData = await home_get_mainScoreData(0,dbtype(),0)
-    dataset["mainScoreData_index"] = mainScoreData["index"]
-    dataset["mainScoreData_main"] = mainScoreData["data"]
-
+    dataset["mainScoreData_index"] = JSON.stringify(mainScoreData["index"])
+    dataset["mainScoreData_main"] = JSON.stringify(mainScoreData["data"])
 
     dataset["isdataloaded"] = await home_get_isdataloaded(req)
 

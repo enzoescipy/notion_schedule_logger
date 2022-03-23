@@ -7,11 +7,13 @@ html
 
   body
     p.hiddendata isdataloaded?#{isdataloaded}
-    p maindata_index#{mainScoreData_index}
-    p maindata_main#{mainScoreData_main}
+    p.hiddendata mainScoreData_index?#{mainScoreData_index}
+    p.hiddendata mainScoreData_main?#{mainScoreData_main}
     div
-      p.is-size-1.has-text-centered this is the bulma tester.
-
+      - 
+        var mainScoreData_index = JSON.parse(mainScoreData_index)
+        var mainScoreData_main =  JSON.parse(mainScoreData_main) 
+        document.write(mainScoreData_index,mainScoreData_index)
     div.columns
       div.column.is-two-thirds
         form(action='/api/SETTINGsSet/', method="post")
@@ -46,7 +48,8 @@ html
         hidden_bodys[targetquerry[0]] = target
       }
       //main score showing code
-      
+      var mainScoreData_index = JSON.parse(hidden_values["mainScoreData_index"])
+      var mainScoreData_main =  JSON.parse(hidden_values["mainScoreData_main"])
 
       //refresh Data result showing
       var isdataloaded = hidden_values["isdataloaded"]
