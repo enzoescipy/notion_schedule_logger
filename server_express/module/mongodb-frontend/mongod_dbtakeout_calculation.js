@@ -84,10 +84,10 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     var calender_legacy = await collec.find({'sub-collec': 'pointer'}, {"id":1})
 
     // color index
-    function color_indexer(calender_legacy)
+    async function color_indexer(calender_legacy)
     {   
         var colorized = {}
-        calender_legacy.forEach((doc) => {
+        await calender_legacy.forEach((doc) => {
             colorized = colorputter(doc, colorized)
         })
         console.log(colorized)
@@ -121,7 +121,7 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         }
         return "no color left error"
     }
-    var result = color_indexer(calender_legacy)
+    var result = await color_indexer(calender_legacy)
 
     if (callback != null){callback({"index": result, "data" : calender})}
 
