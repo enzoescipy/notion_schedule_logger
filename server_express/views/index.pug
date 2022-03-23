@@ -13,8 +13,8 @@ html
       - 
         mainScoreData_index = JSON.parse(mainScoreData_index)
         mainScoreData_main =  JSON.parse(mainScoreData_main) 
-      p #{mainScoreData_index}
-      p #{mainScoreData_main}
+      p #{mainScoreData_index["턱걸이 합 10개"]}
+      p #{mainScoreData_main['2022-03-15']}
     div.columns
       div.column.is-two-thirds
         form(action='/api/SETTINGsSet/', method="post")
