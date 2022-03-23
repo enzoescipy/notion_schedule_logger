@@ -122,9 +122,9 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     }
 
     if (callback != null){callback({"index": color_indexer(calender_legacy), "data" : calender})}
+    console.log(color_indexer(calender_legacy))
 
     return {"index": color_indexer(calender_legacy), "data" : calender}
-    console.log(color_indexer(calender_legacy))
 }
 
 exports.calc_pointer_organize = calc_pointer_organize
