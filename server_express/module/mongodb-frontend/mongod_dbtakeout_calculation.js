@@ -90,6 +90,7 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         calender_legacy.forEach((doc) => {
             colorized = colorputter(doc, colorized)
         })
+        console.log(colorized)
         return colorized
     }
     function colorputter(doc, colorized)
@@ -121,7 +122,6 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         return "no color left error"
     }
     var result = color_indexer(calender_legacy)
-    console.log(result)
 
     if (callback != null){callback({"index": result, "data" : calender})}
 
