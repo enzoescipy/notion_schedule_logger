@@ -120,9 +120,9 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         }
         return "no color left error"
     }
+    console.log(color_indexer(calender_legacy))
 
     if (callback != null){callback({"index": color_indexer(calender_legacy), "data" : calender})}
-    console.log(color_indexer(calender_legacy))
 
     return {"index": color_indexer(calender_legacy), "data" : calender}
 }
