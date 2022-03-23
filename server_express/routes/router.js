@@ -37,13 +37,17 @@ router.get('/home', home_rendernow)
 async function home_rendernow(req, res)
 {
     var dataset = {
-        mainScoreData : undefined,
+        mainScoreData_index : undefined,
+        mainScoreData_main : undefined,
         isdataloaded : undefined,
         showday_amount: undefined,
         title: "Dong hyo Ko - enzoescipy's life challenge",
         iam: "/home", }
     
-    dataset["mainScoreData"] = await home_get_mainScoreData(0,dbtype(),0)
+    mainScoreData = await home_get_mainScoreData(0,dbtype(),0)
+    dataset["mainScoreData_index"] = mainScoreData["index"]
+    dataset["mainScoreData_main"] = mainScoreData["data"]
+
 
     dataset["isdataloaded"] = await home_get_isdataloaded(req)
 

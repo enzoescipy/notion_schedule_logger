@@ -7,6 +7,8 @@ html
 
   body
     p.hiddendata isdataloaded?#{isdataloaded}
+    p maindata_index#{mainScoreData_index}
+    p maindata_main#{mainScoreData_main}
     div
       p.is-size-1.has-text-centered this is the bulma tester.
 
@@ -20,7 +22,7 @@ html
               output(for="sliderWithValue" ) #{showday_amount}
             div.column
               input(class="button", type="submit", value="submit" )
-          
+
       div.column
         form(action="/api/notionUpdate", method="post") 
           input(type="hidden",name="portal1", value=iam )
@@ -28,7 +30,7 @@ html
 
       div.column
         a(class="button" href="/home/rate_adjust") Set density of prop
-    
+
 
     script.
       //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
@@ -43,10 +45,13 @@ html
         hidden_values[targetquerry[0]] = targetquerry[1]
         hidden_bodys[targetquerry[0]] = target
       }
+      //main score showing code
+      
+
       //refresh Data result showing
       var isdataloaded = hidden_values["isdataloaded"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]
-      
+
       if (isdataloaded === "-1")
       {
         inputTarget.setAttribute("value", "request Blocked!")
@@ -56,7 +61,7 @@ html
       //sliders value showing code
       var sliders = document.querySelectorAll('input[type="range"].slider')
       sliders.forEach((slider) => {
-        
+
         var id = slider.id 
 
         var outputsSet = document.getElementsByTagName('output')
@@ -73,4 +78,3 @@ html
         }
       }) 
 
-      
