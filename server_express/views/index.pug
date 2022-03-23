@@ -11,9 +11,10 @@ html
     p.hiddendata mainScoreData_main?#{mainScoreData_main}
     div
       - 
-        var mainScoreData_index = JSON.parse(mainScoreData_index)
-        var mainScoreData_main =  JSON.parse(mainScoreData_main) 
-        document.write(mainScoreData_index,mainScoreData_index)
+        mainScoreData_index = JSON.parse(mainScoreData_index)
+        mainScoreData_main =  JSON.parse(mainScoreData_main) 
+      p #{mainScoreData_index}
+      p #{mainScoreData_main}
     div.columns
       div.column.is-two-thirds
         form(action='/api/SETTINGsSet/', method="post")
