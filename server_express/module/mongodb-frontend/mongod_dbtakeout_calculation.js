@@ -101,7 +101,7 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     }
     function colorsampler(colorized)
     {
-        var sample = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
+        var sample = ["white","black","light","dark","primary","link","info","succes","warning","danger"]
         for (j in sample)
         {
             var suggested = sample[j]
