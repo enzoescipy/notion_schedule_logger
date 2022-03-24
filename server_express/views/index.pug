@@ -106,7 +106,6 @@ html
       }
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
-      window.alert(JSON.stringify(main_organized))
 
       main_organized.sort((a,b) => {
         var a_date = new Date(a.date)
@@ -123,11 +122,17 @@ html
       {
         var date_string = target.innerText
         var tag_object = {"tagBody":target, "tagWhere":"outter"}
-        main_organized[date_string].push(tag_object)
+        for (let i=0; i<main_organized.length; i++)
+        {
+          var innerobj = main_organized[i]
+          if (innerobj["date"] == date_string)
+          {
+            main_organized[i]["tags"].push(tag_object)
+            return
+          }
+        }
       }
-      window.alert(JSON.stringify(main_organized))
       getElementsByClassName_repeat("main_outter", main_outter_organizer)
-      window.alert(JSON.stringify(main_organized))
       //index grabbing code
       var index_organized = {}
       function index_organizer(target)
