@@ -147,7 +147,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 
             return {"E_date":earlist_date, "rate":rate, "color":color}
         })
-
+        console.log(rateData_organized)
         return rateData_organized
     }
 
