@@ -6,7 +6,7 @@ html
     script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
 
   body
-    p.has-text-black isdataloaded?#{isdataloaded}
+    p.hiddendata isdataloaded?#{isdataloaded}
     p.hiddendata mainScoreData_index?#{mainScoreData_index}
     p.hiddendata mainScoreData_main?#{mainScoreData_main}
     div
@@ -19,7 +19,7 @@ html
       div.columns 
         each val in mainScoreData_index
           div.column
-            p(class="has-text-#{val[1]}") #{val[0]} has-text-#{val[1]}
+            p.has-text-#{val[1]} #{val[0]} has-text-#{val[1]}
       
 
     div.columns
