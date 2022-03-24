@@ -167,6 +167,8 @@ html
       {
         var dateTable = main_organized[date]
         var tagArr = dateTable["tags"]
+        var pointSum = 0
+        var lazyOuter = undefined
         for (let i=0;i<tagArr.length; i++)
         {
           var taginfo = tagArr[i]
@@ -176,12 +178,16 @@ html
             var point = taginfo["point"]
             var propname = taginfo["propname"]
             //change text to point
+            pointSum += Math.floor(point*1000)
             if (point !== 0) {tag.innerText = (Math.floor(point*1000)).toString()}
             else {tag.hidden=true}
             tag.className += " has-background-" + index_organized[propname]["color"]
             tag.className += " has-text-light"
           }
+          if (taginfo["tagWhere"] === "outter") {lazyOuter = i}
         }
+        var outer_tag = tagArr[lazyOuter]["tagBody"]
+        outer_tag.innerText += "\n" + pointSum.toString()
       }
 
       //slider DB loading succed or fail showing
