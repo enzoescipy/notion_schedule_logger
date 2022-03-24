@@ -74,6 +74,7 @@ html
       //main score part
       ////inner main score grabging code
       const moment = require('moment')
+      window.alert("hello, world!")
       
       var main_organized = {}
       function main_inner_organizer(target)
@@ -94,7 +95,6 @@ html
           main_organized[date_string] = [tag_object]
         }
       }
-      window.alert("hello, world!")
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
 
