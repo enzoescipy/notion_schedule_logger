@@ -11,8 +11,10 @@ html
     p.hiddendata mainScoreData_main?#{mainScoreData_main}
     div
       - 
-        mainScoreData_index = (mainScoreData_index)
-        mainScoreData_main =  (mainScoreData_main) 
+        mainScoreData_index = JSON.parse(mainScoreData_index)
+        mainScoreData_index = Object.entries(mainScoreData_index)
+        mainScoreData_main =  JSON.parse(mainScoreData_main) 
+        for (key in mainScoreData_main) {var value = mainScoreData_main[key]; mainScoreData_main[key]=Object.entries(value)}
       p #{mainScoreData_index}
       p #{mainScoreData_main}
     div.columns
@@ -51,7 +53,8 @@ html
       //main score showing code
       var mainScoreData_index = JSON.parse(hidden_values["mainScoreData_index"])
       var mainScoreData_main =  JSON.parse(hidden_values["mainScoreData_main"])
-
+      mainScoreData_index = Object.entries(mainScoreData_index)
+      for (key in mainScoreData_main) {var value = mainScoreData_main[key]; mainScoreData_main[key]=Object.entries(value)}
       //refresh Data result showing
       var isdataloaded = hidden_values["isdataloaded"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]

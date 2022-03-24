@@ -90,7 +90,6 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         await calender_legacy.forEach((doc) => {
             colorized = colorputter(doc, colorized)
         })
-        console.log(colorized)
         return colorized
     }
     function colorputter(doc, colorized)
