@@ -115,8 +115,6 @@ html
         else {return 0}
       })
 
-
-
       ////outer main score grabbing code
       function main_outter_organizer(target)
       {
@@ -133,6 +131,7 @@ html
         }
       }
       getElementsByClassName_repeat("main_outter", main_outter_organizer)
+
       //index grabbing code
       var index_organized = {}
       function index_organizer(target)
@@ -142,12 +141,14 @@ html
         index_organized[propname] = {"color" : color, "tagBody" : target}
       }
       getElementsByClassName_repeat("index", index_organizer)
+
       //indexbeautify
       for (propname in index_organized)
       {
         var color = index_organized[propname]["color"]
         var tag = index_organized[propname]["tagBody"]
         tag.innerText = propname
+        tag.className += " has-text-" + color
       }
 
       //slider DB loading succed or fail showing
