@@ -80,7 +80,6 @@ html
 
       getElementsByClassName_repeat('hiddendata', hider_storingOK)
       getElementsByClassName_repeat("hidden",hider_storingNO)
-      window.alert(JSON.stringify(hidden_values))
       //main score part
       ////inner main score grabging code
 
@@ -140,17 +139,7 @@ html
       getElementsByClassName_repeat("index", index_organizer)
       */
       //debug
-      for (key in main_organized)
-      {
-
-        /*
-        arr = main_organized[key]
-        for (let i=0; i<arr.length; i++)
-        {
-          arr[i]["tagBody"].innerText = "hello, world!"
-        }
-        */
-      }
+      window.alert(JSON.stringify(main_organized))
 
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
