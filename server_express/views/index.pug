@@ -13,8 +13,10 @@ html
       - 
         mainScoreData_index = JSON.parse(mainScoreData_index)
         mainScoreData_index = Object.entries(mainScoreData_index)
-        mainScoreData_main =  JSON.parse(mainScoreData_main) 
-        for (key in mainScoreData_main) {var value = mainScoreData_main[key]; mainScoreData_main[key]=Object.entries(value)}
+        mainScoreData_main_old =  JSON.parse(mainScoreData_main) 
+        mainScoreData_main = []
+
+        for (key in mainScoreData_main_old) {var value = mainScoreData_main_old[key]; mainScoreData_main.push([key,Object.entries(value)])}
       // index case
       div.columns 
         each val in mainScoreData_index
