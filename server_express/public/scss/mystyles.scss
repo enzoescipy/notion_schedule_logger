@@ -1,6 +1,4 @@
 @charset "utf-8";
-@import "../../node_modules/bulma/sass/utilities/initial-variables";
-@import "../../node_modules/bulma/sass/utilities/functions";
 
 $themeColours: (
     "maroon" : "0", 
@@ -21,3 +19,5 @@ $themeColours: (
 {
     .has-text-#{$color} {color:$color;};
 };
+
+@import "../../node_modules/bulma/bulma.sass";
