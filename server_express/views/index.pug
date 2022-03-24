@@ -82,7 +82,7 @@ html
 
       window.alert("hello, world!")
       
-      var main_organized = {}
+      var main_organized = []
 
       function main_inner_organizer(target)
       {
@@ -93,21 +93,23 @@ html
 
         var tag_object = {"propname":propname, "point":point, "tagBody":target, "tagWhere":"inner"}
         
-        if (main_organized.hasOwnProperty(date_string) == true)
+        for (let i=0; i<main_organized.length; i++)
         {
-          main_organized[date_string].push(tag_object)
+          var innerobj = main_organized[i]
+          if (innerobj["date"] == date_string)
+          {
+            main_organized[i]["tags"].push(tag_object)
+            return
+          }
         }
-        else
-        {
-          main_organized[date_string] = [tag_object]
-        }
+        main_organized.push({"date":date_string, "tags":tag_object})
       }
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
 
       main_organized.sort((a,b) => {
-        var a_date = new Date(a)
-        var b_date = new Date(b)
+        var a_date = new Date(a.date)
+        var b_date = new Date(b.date)
         if (a_date < b_date) {return -1}
         else if (a_date > b_date) {return 1}
         else {return 0}
