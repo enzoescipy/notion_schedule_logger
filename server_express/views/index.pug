@@ -61,7 +61,8 @@ html
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
-          hidden_bodys[targetquerry[0]] = target
+          bodySet[targetquerry[0]] = target
+          document.write("hello, world!")
           repeatFunc(target)
         }
         return bodySet
