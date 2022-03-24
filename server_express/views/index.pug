@@ -131,7 +131,7 @@ html
       }
       getElementsByClassName_repeat("main_outter", main_outter_organizer)
 
-      //index grabbing code
+      ////index grabbing code
       var index_organized = {}
       function index_organizer(target)
       {
@@ -141,13 +141,29 @@ html
       }
       getElementsByClassName_repeat("index", index_organizer)
 
-      //indexbeautify
+      ////index beautify
       for (propname in index_organized)
       {
         var color = index_organized[propname]["color"]
         var tag = index_organized[propname]["tagBody"]
-        tag.innerText = propname + ":" + color
+        tag.innerText = propname
         tag.className += " has-text-" + color
+      }
+
+      ////main score beautify
+      for (date in main_organized)
+      {
+        var dateTable = main_organized[date]
+        var tagArr = dateTable["tags"]
+        for (let i=0;i<tagArr.length; i++)
+        {
+          var taginfo = tagArr[i]
+          if (taginfo["tagWhere"] === "inner")
+          {
+            var tag = taginfo["tagBody"]
+            tag.innerText = "hello, world!"
+          }
+        }
       }
 
       //slider DB loading succed or fail showing
