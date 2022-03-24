@@ -9,7 +9,6 @@ html
     p.hiddendata isdataloaded?#{isdataloaded}
     p.hiddendata mainScoreData_index?#{mainScoreData_index}
     p.hiddendata mainScoreData_main?#{mainScoreData_main}
-    p #{mainScoreData_main}
     div
       - 
         mainScoreData_index = JSON.parse(mainScoreData_index)
@@ -23,6 +22,12 @@ html
             p(id="#{val[0]}") #{val[0]} 
       
       // mainData case
+      div.columns
+        each arr in mainScoreData_main
+          div.column
+            p #{arr[0]}
+            p ---------
+            p #{arr[1]}
 
 
       
