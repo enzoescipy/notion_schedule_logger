@@ -161,7 +161,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
             {
                 continue
             } 
-            if ((date_store === undefined) && (Date(date_store) < Date(key)))
+            if ((date_store === undefined) || (Date(date_store) < Date(key)))
             {
                 date_store = key
             }
