@@ -52,7 +52,6 @@ html
 
 
     script.
-      //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
       document.write("hello, world!")
       function getElementsByClassName_repeat(className, repeatFunc)
       {
@@ -62,6 +61,7 @@ html
         {
           var target = gets[i]
           bodySet[targetquerry[0]] = target
+          document.write("hello, world!")
           document.write(bodySet[targetquerry[0]])
           repeatFunc(target)
         }
