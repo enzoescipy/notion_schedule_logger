@@ -16,9 +16,10 @@ html
         mainScoreData_main_old =  JSON.parse(mainScoreData_main) 
         mainScoreData_main = []
         for (key in mainScoreData_main_old) {var value = mainScoreData_main_old[key]; mainScoreData_main.push([key,Object.entries(value)])}
+      p #{mainScoreData_main}
       // index case
       div.columns 
-      - mainScoreData_main.sort((a,b) => {
+      - /*mainScoreData_main.sort((a,b) => {
         var a_date = new Date(a[0])
         var b_date = new Date(b[0])
         if (a_date < b_date) {return -1}
@@ -27,7 +28,7 @@ html
         })
         each val in mainScoreData_index
           div.column
-            p.index(id=val[0]) #{val[1]} 
+            p.index(id=val[0]) #{val[1]} */
       
       // mainData case
       div.columns
