@@ -88,12 +88,18 @@ html
         window.alert(JSON.stringify(main_organized))
 
         var date_string = target.id
+        window.alert(JSON.stringify(main_organized))
+
         var value_string = target.innerText.split(":")
+        window.alert(JSON.stringify(main_organized))
+
         var propname = value_string[0]
+        window.alert(JSON.stringify(main_organized))
+
         var point = Number(value_string[1])
+        window.alert(JSON.stringify(main_organized))
 
         var tag_object = {"propname":propname, "point":point, "tagBody":target, "tagWhere":"inner"}
-        window.alert(JSON.stringify(main_organized))
         
         if (main_organized.hasOwnProperty(date_string) == true)
         {
