@@ -59,10 +59,6 @@ html
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
-          document.write("hello, world!")
-
-          bodySet[targetquerry[0]] = target
-
           repeatFunc(target)
         }
         return bodySet
@@ -72,9 +68,9 @@ html
       {
         target.hidden = true
         var targetquerry = (target.outerText).split("?")
-        hidden_values[targetquerry[0]] = targetquerry[1]
+        hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
-      var hidden_bodys = getElementsByClassName_repeat('hiddendata', hider)
+      getElementsByClassName_repeat('hiddendata', hider)
       /*
 
       //main score part
@@ -133,7 +129,7 @@ html
       */
 
       //refresh Data result showing
-      var isdataloaded = hidden_values["isdataloaded"]
+      var isdataloaded = hidden_values["isdataloaded"]["value"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]
 
       if (isdataloaded === "-1")
