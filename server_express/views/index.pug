@@ -79,9 +79,7 @@ html
       getElementsByClassName_repeat("hidden",hider_storingNO)
       //main score part
       ////inner main score grabging code
-      window.alert("hello, world!")
 
-      const moment = require('moment')
       window.alert("hello, world!")
       
       var main_organized = {}
@@ -120,8 +118,8 @@ html
       window.alert(JSON.stringify(main_organized))
 
       main_organized.sort((a,b) => {
-        var a_date = moment(a, "YYYY-MM-DD")
-        var b_date = moment(b,"YYYY-MM-DD")
+        var a_date = new Date(a, "YYYY-MM-DD")
+        var b_date = new Date(b,"YYYY-MM-DD")
         if (a_date < b_date) {return -1}
         else if (a_date > b_date) {return 1}
         else {return 0}
