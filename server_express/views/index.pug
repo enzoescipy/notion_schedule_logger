@@ -56,13 +56,14 @@ html
       {
         var gets = document.getElementsByClassName(className)
         var bodySet = {}
-        window.alert("hello, world!")
 
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
           repeatFunc(target)
         }
+        window.alert("hello, world!")
+
         return bodySet
       }
       var hidden_values = {}
