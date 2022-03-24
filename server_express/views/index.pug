@@ -91,8 +91,6 @@ html
         var propname = value_string[0]
         var point = Number(value_string[1])
 
-        window.alert(JSON.stringify(target))
-
         var tag_object = {"propname":propname, "point":point, "tagBody":target, "tagWhere":"inner"}
         
         if (main_organized.hasOwnProperty(date_string) == true)
@@ -106,7 +104,6 @@ html
       }
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
-      window.alert(JSON.stringify(main_organized))
 
       main_organized.sort((a,b) => {
         var a_date = new Date(a, "YYYY-MM-DD")
@@ -119,7 +116,6 @@ html
 
 
       ////outer main score grabbing code
-      /*
       function main_outter_organizer(target)
       {
         var date_string = target.innerText
@@ -127,9 +123,7 @@ html
         main_organized[date_string].push(tag_object)
       }
       getElementsByClassName_repeat("main_outter", main_outter_organizer)
-      */
       //index grabbing code
-      /*
       var index_organized = {}
       function index_organizer(target)
       {
@@ -138,8 +132,10 @@ html
         index_organized[propname] = {"color" : color, "tagBody" : target}
       }
       getElementsByClassName_repeat("index", index_organizer)
-      */
       //debug
+      
+        window.alert(JSON.stringify(main_organized))
+        window.alert(JSON.stringify(index_organized))
 
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
