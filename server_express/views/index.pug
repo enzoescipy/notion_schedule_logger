@@ -18,7 +18,9 @@ html
       // index case
       div.columns 
         each val in mainScoreData_index
-          div.column 35
+          div.column
+            p(style={color:val[1]}) val[0]
+      
 
     div.columns
       div.column.is-two-thirds
