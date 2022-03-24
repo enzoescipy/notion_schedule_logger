@@ -188,3 +188,4 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 
 exports.calc_pointer_organize = calc_pointer_organize
 exports.calc_pointer_reOrganize = calc_pointer_reOrganize
+exports.calc_rate_organize = calc_rate_organize
