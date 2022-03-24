@@ -17,8 +17,7 @@ html
         mainScoreData_main = []
         for (key in mainScoreData_main_old) {var value = mainScoreData_main_old[key]; mainScoreData_main.push([key,Object.entries(value)])}
         mainScoreData_main.sort(sortbydate)
-        
-      p #{mainScoreData_main}
+
       // index case
       div.columns 
         each val in mainScoreData_index
