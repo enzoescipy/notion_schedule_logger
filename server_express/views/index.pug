@@ -106,6 +106,7 @@ html
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
 
       main_organized.sort((a,b) => {
+        window.alert(JSON.stringify(main_organized))
         var a_date = new Date(a, "YYYY-MM-DD")
         var b_date = new Date(b,"YYYY-MM-DD")
         if (a_date < b_date) {return -1}
