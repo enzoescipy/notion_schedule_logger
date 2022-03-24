@@ -19,7 +19,16 @@ html
       div.columns 
         each val in mainScoreData_index
           div.column
-            p(class="has-text-primary") #{val[0]} has-text-#{val[1]}
+            p(id="#{val[0]}") #{val[0]} 
+      
+      // mainData case
+      div.columns
+        each arr in mainScoreData_main
+          div.column
+            p #{arr[0]}
+            each val in arr
+              p #{val[0]} : #{val[1]}
+
       
 
     div.columns
