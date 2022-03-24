@@ -28,8 +28,8 @@ html
         each arr in mainScoreData_main
           div.column
             p #{arr[0]}
-            p ---------
-            p #{arr[1]}
+              each val in arr[1]
+                p #{val[0]} : #{val[1]}
 
 
       
