@@ -62,8 +62,6 @@ html
           var target = gets[i]
           repeatFunc(target)
         }
-        window.alert("hello, world!")
-
         return bodySet
       }
       var hidden_values = {}
@@ -73,6 +71,8 @@ html
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
+      window.alert(hidden_values)
+
 
       getElementsByClassName_repeat('hiddendata', hider)
       //main score part
