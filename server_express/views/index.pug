@@ -68,7 +68,6 @@ html
       function hider_storingOK(target)
       {
         target.hidden = true
-        window.alert(target.innerText)
         var targetquerry = (target.innerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
@@ -104,8 +103,10 @@ html
           main_organized[date_string] = [tag_object]
         }
       }
+      window.alert(JSON.stringify(main_organized))
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
+      window.alert(JSON.stringify(main_organized))
 
       main_organized.sort((a,b) => {
         var a_date = moment(a, "YYYY-MM-DD")
@@ -139,7 +140,6 @@ html
       getElementsByClassName_repeat("index", index_organizer)
       */
       //debug
-      window.alert(JSON.stringify(main_organized))
 
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
