@@ -56,7 +56,6 @@ html
       {
         var gets = document.getElementsByClassName(className)
         var bodySet = {}
-        document.write("hello, world!")
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
@@ -79,6 +78,7 @@ html
       var main_organized = {}
       function main_inner_organizer(target)
       {
+        /*
         var date_string = target.id
         var value_string = target.innerText.split(":")
 
@@ -94,6 +94,7 @@ html
         {
           main_organized[date_string] = [tag_object]
         }
+        */
       }
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
       /*
