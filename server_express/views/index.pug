@@ -142,10 +142,13 @@ html
         index_organized[propname] = {"color" : color, "tagBody" : target}
       }
       getElementsByClassName_repeat("index", index_organizer)
-      //debug
-      
-      window.alert(JSON.stringify(main_organized))
-      window.alert(JSON.stringify(index_organized))
+      //indexbeautify
+      for (propname in index_organized)
+      {
+        var color = index_organized[propname]["color"]
+        var tag = index_organized[propname]["tagBody"]
+        tag.innerText = propname
+      }
 
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
