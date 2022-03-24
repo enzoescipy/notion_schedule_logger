@@ -56,6 +56,8 @@ html
       {
         var gets = document.getElementsByClassName(className)
         var bodySet = {}
+        window.alert("hello, world!")
+
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
@@ -70,7 +72,6 @@ html
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
-      window.alert("hello, world!")
 
       getElementsByClassName_repeat('hiddendata', hider)
       //main score part
