@@ -95,6 +95,7 @@ html
         }
       }
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
+      window.alert("hello, world!")
 
       main_organized.sort((a,b) => {
         var a_date = moment(a, "YYYY-MM-DD")
@@ -103,7 +104,6 @@ html
         else if (a_date > b_date) {return 1}
         else {return 0}
       })
-      window.alert("hello, world!")
 
 
 
