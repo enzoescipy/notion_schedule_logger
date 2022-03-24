@@ -67,11 +67,11 @@ html
       var hidden_values = {}
       function hider(target)
       {
+        window.alert(JSON.stringify(hidden_values))
         target.hidden = true
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
-      window.alert(JSON.stringify(hidden_values))
 
 
       getElementsByClassName_repeat('hiddendata', hider)
