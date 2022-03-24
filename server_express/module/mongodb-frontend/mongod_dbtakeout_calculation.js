@@ -138,13 +138,13 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
     {
         // get rate DB and re-organize
         var rate_DB = await collec.find({"sub-collec" : "rater"}) 
-        var color_counter = colorizer()
+        var colorizer_child = colorizer()
         await rate_DB.forEach((doc) => {
             var earlist_date = earlist_date_finder(doc)
             console.log(earlist_date)
 
             var rate = doc[earlist_date]["rate_abs"]
-            var color = color_counter()
+            var color = colorizer_child()
 
             return {"E_date":earlist_date, "rate":rate, "color":color}
         })
