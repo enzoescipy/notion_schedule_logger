@@ -94,8 +94,9 @@ html
           main_organized[date_string] = [tag_object]
         }
       }
-      getElementsByClassName_repeat("main_inner", main_inner_organizer)
       window.alert("hello, world!")
+
+      getElementsByClassName_repeat("main_inner", main_inner_organizer)
 
       main_organized.sort((a,b) => {
         var a_date = moment(a, "YYYY-MM-DD")
