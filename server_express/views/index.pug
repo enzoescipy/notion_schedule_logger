@@ -161,7 +161,8 @@ html
           if (taginfo["tagWhere"] === "inner")
           {
             var tag = taginfo["tagBody"]
-            tag.innerText = "hello, world!"
+            var point = taginfo["point"]
+            tag.innerText = (point*100).toString()
           }
         }
       }
