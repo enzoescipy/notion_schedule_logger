@@ -16,13 +16,8 @@ $themeColours: (
     "aqua" : 0
 );
 
-/* color defination */
+// color defination 
 @each $color, $i in $themeColours 
 {
-    .has-text-#{$color} {color:$color;};
+    .has-text-#{$color} {color:$color;}
 };
-
-.has-text-maroon
-{
-    color:maroon;
-}
