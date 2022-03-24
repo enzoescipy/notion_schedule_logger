@@ -21,18 +21,15 @@ html
       div.columns 
         each val in mainScoreData_index
           div.column
-            p(id="#{val[0]}") #{val[0]} 
+            p.index(id="#{val[0]}") #{val[1]} 
       
       // mainData case
       div.columns
         each arr in mainScoreData_main
           div.column
-            p #{arr[0]}
+            p.main_outter #{arr[0]}
               each val in arr[1]
-                p #{val[0]} : #{val[1]}
-
-
-      
+                p.main_inner(id="#{arr[0]}") #{val[0]}:#{val[1]}
 
     div.columns
       div.column.is-two-thirds
@@ -56,22 +53,81 @@ html
 
     script.
       //refresh hidden datas and hide it (css dosen't work cause by bulma sibalnom)
-      var hiddens = document.getElementsByClassName('hiddendata')
-      var hidden_values = {}
-      var hidden_bodys = {}
-      for (var i=0;i < hiddens.length; i++)
+      function getElementsByClassName_repeat(className, repeatFunc)
       {
-        var target = hiddens[i]
+        var gets = document.getElementsByClassName(className)
+        var bodySet = {}
+        for (var i=0; i < gets.length; i++)
+        {
+          var target = gets[i]
+          hidden_bodys[targetquerry[0]] = target
+          repeatFunc(target)
+        }
+        return bodySet
+      }
+      var hidden_values = {}
+      function hider(target)
+      {
         target.hidden = true
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = targetquerry[1]
-        hidden_bodys[targetquerry[0]] = target
       }
-      //main score showing code
-      var mainScoreData_index = JSON.parse(hidden_values["mainScoreData_index"])
-      var mainScoreData_main =  JSON.parse(hidden_values["mainScoreData_main"])
-      mainScoreData_index = Object.entries(mainScoreData_index)
-      for (key in mainScoreData_main) {var value = mainScoreData_main[key]; mainScoreData_main[key]=Object.entries(value)}
+      var hidden_bodys = getElementsByClassName_repeat('hiddendata', hider)
+
+      //main score part
+      ////inner main score grabging code
+
+      const moment = require('moment');
+      var main_organized = {}
+      function main_inner_organizer(target)
+      {
+        var date_string = target.id
+        var value_string = target.innerText.split(":")
+
+        var propname = value_string[0]
+        var point = Number(value_string[1])
+
+        var tag_object = {"propname":propname, "point":point, "tagBody":target, "tagWhere":"inner"}
+        if main_organized.hasOwnPropperty(date_string) == true
+        {
+          main_organized[date_string].push(tag_object)
+        }
+        else
+        {
+          main_organized[date_string] = [tag_object]
+        }
+      }
+      getElementsByClassName_repeat("main_inner", main_inner_organizer)
+      main_organized.sort((a,b) => {
+        var a_date = moment(a, "YYYY-MM-DD")
+        var b_date = moment(b,"YYYY-MM-DD")
+        if a_date < b_date {return -1}
+        else if a_date > b_date {return 1}
+        else {return 0}
+      })
+
+      ////outer main score grabbing code
+      function main_outter_organizer(target)
+      {
+        var date_string = target.innerText
+        var tag_object = {"tagBody":target, "tagWhere":"outter"}
+        main_organized[date_string].push(tag_object)
+      }
+      getElementsByClassName_repeat("main_outter", main_outter_organizer)
+
+      //index grabbing code
+      var index_organized = {}
+      function index_organizer(target)
+      {
+        var propname = target.id
+        var color = target.innerText
+        index_organized[propname] = {"color" : color, "tagBody" : target}
+      }
+
+      document.write(main_organized)
+      document.write(index_organized)
+
+
       //refresh Data result showing
       var isdataloaded = hidden_values["isdataloaded"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]
