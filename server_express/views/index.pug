@@ -122,9 +122,11 @@ html
         var color = target.innerText
         index_organized[propname] = {"color" : color, "tagBody" : target}
       }
+      document.write("hello,")
       getElementsByClassName_repeat("index", index_organizer)
-      document.write(JSON.stringfy(main_organized))
-      document.write(JSON.stringfy(index_organizer))
+      document.write("world!")
+      //document.write(JSON.stringfy(main_organized))
+      //document.write(JSON.stringfy(index_organizer))
 
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
