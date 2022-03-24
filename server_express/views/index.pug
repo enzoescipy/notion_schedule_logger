@@ -86,6 +86,7 @@ html
 
       function main_inner_organizer(target)
       {
+        window.alert(JSON.stringify(main_organized))
         var date_string = target.id
         var value_string = target.innerText.split(":")
         var propname = value_string[0]
@@ -95,7 +96,6 @@ html
         
         for (let i=0; i<main_organized.length; i++)
         {
-          window.alert(JSON.stringify(main_organized))
           var innerobj = main_organized[i]
           if (innerobj["date"] == date_string)
           {
@@ -103,7 +103,8 @@ html
             return
           }
         }
-        main_organized.push({"date":date_string, "tags":tag_object})
+        window.alert(JSON.stringify(main_organized))
+        main_organized.push({"date":date_string, "tags":[tag_object]})
       }
       window.alert(JSON.stringify(main_organized))
 
