@@ -58,9 +58,10 @@ html
         var bodySet = {}
         for (var i=0; i < gets.length; i++)
         {
-          document.write("hello, world!")
           var target = gets[i]
           bodySet[targetquerry[0]] = target
+          document.write("hello, world!")
+
           repeatFunc(target)
         }
         return bodySet
