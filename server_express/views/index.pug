@@ -21,7 +21,7 @@ html
       div.columns 
         each val in mainScoreData_index
           div.column
-            p.index(id="#{val[0]}") #{val[1]} 
+            p.index(id=val[0]) #{val[1]} 
       
       // mainData case
       div.columns
@@ -29,7 +29,7 @@ html
           div.column
             p.main_outter #{arr[0]}
               each val in arr[1]
-                p.main_inner(id="#{arr[0]}") #{val[0]}:#{val[1]}
+                p.main_inner(id=arr[0]) #{val[0]}:#{val[1]}
 
     div.columns
       div.column.is-two-thirds
