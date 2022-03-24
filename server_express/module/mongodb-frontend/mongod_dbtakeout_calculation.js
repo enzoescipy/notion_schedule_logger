@@ -127,5 +127,64 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     return {"index": result, "data" : calender}
 }
 
+async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
+{
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
+    await client.connect()
+    const database = client.db(seleted_dbnaming.DB)
+    const collec = database.collection(seleted_dbnaming.collection)
+
+    async function rateData_organizer(collec)
+    {
+        // get rate DB and re-organize
+        var rate_DB = await collec.find({"sub-collec" : "rater"}) 
+        var color_counter = colorizer()
+        await rate_DB.forEach((doc) => {
+            var earlist_date = earlist_date_finder(doc)
+            var rate = doc[earlist_date]["rate_abs"]
+            var color = color_counter()
+
+            return {"E_date":earlist_date, "rate":rate, "color":color}
+        })
+
+        return rateData_organized
+    }
+
+    function earlist_date_finder(doc)
+    {
+        var date_store = undefined
+        for (key in doc)
+        {
+            if (key == "sub-collec" || key == "id" | key == "_id")
+            {
+                continue
+            } 
+            if ((date_store === undefined) && (Date(date_store) < Date(key)))
+            {
+                date_store = key
+            }
+        }
+        return date_store
+    }
+
+    function colorizer()
+    {
+        var colortable = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
+        var count = 0
+        function color_counter()
+        {
+            count += 1
+            return colortable[count]
+        }
+        return color_counter
+    }
+    
+
+    var rateData_organized = rateData_organizer(collec)
+
+    if (callback != null){callback(rateData_organized)}
+    return rateData_organized
+}
+
 exports.calc_pointer_organize = calc_pointer_organize
 exports.calc_pointer_reOrganize = calc_pointer_reOrganize
