@@ -68,7 +68,7 @@ html
       function hider_storingOK(target)
       {
         target.hidden = true
-        var targetquerry = (target.outerText).split("?")
+        var targetquerry = (target.innerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
       function hider_storingNO(target)
