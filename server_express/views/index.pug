@@ -147,7 +147,8 @@ html
         var color = index_organized[propname]["color"]
         var tag = index_organized[propname]["tagBody"]
         tag.innerText = propname
-        tag.className += " has-text-" + color
+        tag.className += " has-background-" + color
+        tag.className += " has-text-light"
       }
 
       ////main score beautify
@@ -166,7 +167,8 @@ html
             //change text to point
             if (point !== 0) {tag.innerText = (Math.floor(point*1000)).toString()}
             else {tag.hidden=true}
-            tag.className += " has-text-" + index_organized[propname]["color"]
+            tag.className += " has-background-" + index_organized[propname]["color"]
+            tag.className += " has-text-light"
           }
         }
       }

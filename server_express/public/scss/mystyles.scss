@@ -17,7 +17,7 @@ $themeColours: (
 
 @each $color, $value in $themeColours 
 {
-    .has-text-#{$color} {color:$value;};
+    .has-background-#{$color} {background-color:$value;};
 };
 
 @import "../../node_modules/bulma/bulma.sass";

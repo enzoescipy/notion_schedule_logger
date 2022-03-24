@@ -1,50 +1,50 @@
 @charset "UTF-8";
-.has-text-maroon {
-  color: maroon;
+.has-background-maroon {
+  background-color: maroon;
 }
 
-.has-text-red {
-  color: red;
+.has-background-red {
+  background-color: red;
 }
 
-.has-text-purple {
-  color: purple;
+.has-background-purple {
+  background-color: purple;
 }
 
-.has-text-fuchsia {
-  color: fuchsia;
+.has-background-fuchsia {
+  background-color: fuchsia;
 }
 
-.has-text-green {
-  color: green;
+.has-background-green {
+  background-color: green;
 }
 
-.has-text-lime {
-  color: lime;
+.has-background-lime {
+  background-color: lime;
 }
 
-.has-text-olive {
-  color: olive;
+.has-background-olive {
+  background-color: olive;
 }
 
-.has-text-yellow {
-  color: yellow;
+.has-background-yellow {
+  background-color: yellow;
 }
 
-.has-text-navy {
-  color: navy;
+.has-background-navy {
+  background-color: navy;
 }
 
-.has-text-blue {
-  color: blue;
+.has-background-blue {
+  background-color: blue;
 }
 
-.has-text-teal {
-  color: teal;
+.has-background-teal {
+  background-color: teal;
 }
 
-.has-text-aqua {
-  color: aqua;
+.has-background-aqua {
+  background-color: aqua;
 }
 
 /*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
