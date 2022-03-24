@@ -19,5 +19,5 @@ $themeColours: (
 /* color defination */
 @each $color, $i in $themeColours 
 {
-    .has-text-#{$color} {color:$color};
+    .has-text-#{$color} {color:$color;};
 };
