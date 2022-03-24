@@ -16,7 +16,7 @@ html
         mainScoreData_main_old =  JSON.parse(mainScoreData_main) 
         mainScoreData_main = []
         for (key in mainScoreData_main_old) {var value = mainScoreData_main_old[key]; mainScoreData_main.push([key,Object.entries(value)])}
-        mainScoreData_main.sort((a,b) => {var a_date = new Date(a[0]);var b_date = new Date(b[0]);if (a_date < b_date) {return -1};else if (a_date > b_date) {return 1};else {return 0};})
+      - mainScoreData_main.sort(function(a,b) {var a_date = new Date(a[0]);var b_date = new Date(b[0]);if (a_date < b_date) {return -1};else if (a_date > b_date) {return 1};else {return 0};})
       p #{mainScoreData_main}
       // index case
       div.columns 
