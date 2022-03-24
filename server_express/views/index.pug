@@ -7,8 +7,8 @@ html
 
   body
     p.hiddendata isdataloaded?#{isdataloaded}
-    p.hiddendata mainScoreData_index?#{mainScoreData_index}
-    p.hiddendata mainScoreData_main?#{mainScoreData_main}
+    p.hidden mainScoreData_index?#{mainScoreData_index}
+    p.hidden mainScoreData_main?#{mainScoreData_main}
     div
       - 
         mainScoreData_index = JSON.parse(mainScoreData_index)
@@ -65,16 +65,21 @@ html
         return bodySet
       }
       var hidden_values = {}
-      function hider(target)
+      function hider_storingOK(target)
       {
-        window.alert(JSON.stringify(hidden_values))
         target.hidden = true
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
+      function hider_storingNO(target)
+      {
+        target.hidden = true
+      }
 
 
-      getElementsByClassName_repeat('hiddendata', hider)
+      getElementsByClassName_repeat('hiddendata', hider_storingOK)
+      getElementsByClassName_repeat("hidden",hider_storingNO)
+      window.alert(JSON.stringify(hidden_values))
       //main score part
       ////inner main score grabging code
 
