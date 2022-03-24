@@ -52,17 +52,16 @@ html
 
 
     script.
-      document.write("hello, world!")
       function getElementsByClassName_repeat(className, repeatFunc)
       {
         var gets = document.getElementsByClassName(className)
         var bodySet = {}
+          document.write("hello, world!")
+
         for (var i=0; i < gets.length; i++)
         {
           var target = gets[i]
           bodySet[targetquerry[0]] = target
-          document.write("hello, world!")
-          document.write(bodySet[targetquerry[0]])
           repeatFunc(target)
         }
         return bodySet
