@@ -141,7 +141,6 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
         var colorizer_child = colorizer()
         rateData_organized = await rate_DB.forEach((doc) => {
             var earlist_date = earlist_date_finder(doc)
-            console.log(earlist_date)
 
             var rate = doc[earlist_date]["rate_abs"]
             var color = colorizer_child()
@@ -182,7 +181,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
     }
     
 
-    var rateData_organized = rateData_organizer(collec)
+    var rateData_organized = await rateData_organizer(collec)
 
     if (callback != null){callback(rateData_organized)}
     return rateData_organized
