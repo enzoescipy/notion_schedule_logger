@@ -104,8 +104,10 @@ html
         }
         main_organized.push({"date":date_string, "tags":tag_object})
       }
+      window.alert(JSON.stringify(main_organized))
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
+      window.alert(JSON.stringify(main_organized))
 
       main_organized.sort((a,b) => {
         var a_date = new Date(a.date)
@@ -115,7 +117,6 @@ html
         else {return 0}
       })
 
-      window.alert(JSON.stringify(main_organized))
 
 
       ////outer main score grabbing code
