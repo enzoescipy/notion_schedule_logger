@@ -162,8 +162,11 @@ html
           {
             var tag = taginfo["tagBody"]
             var point = taginfo["point"]
-            if (point !== 0) {tag.innerText = (Math.floor(point*100)).toString()}
+            var propname = taginfo["propname"]
+            //change text to point
+            if (point !== 0) {tag.innerText = (Math.floor(point*1000)).toString()}
             else {tag.hidden=true}
+            tag.className += " has-text-" + index_organized[propname]["color"]
           }
         }
       }
