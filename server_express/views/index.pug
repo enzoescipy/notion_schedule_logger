@@ -71,7 +71,7 @@ html
         var targetquerry = (target.outerText).split("?")
         hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
       }
-      window.alert(hidden_values)
+      window.alert(JSON.stringfy(hidden_values))
 
 
       getElementsByClassName_repeat('hiddendata', hider)
