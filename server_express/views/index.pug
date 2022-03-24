@@ -15,8 +15,11 @@ html
         mainScoreData_index = Object.entries(mainScoreData_index)
         mainScoreData_main =  JSON.parse(mainScoreData_main) 
         for (key in mainScoreData_main) {var value = mainScoreData_main[key]; mainScoreData_main[key]=Object.entries(value)}
-      p #{mainScoreData_index}
-      p #{mainScoreData_main}
+      // index case
+      div.columns 
+        each val in mainScoreData_index
+          dib.column= val[0] +":"+ val[1]
+
     div.columns
       div.column.is-two-thirds
         form(action='/api/SETTINGsSet/', method="post")
