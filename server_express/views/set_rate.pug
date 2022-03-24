@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href="/css/mystyles.css")
     script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
   body
+    p.hidden rateData?#{rateData}
     div.columns
       div.column.is-10
         p this is empty space for rate visualgraphics.
@@ -30,4 +31,27 @@ html
     
 
     script.
-        
+      //html hiding code
+      function getElementsByClassName_repeat(className, repeatFunc)
+      {
+        var gets = document.getElementsByClassName(className)
+
+        for (var i=0; i < gets.length; i++)
+        {
+          var target = gets[i]
+          repeatFunc(target)
+        }
+      }
+      var hidden_values = {}
+      function hider_storingOK(target)
+      {
+        target.hidden = true
+        var targetquerry = (target.innerText).split("?")
+        hidden_values[targetquerry[0]] = {"value":targetquerry[1]}
+      }
+      function hider_storingNO(target)
+      {
+        target.hidden = true
+      }
+
+      

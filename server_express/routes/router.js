@@ -79,15 +79,25 @@ async function home_get_showday_amount(wherenum, whatnum,dbNamenum,dbTypenum,col
 
 
 //python test router
-router.get('/home/rate_adjust', function(req, res) {
-    res.render('set_rate', {iam: '/home/rate_adjust'})
-})
 
+router.get('/home/rate_adjust', rate_rendernow)
 
+async function rate_rendernow(req, res)
+{
+    var dataset = {iam: '/home/rate_adjust',
+                   rateData: undefined}
+    
+    dataset["rateData"] = JSON.stringify(await rate_get_rateData(0,dbtype(),0))
 
+    res.render("set_rate", dataset)
+}
 
+async function rate_get_rateData(dbNamenum, dbTypenum, collectionTypenum)
+{
+    return await mongoFront.calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum)
+}
 
-
+   
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
