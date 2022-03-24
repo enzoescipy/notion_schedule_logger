@@ -67,7 +67,7 @@ html
       {
         target.hidden = true
         var targetquerry = (target.innerText).split("?")
-        hidden_values[targetquerry[0]] = {"value":targetquerry[1],"tagBody":target}
+        hidden_values[targetquerry[0]] = {"value":targetquerry[1]}
       }
       function hider_storingNO(target)
       {
@@ -95,7 +95,7 @@ html
 
         var point = Number(value_string[1])
 
-        var tag_object = {"propname":propname, "point":point, "tagBody":target, "tagWhere":"inner"}
+        var tag_object = {"propname":propname, "point":point, "tagBody":Object.assign({},target), "tagWhere":"inner"}
         
         if (main_organized.hasOwnProperty(date_string) == true)
         {
@@ -106,7 +106,6 @@ html
           main_organized[date_string] = [tag_object]
         }
       }
-      window.alert(JSON.stringify(main_organized))
 
       getElementsByClassName_repeat("main_inner", main_inner_organizer)
       window.alert(JSON.stringify(main_organized))
