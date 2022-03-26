@@ -67,8 +67,6 @@ html
       //// data grabing part
 
       var rate_tags = {}
-      var rate_datas = JSON.parse(rateData)
-      window.alert(rate_datas)
 
       function rate_organizer(target)
       {
@@ -77,5 +75,5 @@ html
       }
 
       getElementsByClassName_repeat("rateData", rate_organizer)
-
+      window.alert(JSON.stringify(rate_tags))
       //data beautify
