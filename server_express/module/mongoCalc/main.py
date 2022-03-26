@@ -444,6 +444,7 @@ def calc_setCommulativeOfPropAll(fromTest):
         pointsum = 0
         def child(item):
             nonlocal pointsum
+            print(pointsum)
             pointsum += item[1]
             return (item[0],pointsum) #(key, commulated_pointer)
         return child
