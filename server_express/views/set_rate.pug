@@ -112,6 +112,7 @@ html
           var output = outputsSet[i]
           if ((output.htmlFor.toString()).trim() === id.trim())
           {
+            window.alert("hahaha")
             slider.addEventListener('input', (event) => {
               output.value = event.target.value
             })
