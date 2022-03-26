@@ -85,8 +85,9 @@ router.get('/home/rate_adjust', rate_rendernow)
 
 async function rate_rendernow(req, res)
 {
-    var dataset = {iam: '/home/rate_adjust',
-                   rateData: undefined}
+    var dataset = { iam: '/home/rate_adjust',
+                    rateData: undefined,    
+                }
     
     dataset["rateData"] = JSON.stringify(await rate_get_rateData(0,dbtype(),0))
 

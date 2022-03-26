@@ -91,7 +91,6 @@ html
 
       getElementsByClassName_repeat("rateData", rate_organizer)
       ////rate data beautify
-
       for (propname in rate_datas)
       {
         var tagobj = rate_datas[propname]
@@ -102,3 +101,20 @@ html
         tag.className += " has-background-"+color
         tag.className += " has-text-light"
       }
+
+      // slidersvaluechanging
+      var sliders = document.querySelectorAll('input[type="range"].slider')
+      sliders.forEach((slider) => {
+        var id = slider.id
+        var outputsSet = document.getElementsByTagName('output')
+        for (let i=0; i< outputsSet; i++)
+        {
+          var output = outputsSet[i]
+          if (output.htmlFor == id)
+          {
+            slider.addEventListener('input', (event) => {
+              output.value = event.target.value
+            })
+          }
+        }
+      })
