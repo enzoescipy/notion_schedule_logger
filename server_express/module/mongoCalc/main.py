@@ -6,8 +6,6 @@ from datetime import date, datetime
 #decide what function to excute
 
 fget = sys.argv[1]
-print(fget)
-sys.stdout.flush()
 fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
