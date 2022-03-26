@@ -58,13 +58,8 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     function doc_seleter(doc, organized_calender)
     {
         var propname = doc["id"] 
-        var date_length_count = 0
         for (key in doc)
         {
-            if (date_length_count >= current_length)
-            {
-                break
-            }
             var value = doc[key]
             if (key == "sub-collec" || key == "id" || key == "_id")
             {
@@ -72,7 +67,6 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             }
             else
             {
-                date_length_count += 1
                 organized_calender = data_saver([propname, key, value],organized_calender)
             }
 
