@@ -158,12 +158,14 @@ html
       function commulative_organizer(target)
       {
         var commulative_object = JSON.parse(target.innerText)
+        window.alert("hello, world!")
         var date = target.id
         var pointsum = 0
         for (i in commulative_object)
         {
           var comu = commulative_object[i]
           pointsum += comu[1]
+          window.alert(pointsum)
         }
         commulative_organized[date] = {"value":pointsum, "tagBody" : target}
       }
