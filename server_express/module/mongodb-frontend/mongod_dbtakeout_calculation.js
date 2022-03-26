@@ -141,13 +141,13 @@ function data_saver(data, calender)
     if (data == -1){return calender}
     function replacer(finderkey,insertkey,value)
     {
-        if (calender[insertkey] === undefined)
+        if (calender[finderkey] === undefined)
         {
-            calender[insertkey] = 0
+            calender[finderkey] = 0
         }
         else
         {
-            calender[insertkey] += value
+            calender[finderkey] += value
         }
     }
 
