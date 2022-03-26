@@ -8,13 +8,13 @@ html
     p.hidden rateData?#{rateData}
     -   
       rateData = JSON.parse(rateData)
-      
+
     div.columns
       div.column.is-10
         div.columns
           each valObj, key in rateData
-            p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}
-
+            div.column
+              p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}
       div.column
         div.columns
           div.column
