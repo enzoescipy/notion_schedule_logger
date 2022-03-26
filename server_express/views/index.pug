@@ -165,8 +165,7 @@ html
           var point = comu_obj[propname]
           pointsum += point
         }
-        document.write(pointsum)
-        commulative_organized[date] = pointsum
+        commulative_organized[date] = {"value":pointsum, "tagBody":target}
       }
 
       getElementsByClassName_repeat("commulative", commulative_organizer)
