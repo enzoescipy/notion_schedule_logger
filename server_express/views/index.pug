@@ -163,8 +163,7 @@ html
         for (key in commulative_object)
         {
           var comu = commulative_object[key]
-          window.alert(comu)
-          pointsum = pointsum + comu[1]
+          pointsum = pointsum + Number(comu[1])
           window.alert(pointsum.toString())
         }
         commulative_organized[date] = {"value":pointsum, "tagBody" : target}
