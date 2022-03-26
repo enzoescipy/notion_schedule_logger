@@ -33,8 +33,8 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     {
         calender_arr = Object.entries(calender)
         calender_arr.sort((a,b) => {
-            var a_date = new Date.parse(a[0])
-            var b_date = new Date.parse(b[0])
+            var a_date = Date.parse(a[0])
+            var b_date = Date.parse(b[0])
             if (a_date < b_date) {return -1}
             else if (a_date > b_date) {return 1}
             else {return 0}
@@ -124,8 +124,8 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
     {
         calender_arr = Object.entries(calender)
         calender_arr.sort((a,b) => {
-            var a_date = new Date.parse(a[0])
-            var b_date = new Date.parse(b[0])
+            var a_date = Date.parse(a[0])
+            var b_date = Date.parse(b[0])
             if (a_date < b_date) {return -1}
             else if (a_date > b_date) {return 1}
             else {return 0}
