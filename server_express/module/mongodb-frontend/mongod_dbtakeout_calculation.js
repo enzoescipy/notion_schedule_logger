@@ -98,57 +98,21 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     return organized_calender
 }
 
-async function calc_commulative_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
+async function calc_commulative_adder(calender)
 {
-    //take settings for data amount
-    current_length = await settings.get(0,0,0,dbTypenum,0,)
-
-    // main organization
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
-    await client.connect()
-    const database = client.db(seleted_dbnaming.DB)
-    const collec = database.collection(seleted_dbnaming.collection)
-
-    async function pointer_finder(collec)
+    for (let i=0; i<calender.length; i++)
     {
-        onlyfor_pointer = await collec.find({"sub-collec" : "pointer_commulative"})
-        var organized_calender = await doc_spliter(onlyfor_pointer)
-        return organized_calender
-    }
-
-    async function doc_spliter(onlyfor_pointer)
-    {   
-        var organized_calender = {}
-        await onlyfor_pointer.forEach((doc) => {
-            organized_calender = doc_seleter(doc,organized_calender)
-        })
-        
-        return organized_calender
-    }
-
-    function doc_seleter(doc, organized_calender)
-    {
-        var propname = doc["id"] 
-        var date_length_count = 0
-        for (key in doc)
+        var selectedDate_arr = calender[i]
+        var point_arr = Object.entries(selectedDate_arr[1])
+        var pointSum = 0
+        for (let j=0; j<calender.length; j++)
         {
-            if (date_length_count >= current_length)
-            {
-                break
-            }
-            var value = doc[key]
-            if (key == "sub-collec" || key == "id" || key == "_id")
-            {
-                organized_calender = data_saver(-1,organized_calender)
-            }
-            else
-            {
-                date_length_count += 1
-                organized_calender = data_saver([propname, key, value],organized_calender)
-            }
-
+            var commulative_point = point_arr[j][1]
+            pointSum += commulative_point
         }
-        return organized_calender
+        calender[i][1]["commulative_sum"] = "pointSum"
+    }
+    return calender
 }
 
 function data_saver(data, calender)
@@ -222,8 +186,8 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         return "no color left error"
     }
     var result = await color_indexer(calender_legacy)
-    var commu = await calc_commulative_organize(dbNamenum, dbTypenum, collectionTypenum)
-    var organized = {"index": result, "data" : calender, "commulative" : commu}
+    var calender = await calc_commulative_adder(calender)
+    var organized = {"index": result, "data" : calender}
 
     if (callback != null){callback(organized)}
 
@@ -294,4 +258,4 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 exports.calc_pointer_organize = calc_pointer_organize
 exports.calc_pointer_reOrganize = calc_pointer_reOrganize
 exports.calc_rate_organize = calc_rate_organize
-exports.calc_commulative_organize = calc_commulative_organize
+exports.calc_commulative_adder = calc_commulative_adder
