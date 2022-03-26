@@ -198,7 +198,7 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     client.close()
     return 1
 
-def calc_getPointOfProp(propname, propdate, fromTest):
+def calc_getPointOfProp_depracated(propname, propdate, fromTest):
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
@@ -279,30 +279,30 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     collec = client[selected_name][selected_col]
 
     target_date = "invalid"
-    while True:
-        # find docs that has same id property.
-        docs = collec.find_one({"id" : propname})
-        if docs == None:
+    # find docs that has same id property.
+    docs = collec.find_one({"id" : propname})
+    if docs == None:
+        # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
+        post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
+        return -1
+        
+    else:
+        # find if there are any date match with our purpose.
+        datetime_list = []
+        for day in docs.keys():
+            current_datetime = "invalid"
+            try:
+                if day[4] == "-" and day[7] == "-":
+                    current_datetime = date.fromisoformat(day)
+                    datetime_list.append(current_datetime)
+            except Exception as exp:
+                continue
+
+        if len(datetime_list) == 0:
             # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
             post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
-            continue
-        else:
-            # find if there are any date match with our purpose.
-            datetime_list = []
-            for day in docs.keys():
-                current_datetime = "invalid"
-                try:
-                    if day[4] == "-" and day[7] == "-":
-                        current_datetime = date.fromisoformat(day)
-                        datetime_list.append(current_datetime)
-                except Exception as exp:
-                    continue
+            return -1
 
-            if len(datetime_list) == 0:
-                # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-                post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
-            else:
-                break
 
 
     target_date = datetime_list[0]
@@ -438,6 +438,8 @@ def calc_setCommulativeOfPropAll(fromTest):
             doc_listized.sort(key=sorter)
             #calculate commulative_pointer
             commulativer_activate = commulativer()
+            if commulativer_activate == -1:
+                return -1
             doc_listized = list(map(commulativer_activate,doc_listized))
 
             #add the commulative pointers in the DB.
@@ -463,6 +465,8 @@ def calc_setCommulativeOfPropAll(fromTest):
         def child(item):
             nonlocal pointsum
             print(pointsum)
+            if item == -1:
+                return -1
             pointsum += item[1]
             return (item[0],pointsum) #(key, commulated_pointer)
         return child
@@ -475,7 +479,8 @@ def calc_setCommulativeOfPropAll(fromTest):
 if fget == "0":
     post_setRateOfProp(*fvar)
 elif fget == "1":
-    calc_getPointOfProp(*fvar)
+    print("depracated method has been called. not recommended.")
+    calc_getPointOfProp_depracated(*fvar)
 elif fget == "2" :
     calc_gPP_doAll(*fvar)
 elif fget == "3" : 
