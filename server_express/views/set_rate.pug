@@ -111,7 +111,7 @@ html
         {
           var output = outputsSet[i]
           document.write(output.htmlFor, id, output.htmlFor === id)
-          if (output.htmlFor === id)
+          if (output.htmlFor.notmalize() === id.notmalize())
           {
             slider.addEventListener('input', (event) => {
               output.value = event.target.value
