@@ -134,10 +134,9 @@ html
         ////set attribute of slider and make selector - slider event
         function set_and_makeEvent(name, sliderTag, selectorTag)
         {
-          sliderTag.setAttribute("value", selectorTag.value)
+          sliderTag.setAttribute("value", rate_datas[selectorTag.value][name])
           selectorTag.addEventListener('change', (event) => {
             var propname = event.target.value
-            window.alert(propname, rate_datas[propname][name])
             sliderTag.setAttribute("value", rate_datas[propname][name])
           })
         }
