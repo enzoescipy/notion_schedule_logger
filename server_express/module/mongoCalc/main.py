@@ -449,6 +449,7 @@ def calc_setCommulativeOfPropAll(fromTest):
 
 
     add_commulative_pointers(collec)
+    print("hello,m world!")
     sys.stdout.flush()
 
 if fget == "0":
