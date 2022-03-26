@@ -38,7 +38,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
         for (let i=0; i<sorted_calender.length; i++)
         {
-            var doc = onlyfor_pointer[i][1]
+            var doc = sorted_calender[i][1]
             organized_calender = doc_seleter(doc,organized_calender)
         }
         return organized_calender
