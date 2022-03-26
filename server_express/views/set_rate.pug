@@ -22,15 +22,15 @@ html
               input(type="hidden",name="portal3", value=iam )
 
               input.slider.is-fullwidth(id="sliderWithValue2" name="ignorance" step="1" min="1" max="5" value="1" type="range")
-              output(for="sliderWithValue2" ) iamoutput2
+              p.sliderValue(id="sliderWithValue2") iamp2
 
               div.select
-                select(name="prop_name")
+                select(name="prop_name") 
                   each valObj, key in rateData
                     option(value=key) #{key}
 
               input.slider.is-fullwidth(id="sliderWithValue" name="rate_abs" step="1" min="1" max="100" value="25" type="range")
-              output(for="sliderWithValue" ) iamoutput
+              p.sliderValue(id="sliderWithValue") iamp
 
               input.button(type="submit", value="submit")
           div.column
@@ -106,14 +106,13 @@ html
       var sliders = document.querySelectorAll('input[type="range"].slider')
       sliders.forEach((slider) => {
         var id = slider.id
-        var outputsSet = document.getElementsByTagName('output')
-        for (let i=0; i< outputsSet.length; i++)
+        document.getElementsByClassName_repeat("sliderValue", forSliderFunc)
+        function forSliderFunc(outputTag)
         {
-          var output = outputsSet[i]
-          if ((output.htmlFor.toString()).trim() === id.trim())
+          if ((outputTag.id.toString()).trim() === id.trim())
           {
             slider.addEventListener('input', (event) => {
-              output.innerText = event.target.value
+              outputTag.innerText = event.target.value
             })
           }
         }
