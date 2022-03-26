@@ -27,7 +27,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     async function doc_spliter(onlyfor_pointer)
     {   
         var organized_calender = {}
-        var sorted_calender = onlyfor_pointer.entries()
+        var sorted_calender = Object.entries(onlyfor_pointer)
         sorted_calender.sort((a,b) => {
             var a_date = new Date(a.date)
             var b_date = new Date(b.date)
