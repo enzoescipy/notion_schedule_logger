@@ -79,11 +79,12 @@ html
         var key = key_propname
 
         var tagobj = {[key]:{"date":date, "rate":rate, "color":color, "tagBody":target}}
-        window.alert(JSON.stringify(tagobj))
 
         rate_datas = Object.assign(tagobj, rate_datas)
         
       }
+      window.alert(JSON.stringify(tagobj))
+
 
       getElementsByClassName_repeat("rateData", rate_organizer)
       //data beautify
