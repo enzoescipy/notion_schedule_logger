@@ -106,10 +106,17 @@ html
       var sliders = document.querySelectorAll('input[type="range"].slider')
       sliders.forEach((slider) => {
         var id = slider.id
+        document.write(id)
+
         document.getElementsByClassName_repeat("sliderValue", forSliderFunc)
         function forSliderFunc(outputTag)
         {
           document.write(outputTag.id)
-
+          if ((outputTag.id).trim() === id.trim())
+          {
+            slider.addEventListener('input', (event) => {
+              outputTag.innerText = (event.target.value).toString()
+            })
+          }
         }
       })
