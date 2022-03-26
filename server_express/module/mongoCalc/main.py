@@ -412,7 +412,6 @@ def calc_setCommulativeOfPropAll(fromTest):
             #takes part in of docs to (key, value), remove other keys.
             doc_listized = list(doc.items())
             doc_listized = list(map(date_selector,doc_listized))
-            print(doc_listized)
             while True:
                 if -1 not in doc_listized:
                     break
@@ -433,7 +432,6 @@ def calc_setCommulativeOfPropAll(fromTest):
     def date_selector(item):
         key = item[0]
         value = item[1]
-        print(item, key == "id" or key == "_id" or key == "sub-collec")
         if key == "id" or key == "_id" or key == "sub-collec":
             return -1
         else:
@@ -445,6 +443,7 @@ def calc_setCommulativeOfPropAll(fromTest):
     def commulativer():
         pointsum = 0
         def child(item):
+            nonlocal pointsum
             pointsum += item[1]
             return (item[0],pointsum) #(key, commulated_pointer)
         return child
