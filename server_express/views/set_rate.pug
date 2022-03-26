@@ -111,11 +111,5 @@ html
         {
           var output = outputsSet[i]
           document.write(output.htmlFor)
-          if (output.htmlFor == id)
-          {
-            slider.addEventListener('input', (event) => {
-              output.value = event.target.value
-            })
-          }
         }
       })
