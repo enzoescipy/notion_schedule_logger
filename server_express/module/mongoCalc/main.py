@@ -412,6 +412,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             #takes part in of docs to (key, value), remove other keys.
             doc_listized = list(doc.items())
             doc_listized = list(map(date_selector,doc_listized))
+            print(doc_listized)
             while True:
                 if -1 not in doc_listized:
                     break
