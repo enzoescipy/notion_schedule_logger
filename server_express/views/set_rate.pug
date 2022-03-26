@@ -110,7 +110,7 @@ html
         for (let i=0; i< outputsSet.length; i++)
         {
           var output = outputsSet[i]
-          window.alert(output.htmlFor.normalize(), id.normalize(), output.htmlFor.normalize() === id.normalize())
+          window.alert(output.htmlFor.normalize() === id.normalize())
           if (output.htmlFor.normalize() === id.normalize())
           {
             slider.addEventListener('input', (event) => {
