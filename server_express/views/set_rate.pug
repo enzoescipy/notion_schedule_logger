@@ -70,6 +70,7 @@ html
 
       function rate_organizer(target)
       {
+        window.alert(JSON.stringify(rate_datas))
         var date = target.id
         var parseString = (target.innerText).split(":")
         var key_propname = parseString[0]
@@ -83,5 +84,4 @@ html
       }
 
       getElementsByClassName_repeat("rateData", rate_organizer)
-      window.alert(JSON.stringify(rate_datas))
       //data beautify
