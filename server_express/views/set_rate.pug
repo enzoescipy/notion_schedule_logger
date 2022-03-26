@@ -28,7 +28,7 @@ html
                   each valObj, key in rateData
                     option(value=key) #{key}
 
-              input.slider.is-fullwidth(id="sliderWithValue" name="rate_abs" step="1" min="1" max="100" value="25" type="range")
+              input.slider.is-fullwidth(id="sliderWithValue" name="rate" step="1" min="1" max="100" value="25" type="range")
               p.sliderValue(id="sliderWithValue") iamp
 
               input.button(type="submit", value="submit")
@@ -148,9 +148,9 @@ html
         {
           set_and_makeEvent("ignorance", slider, selected_selector)
         }
-        else if (slider.getAttribute("name") === "rate_abs")
+        else if (slider.getAttribute("name") === "rate")
         {
-          set_and_makeEvent("rate_abs", slider, selected_selector)
+          set_and_makeEvent("rate", slider, selected_selector)
         }
           
       })
