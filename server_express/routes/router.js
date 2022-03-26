@@ -39,6 +39,7 @@ async function home_rendernow(req, res)
     var dataset = {
         mainScoreData_index : undefined,
         mainScoreData_main : undefined,
+        mainScoreData_commulative : undefined,
         isdataloaded : undefined,
         showday_amount: undefined,
         title: "Dong hyo Ko - enzoescipy's life challenge",
@@ -47,6 +48,7 @@ async function home_rendernow(req, res)
     mainScoreData = await home_get_mainScoreData(0,dbtype(),0)
     dataset["mainScoreData_index"] = JSON.stringify(mainScoreData["index"])
     dataset["mainScoreData_main"] = JSON.stringify(mainScoreData["data"])
+    dataset["mainScoreData_commulative"] = JSON.stringify(mainScoreData["commulative"])
 
     dataset["isdataloaded"] = await home_get_isdataloaded(req)
 
