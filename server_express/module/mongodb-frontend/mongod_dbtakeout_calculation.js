@@ -98,6 +98,98 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     return organized_calender
 }
 
+async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
+{
+    //take settings for data amount
+    current_length = await settings.get(0,0,0,dbTypenum,0,)
+
+    // main organization
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
+    await client.connect()
+    const database = client.db(seleted_dbnaming.DB)
+    const collec = database.collection(seleted_dbnaming.collection)
+
+    async function pointer_finder(collec)
+    {
+        onlyfor_pointer = await collec.find({"sub-collec" : "pointer_commulative"})
+        var organized_calender = await doc_spliter(onlyfor_pointer)
+
+        // delete date older then current_length
+
+        organized_calender = await elder_deleter(organized_calender, current_length)
+        
+        return organized_calender
+    }
+
+    async function elder_deleter(calender, deletelength)
+    {
+        calender_arr = Object.entries(calender)
+        console.log(calender_arr)
+        calender_arr.sort((a,b) => {
+            var a_date = new Date(a[0])
+            var b_date = new Date(b[0])
+            if (a_date < b_date) {return -1}
+            else if (a_date > b_date) {return 1}
+            else {return 0}
+          })
+        calender_arr = calender_arr.slice(calender_arr.length - deletelength,calender_arr.length)
+        calender = Object.fromEntries(calender_arr)
+        return calender
+    }
+
+    async function doc_spliter(onlyfor_pointer)
+    {   
+        var organized_calender = {}
+        await onlyfor_pointer.forEach((doc) => {
+            organized_calender = doc_seleter(doc,organized_calender)
+        })
+        
+        return organized_calender
+    }
+
+    function doc_seleter(doc, organized_calender)
+    {
+        var propname = doc["id"] 
+        for (key in doc)
+        {
+            var value = doc[key]
+            if (key == "sub-collec" || key == "id" || key == "_id")
+            {
+                organized_calender = data_saver(-1,organized_calender)
+            }
+            else
+            {
+                organized_calender = data_saver([propname, key, value],organized_calender)
+            }
+
+        }
+        return organized_calender
+    }
+
+    function data_saver(data, calender)
+    {
+        if (data == -1){return calender}
+        function replacer(finderkey,insertkey,value)
+        {
+            if (calender[finderkey] === undefined)
+            {
+                calender[finderkey] = {}
+            }
+
+            if (calender[finderkey][insertkey] === undefined)
+            {
+                calender[finderkey][insertkey] = value
+            }
+        }
+
+        replacer(data[1],data[0],data[2])
+        return calender
+    }
+    var organized_calender = await pointer_finder(collec)
+    if (callback != null){callback(organized_calender); return }
+    return organized_calender
+}
+
 async function calc_commulative_adder(calender)
 {
     for (let i=0; i<calender.length; i++)
@@ -115,28 +207,6 @@ async function calc_commulative_adder(calender)
     return calender
 }
 
-function data_saver(data, calender)
-{
-    if (data == -1){return calender}
-    function replacer(finderkey,insertkey,value)
-    {
-        if (calender[finderkey] === undefined)
-        {
-            calender[finderkey] = 0
-        }
-        else
-        {
-            calender[finderkey] += value
-        }
-    }
-
-    replacer(data[1],data[0],data[2])
-    return calender
-}
-var organized_calender = await pointer_finder(collec)
-if (callback != null){callback(organized_calender); return }
-return organized_calender
-}
 
 async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
@@ -187,7 +257,9 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     }
     var result = await color_indexer(calender_legacy)
     var calender = await calc_commulative_adder(calender)
-    var organized = {"index": result, "data" : calender}
+    var commu = await calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
+    commu = await calc_commulative_adder(commu)
+    var organized = {"index": result, "data" : calender,"commulative":commu}
 
     if (callback != null){callback(organized)}
 
