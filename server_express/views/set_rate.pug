@@ -72,7 +72,6 @@ html
       {
         var date = target.id
         var parseString = (target.innerText).split(":")
-        window.alert(JSON.stringify(target.id))
         var key_propname = parseString[0]
         var rate = Number(parseString[1])
         var color = parseString[2]
@@ -80,6 +79,7 @@ html
         var key = key_propname
 
         var tagobj = {"date":date, "rate":rate, "color":color, "tagBody":target}
+        window.alert(JSON.stringify(tagobj))
 
         rate_datas[key] = tagObj
         window.alert(JSON.stringify(rate_datas))
