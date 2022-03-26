@@ -76,4 +76,6 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
         else:
             client.close()
             raise Exception("wrong type exception!")
+    client.close()
+    return count
 
