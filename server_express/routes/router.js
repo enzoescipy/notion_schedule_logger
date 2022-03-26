@@ -79,8 +79,7 @@ async function home_get_showday_amount(wherenum, whatnum,dbNamenum,dbTypenum,col
 }
 
 
-
-//python test router
+//rate_adjust router
 
 router.get('/home/rate_adjust', rate_rendernow)
 

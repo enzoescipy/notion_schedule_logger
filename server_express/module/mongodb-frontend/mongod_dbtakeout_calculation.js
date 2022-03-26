@@ -245,6 +245,20 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     return organized
 }
 
+async function calc_indexOnly(dbNamenum, dbTypenum, collectionTypenum, callback)
+{
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
+    await client.connect()
+    const database = client.db(seleted_dbnaming.DB)
+    const collec = database.collection(seleted_dbnaming.collection)
+
+    var calender_legacy = await collec.find({'sub-collec': 'pointer'}, {"id":1})
+    var index = await color_indexer(calender_legacy)
+
+    if (callback != null){callback(index)}
+    return index
+}
+
 async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
@@ -308,3 +322,4 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 exports.calc_pointer_organize = calc_pointer_organize
 exports.calc_pointer_reOrganize = calc_pointer_reOrganize
 exports.calc_rate_organize = calc_rate_organize
+exports.calc_indexOnly = calc_indexOnly

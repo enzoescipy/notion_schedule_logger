@@ -24,7 +24,10 @@ html
               input.slider.is-fullwidth(id="sliderWithValue2" name="ignorance" step="1" min="1" max="5" value="1" type="range")
               output(for="sliderWithValue2" ) iamoutput2
 
-              input.input(type="text" name="prop_name" placeholder="Property name" value="")
+              div.select(name="prop_name")
+                select
+                  each valObj, key in rateData
+                    option(value=key)
 
               input.slider.is-fullwidth(id="sliderWithValue" name="rate_abs" step="1" min="1" max="100" value="25" type="range")
               output(for="sliderWithValue" ) iamoutput
@@ -64,7 +67,7 @@ html
       getElementsByClassName_repeat("hidden",hider_storingNO)
 
       //rateData part
-      //// data grabing part
+      //// rate data grabing part
 
       var rate_datas = {}
 
@@ -83,9 +86,11 @@ html
         Object.assign(rate_datas,tagobj )
       }
 
+      var propname_indexes = Object.keys(rate_datas)
+
 
       getElementsByClassName_repeat("rateData", rate_organizer)
-      //data beautify
+      ////rate data beautify
 
       for (propname in rate_datas)
       {
