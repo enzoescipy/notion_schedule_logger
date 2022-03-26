@@ -202,6 +202,14 @@ html
         outer_tag.innerText += "\n" + pointSum.toString()
       }
 
+      ////commulative beautify
+      for (date in commulative_organized)
+      {
+        var tag = commulative_organized[date]["tagBody"]
+        var value = commulative_organized[date]["value"]
+        tagBody.innerText = (Math.floor(value*1000)).toString()
+      }
+
       //slider DB loading succed or fail showing
       var isdataloaded = hidden_values["isdataloaded"]["value"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]
