@@ -110,11 +110,6 @@ html
         function forSliderFunc(outputTag)
         {
           document.write(outputTag.id)
-          if ((outputTag.id).trim() === id.trim())
-          {
-            slider.addEventListener('input', (event) => {
-              outputTag.innerText = (event.target.value).toString()
-            })
-          }
+
         }
       })
