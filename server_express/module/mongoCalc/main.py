@@ -411,7 +411,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             #this doc has all calculation point values about "the one property"
             #takes part in of docs to (key, value), remove other keys.
             doc_listized = list(doc.items())
-            map(date_selector,doc_listized)
+            doc_listized = list(map(date_selector,doc_listized))
             while True:
                 if -1 not in doc_listized:
                     break
