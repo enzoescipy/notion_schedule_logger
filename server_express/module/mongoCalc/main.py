@@ -427,13 +427,13 @@ def calc_setCommulativeOfPropAll(fromTest):
             commulative_doc = dict(doc_listized)
             commulative_doc["id"] = doc["id"]
             commulative_doc["sub_collec"] = "pointer_commulative"
-            print(commulative_doc)
             collec.replace_one({'sub-collec': 'pointer_commulative', "id":doc["id"]}, commulative_doc, upsert=True)
             return doc_listized
         return child
     def date_selector(item):
         key = item[0]
         value = item[1]
+        print(item)
         if key == "id" or key == "_id" or key == "sub_collec":
             return -1
         else:
