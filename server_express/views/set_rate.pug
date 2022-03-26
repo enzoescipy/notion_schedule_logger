@@ -138,7 +138,8 @@ html
           selectorTag.addEventListener('change', (event) => {
             var propname = event.target.value
             sliderTag.setAttribute("value", rate_datas[propname][name])
-            alert(event.target.value, (sliderTag.value).toString())
+            alert(event.target.value)
+            alert(sliderTag.value)
           })
         }
         if (slider.getAttribute("name") === "ignorance") 
