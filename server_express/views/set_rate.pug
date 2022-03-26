@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href="/css/mystyles.css")
     script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
   body
-    p rateData?#{rateData}
+    p.hidden rateData?#{rateData}
     -   
       rateData = JSON.parse(rateData)
 
@@ -119,6 +119,37 @@ html
 
         }
         getElementsByClassName_repeat("sliderValue", forSliderFunc)
+        /*
+        //slider initial value manage
+        ////find the selecter's value
+        var selectors = document.getElementsByTagName("select")
+        var selected_selector
+        for (let i=0; i<selecors.length; i++)
+        {
+          var selector = selectors[i]
+          if (selector.getAttribute("name") === "prop_name")
+          {
+            selected_selector = selector
+          }
 
+        }
+        ////set attribute of slider and make selector - slider event
+        function set_and_makeEvent(name, targetTag, sourceTag)
+        {
+          targetTag.setAttribute("value", sourceTag.value)
+          sourceTag.addEventListener('onchange', (event) => {
+            var propname = event.target.value
+            targetTag.setAttribute("value", rate_datas[propname]["ignorance"])
+          })
+        }
+        if (slider.getAttribute("name") === "ignorance") 
+        {
+          set_and_makeEvent("ignorance", slider, selected_selector)
+        }
+        else if (slider.getAttribute("name") === "rate_abs")
+        {
+          set_and_makeEvent("rate_abs", slider, selected_selector)
+        }
+        */
           
       })
