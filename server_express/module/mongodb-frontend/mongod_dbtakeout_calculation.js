@@ -256,8 +256,9 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     var result = await color_indexer(calender_legacy)
     var calender = await calc_commulative_adder(calender)
     var commu = await calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
-    console.log(commu)
     commu = await calc_commulative_adder(commu)
+    console.log(commu)
+
     var organized = {"index": result, "data" : calender,"commulative":commu}
 
     if (callback != null){callback(organized)}
