@@ -40,6 +40,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             else {return 0}
           })
         calender_arr = calender_arr.slice(calender_arr.length - deletelength,calender_arr.length)
+        console.log(calender_arr)
         calender = Object.fromEntries(calender_arr)
         return calender
     }
