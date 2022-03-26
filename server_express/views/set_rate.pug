@@ -113,7 +113,7 @@ html
           if ((output.htmlFor.toString()).trim() === id.trim())
           {
             slider.addEventListener('input', (event) => {
-              output.value = event.target.value
+              output.innerText = event.target.value
             })
           }
         }
