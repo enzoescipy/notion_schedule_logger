@@ -391,9 +391,7 @@ def calc_gPP_doAllExcept(exceptiondate, fromTest):
     proceeded_list_docAll = calaculate_all(collec, client)
     print(proceeded_list_docAll)
 
-def calc_setCommulativeOfPropAll(propname, propdate, fromTest):
-    propname = propname
-    propdate = propdate
+def calc_setCommulativeOfPropAll(fromTest):
     fromTest = int(fromTest)
 
     selected_name = getName(0,1,fromTest,0)
