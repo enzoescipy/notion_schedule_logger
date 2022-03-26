@@ -24,8 +24,8 @@ html
               input.slider.is-fullwidth(id="sliderWithValue2" name="ignorance" step="1" min="1" max="5" value="1" type="range")
               output(for="sliderWithValue2" ) iamoutput2
 
-              div.select(name="prop_name")
-                select
+              div.select
+                select(name="prop_name")
                   each valObj, key in rateData
                     option(value=key) #{key}
 
