@@ -1,6 +1,6 @@
 const {MongoClient} = require ("mongodb")
-const Notion = require('../notion-communicate/index')
 const dbnaming = require('../mongodb-communicate/mongod_dbmanage_Name')
+const settings = require('../mongodb-communicate/mongod_dbmanage_SETTINGs')
 const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
@@ -8,6 +8,10 @@ const client = new MongoClient(uri);
 
 async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
 {
+    //take settings for data amount
+    current_length = await settings.get(0,0,0,dbTypenum,0,)
+
+    // main organization
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
     const database = client.db(seleted_dbnaming.DB)
@@ -33,15 +37,21 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     function doc_seleter(doc, organized_calender)
     {
         var propname = doc["id"] 
+        var date_length_count = 0
         for (key in doc)
         {
+            if (date_length_count > current_length)
+            {
+                break
+            }
             var value = doc[key]
-            if (key == "sub-collec" || key == "id" | key == "_id")
+            if (key == "sub-collec" || key == "id" || key == "_id")
             {
                 organized_calender = data_saver(-1,organized_calender)
             }
             else
             {
+                count += 1
                 organized_calender = data_saver([propname, key, value],organized_calender)
             }
 
