@@ -13,7 +13,7 @@ class Mathfunc:
     
     @staticmethod
     def smallDip_increase_maintain(starting=0.5, upperbound = 1):
-        original_func = [(0,1.36),(1,0.58),(2,0.16),(3,2.06),(4,3.79),(5,4.11),(6,5.00)] #calculated by function_reward.ggb geogebra5
+        original_func = [(0,1.28),(1,1.52),(2,0.82),(3,1.3),(4,3.88),(5,5.46),(6,6)] #calculated by function_reward.ggb geogebra5
         parallel_mover = 0
         multiplier = 1
         multiplier = (starting - upperbound) /( original_func[0][1] - original_func[6][1])
