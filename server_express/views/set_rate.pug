@@ -129,12 +129,12 @@ html
           {
             selected_selector = selector
           }
-          document.write(i)
         }
 
         ////set attribute of slider and make selector - slider event
         function set_and_makeEvent(name, targetTag, sourceTag)
         {
+          document.write(name)
           targetTag.setAttribute("value", sourceTag.value)
           sourceTag.addEventListener('onchange', (event) => {
             var propname = event.target.value
