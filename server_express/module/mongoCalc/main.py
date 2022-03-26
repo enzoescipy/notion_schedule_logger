@@ -329,7 +329,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     print(-1, "function ended")
     return -1
 
-def calc_gPP_doAllExcept(exceptiondate, fromTest):
+def calc_gPP_doAll(fromTest):
     fromTest = int(fromTest)
     selected_name = getName(0,0,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
@@ -371,10 +371,69 @@ def calc_gPP_doAllExcept(exceptiondate, fromTest):
         def date_processer(item):
             key = item[0]
             value = item[1]
-            if key == "_id" or key == exceptiondate:
+            if key == "_id":
                 return (key, -1)
             try:
                 if key[4] == "-" and key[7] == "-":
+                    #then, key is propdate!
+                    point = calc_getPointOfProp_noflush(propname, key, fromTest)
+                    return (key, point)
+                else:
+                    return (key, value)
+            except IndexError:
+                return (key, value)
+        return date_processer
+    
+    #functional_excute
+    proceeded_list_docAll = calaculate_all(collec, client)
+    print(proceeded_list_docAll)
+
+def calc_gPP_doOne(propdate, fromTest):
+    fromTest = int(fromTest)
+    selected_name = getName(0,0,fromTest,0)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+    #override true line
+    def calaculate_all(collec, client):
+        doc_all = collec.find({})
+        doc_all = list(doc_all)
+        proceeded = list(map(doc_processor,doc_all))
+        
+        client.close()
+        client = MongoClient(host='localhost', port=27017)
+        selected_name = getName(0,1,fromTest,0)
+        selected_col = selected_name[1]
+        selected_name = selected_name[0]
+        collec = client[selected_name][selected_col]
+        for doc in proceeded:
+            doc["sub-collec"] = "pointer"
+            collec.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
+
+        return proceeded
+
+    def doc_processor(doc):
+        propname = doc["id"]
+        proceeded = map(for_all_date_in_doc_process(propname),list(doc.items()))
+        proceeded = dict(list(proceeded))
+        del_keys = []
+        for key in proceeded.keys():
+            if proceeded[key] == -1:
+                del_keys.append(key)
+        for delkey in del_keys:
+            del(proceeded[delkey])
+
+        return proceeded
+    
+    def for_all_date_in_doc_process(propname):
+        def date_processer(item):
+            key = item[0]
+            value = item[1]
+            if key == "_id":
+                return (key, -1)
+            try:
+                if key == propdate:
                     #then, key is propdate!
                     point = calc_getPointOfProp_noflush(propname, key, fromTest)
                     return (key, point)
@@ -457,7 +516,7 @@ if fget == "0":
 elif fget == "1":
     calc_getPointOfProp(*fvar)
 elif fget == "2" :
-    calc_gPP_doAllExcept(*fvar)
+    calc_gPP_doAll(*fvar)
 elif fget == "3" :
     calc_setCommulativeOfPropAll(*fvar)
 else:
