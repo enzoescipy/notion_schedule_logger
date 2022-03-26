@@ -86,3 +86,13 @@ html
 
       getElementsByClassName_repeat("rateData", rate_organizer)
       //data beautify
+
+      for (propname in rate_datas)
+      {
+        var tagobj = rate_datas[propname]
+        var rate = tagobj["rate"]
+        var color = tagobj["color"]
+        var tag = tagobj["tagBody"]
+        tag.innerText = propname + ":" + rate
+        tag.class += " has-text-"+color
+      }
