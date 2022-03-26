@@ -420,7 +420,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             doc_listized.sort(key=sorter)
             #calculate commulative_pointer
             commulativer_activate = commulativer()
-            map(commulativer_activate,doc_listized)
+            doc_listized = (map(commulativer_activate,doc_listized))
 
             #add the commulative pointers in the DB.
             commulative_doc = dict(doc_listized)
