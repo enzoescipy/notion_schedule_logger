@@ -109,7 +109,8 @@ html
         document.getElementsByClassName_repeat("sliderValue", forSliderFunc)
         function forSliderFunc(outputTag)
         {
-          if ((outputTag.id.toString()).trim() === id.trim())
+          document.write(outputTag.id)
+          if ((outputTag.id).trim() === id.trim())
           {
             slider.addEventListener('input', (event) => {
               outputTag.innerText = (event.target.value).toString()
