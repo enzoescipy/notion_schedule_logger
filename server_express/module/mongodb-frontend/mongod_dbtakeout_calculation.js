@@ -83,6 +83,83 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     return organized_calender
 }
 
+async function calc_commulative_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
+{
+    //take settings for data amount
+    current_length = await settings.get(0,0,0,dbTypenum,0,)
+
+    // main organization
+    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
+    await client.connect()
+    const database = client.db(seleted_dbnaming.DB)
+    const collec = database.collection(seleted_dbnaming.collection)
+
+    async function pointer_finder(collec)
+    {
+        onlyfor_pointer = await collec.find({"sub-collec" : "pointer_commulative"})
+        var organized_calender = await doc_spliter(onlyfor_pointer)
+        return organized_calender
+    }
+
+    async function doc_spliter(onlyfor_pointer)
+    {   
+        var organized_calender = {}
+        await onlyfor_pointer.forEach((doc) => {
+            organized_calender = doc_seleter(doc,organized_calender)
+        })
+        
+        return organized_calender
+    }
+
+    function doc_seleter(doc, organized_calender)
+    {
+        var propname = doc["id"] 
+        var date_length_count = 0
+        for (key in doc)
+        {
+            if (date_length_count >= current_length)
+            {
+                break
+            }
+            var value = doc[key]
+            if (key == "sub-collec" || key == "id" || key == "_id")
+            {
+                organized_calender = data_saver(-1,organized_calender)
+            }
+            else
+            {
+                date_length_count += 1
+                organized_calender = data_saver([propname, key, value],organized_calender)
+            }
+
+        }
+        return organized_calender
+}
+
+function data_saver(data, calender)
+{
+    if (data == -1){return calender}
+    function replacer(finderkey,insertkey,value)
+    {
+        if (calender[finderkey] === undefined)
+        {
+            calender[finderkey] = 0
+        }
+
+        if (calender[finderkey][insertkey] === undefined)
+        {
+            calender[finderkey] += value
+        }
+    }
+
+    replacer(data[1],data[0],data[2])
+    return calender
+}
+var organized_calender = await pointer_finder(collec)
+if (callback != null){callback(organized_calender); return }
+return organized_calender
+}
+
 async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
@@ -201,3 +278,4 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 exports.calc_pointer_organize = calc_pointer_organize
 exports.calc_pointer_reOrganize = calc_pointer_reOrganize
 exports.calc_rate_organize = calc_rate_organize
+exports.calc_commulative_organize = calc_commulative_organize
