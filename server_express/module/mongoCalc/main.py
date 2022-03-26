@@ -383,7 +383,6 @@ def post_sRP_setAll(fromTest, rate, ignorance):
     
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec)
-    print(proceeded_list_docAll)
 
 def calc_gPP_doAll(fromTest):
     fromTest = int(fromTest)
@@ -453,7 +452,7 @@ def calc_gPP_updateOne(propdate, fromTest):
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
 
-    def search_and_updateOne():
+    def search_and_updateOne(collec):
         docs = (collec.find({})).items()
         return list(map(doc_processor,docs))
         
