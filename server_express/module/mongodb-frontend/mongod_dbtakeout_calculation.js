@@ -200,7 +200,9 @@ async function calc_commulative_adder(calender)
             var commulative_point = point_arr[j][1]
             pointSum += commulative_point
         }
-        calender[i][1]["commulative_sum"] = "pointSum"
+        console.log(pointSum)
+        calender[i][1]["commulative_sum"] = pointSum
+        console.log(calender[i][1]["commulative_sum"])
     }
     return calender
 }
