@@ -157,17 +157,20 @@ html
       var commulative_organized = {}
       function commulative_organizer(target)
       {
-        var commulative_object = JSON.parse(target.innerText)
-        document.write(target.innerText)
+        var commulative_arr = JSON.parse(target.innerText)
         var date = target.id
         var pointsum = 0
-        for (key in commulative_object)
+        for (let i=0; i<commulative_arr.length; i++)
         {
-          var comu = commulative_object[key]
-          pointsum = pointsum + Number(comu[1])
-          //document.write("<<",pointsum,comu,Number(comu[1]),">>")
+          var comu_obj = commulative_arr[i]
+          var pointsum = 0
+          for (propname in comu_obj)
+          {
+            var point = comu_obj[propname]
+            pointsum += point
+          }
         }
-        commulative_organized[date] = {"value":pointsum, "tagBody" : target}
+        commulative_organized[date] = pointsum
       }
 
       getElementsByClassName_repeat("commulative", commulative_organizer)
