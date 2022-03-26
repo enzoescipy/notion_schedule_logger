@@ -33,8 +33,8 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     {
         calender_arr = Object.entries(calender)
         calender_arr.sort((a,b) => {
-            var a_date = new Date(a[0])
-            var b_date = new Date(b[0])
+            var a_date = new Date.parse(a[0])
+            var b_date = new Date.parse(b[0])
             if (a_date < b_date) {return -1}
             else if (a_date > b_date) {return 1}
             else {return 0}
@@ -124,8 +124,8 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
     {
         calender_arr = Object.entries(calender)
         calender_arr.sort((a,b) => {
-            var a_date = new Date(a[0])
-            var b_date = new Date(b[0])
+            var a_date = new Date.parse(a[0])
+            var b_date = new Date.parse(b[0])
             if (a_date < b_date) {return -1}
             else if (a_date > b_date) {return 1}
             else {return 0}
@@ -288,13 +288,13 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
         var date_store = undefined
         for (key in doc)
         {
-            console.log(key,Date(date_store) < Date(key))
+            console.log(key,Date.parse(date_store) < Date.parse(key))
 
             if (key == "sub-collec" || key == "id" | key == "_id")
             {
                 continue
             } 
-            if ((date_store === undefined) || (Date(date_store) < Date(key)))
+            if ((date_store === undefined) || (Date.parse(date_store) < Date.parse(key)))
             {
                 date_store = key
             }
