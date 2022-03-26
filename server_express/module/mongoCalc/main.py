@@ -542,8 +542,7 @@ if fget == "0":
     print("depracated method has been called. not recommended.")
     post_setRateOfProp_depracated(*fvar)
 elif fget == "1":
-    print("depracated method has been called. not recommended.")
-    calc_getPointOfProp_depracated(*fvar)
+    post_sRP_setAll(*fvar)
 elif fget == "2" :
     calc_gPP_doAll(*fvar)
 elif fget == "3" : 
