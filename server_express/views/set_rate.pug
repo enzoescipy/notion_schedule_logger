@@ -6,12 +6,18 @@ html
     script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
   body
     p.hidden rateData?#{rateData}
+    -   
+      rateData = JSON.parse(rateData)
+      
     div.columns
       div.column.is-10
-        p this is empty space for rate visualgraphics.
+        div.columns
+          each valObj, key in rateData
+            p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}
+
       div.column
-        div.coloumns
-          div.couumn
+        div.columns
+          div.column
             form(action="/api/ratesSet/", method="post")
               input(type="hidden",name="portal3", value=iam )
 
