@@ -411,7 +411,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             #this doc has all calculation point values about "the one property"
             #takes part in of docs to (key, value), remove other keys.
             doc_listized = list(doc.items())
-            map(doc_listized,date_selector)
+            map(date_selector,doc_listized)
             while True:
                 if -1 not in doc_listized:
                     break
@@ -420,7 +420,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             doc_listized.sort(key=sorter)
             #calculate commulative_pointer
             commulativer_activate = commulativer()
-            map(doc_listized,commulativer_activate)
+            map(commulativer_activate,doc_listized)
 
             #add the commulative pointers in the DB.
             commulative_doc = dict(doc_listized)
