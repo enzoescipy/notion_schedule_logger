@@ -9,7 +9,6 @@ fget = sys.argv[1]
 fvar = sys.argv.copy()
 fvar.pop(0)
 fvar.pop(0)
-
 class Mathfunc:
     
     @staticmethod
@@ -426,6 +425,7 @@ def calc_setCommulativeOfPropAll(fromTest):
             commulative_doc = dict(doc_listized)
             commulative_doc["id"] = doc["id"]
             commulative_doc["sub_collec"] = "pointer_commulative"
+            print(commulative_doc)
             collec.replace_one({'sub-collec': 'pointer_commulative', "id":doc["id"]}, commulative_doc, upsert=True)
             return doc_listized
         return child
@@ -449,6 +449,7 @@ def calc_setCommulativeOfPropAll(fromTest):
 
 
     add_commulative_pointers(collec)
+    sys.stdout.flush()
 
 if fget == "0":
     post_setRateOfProp(*fvar)
