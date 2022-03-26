@@ -30,7 +30,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         var sorted_calender = []
         while (true)
         {
-            doc = onlyfor_pointer.next()
+            doc = await onlyfor_pointer.next()
             console.log(doc)
             if (doc.date === undefined)
             {
