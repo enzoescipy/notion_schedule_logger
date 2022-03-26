@@ -75,13 +75,17 @@ html
         var key_propname = parseString[0]
         var rate = Number(parseString[1])
         var color = parseString[2]
+        window.alert(JSON.stringify(rate_datas))
 
         var key = key_propname
+        window.alert(JSON.stringify(rate_datas))
+
         var tagobj = {"date":date, "rate":rate, "color":color, "tagBody":target}
+        window.alert(JSON.stringify(rate_datas))
 
         rate_datas[key] = tagObj
         window.alert(JSON.stringify(rate_datas))
-
+        
       }
 
       getElementsByClassName_repeat("rateData", rate_organizer)
