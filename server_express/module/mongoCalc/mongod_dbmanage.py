@@ -43,38 +43,37 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     collec = client[selected_name][selected_col]
 
     docs = collec.find_one({"id" : propname})
-    print(docs)
+    while True:
+        if "_id" in docs:
+            del(docs["_id"])
+            continue
+        if "id" in docs:
+            del(docs["id"])
+            continue
+        break
+    docs = list(docs.items())
+
     def sortfunc(doc):
-        doc_date = doc["id"]
+        doc_date = doc[0]
         return date.fromisoformat(doc_date)
-    docs.sort(key=sortfunc)
-    if docs == None:
-        client.close()
-        return 0
-    else:
-        count = 0
-        ignore = 0
-        while True:
-            isdone = "invalid"
-            try:
-                isdone = docs[targetdate]
-            except KeyError:
+    docs.sort(reverse=True,key=sortfunc)
+    
+    count = 0
+    ignore = 0
+    for i in range(len(docs))   :
+        isdone = docs[i]
+        if isdone == False:
+            ignore += 1
+            if ignore >= ignorance:
                 client.close()
                 return count
-                
-            if isdone == False:
-                ignore += 1
-                if ignore >= ignorance:
-                    client.close()
-                    return count
-            elif isdone == True:
-                ignore = 0
-                count += 1
-                targetdate = date.fromisoformat(targetdate)
-                targetdate += timedelta(days=1)
-                targetdate = date.isoformat(targetdate)
-            else:
-                client.close()
-                raise Exception("wrong type exception!")
-            
+        elif isdone == True:
+            ignore = 0
+            count += 1
+            targetdate = date.fromisoformat(targetdate)
+            targetdate += timedelta(days=1)
+            targetdate = date.isoformat(targetdate)
+        else:
+            client.close()
+            raise Exception("wrong type exception!")
 
