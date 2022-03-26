@@ -256,7 +256,6 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         return "no color left error"
     }
     var result = await color_indexer(calender_legacy)
-    var calender = await calc_pointer_organize(calender)
     var commu = await calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
     commu = await calc_commulative_adder(commu)
     console.log(commu)
