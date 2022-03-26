@@ -51,7 +51,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
             }
             else
             {
-                count += 1
+                date_length_count += 1
                 organized_calender = data_saver([propname, key, value],organized_calender)
             }
 
