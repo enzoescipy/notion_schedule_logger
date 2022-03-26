@@ -66,12 +66,20 @@ html
       //rateData part
       //// data grabing part
 
-      var rate_tags = {}
+      var rate_datas = {}
 
       function rate_organizer(target)
       {
-        var key_date = target.id
-        rate_tags[key_date] = target
+        var date = target.id
+        var parseString = (target.innerText).split(":")
+        var key_propname = parseString[0]
+        var rate = Number(parseString[1])
+        var color = parseString[2]
+
+        var key = key_propname
+        var tagobj = {"date":date, "rate":rate, "color":color, "tagBody":target}
+
+        rate_datas[key] = tagObj
       }
 
       getElementsByClassName_repeat("rateData", rate_organizer)
