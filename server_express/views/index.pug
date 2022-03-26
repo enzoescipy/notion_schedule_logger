@@ -30,6 +30,7 @@ html
         each arr in mainScoreData_main
           div.column
             p.main_outter #{arr[0]}
+            p.commulative(id=arr[0]) #{mainScoreData_commulative[arr[0]]}
               each val in arr[1]
                 p.main_inner(id=arr[0]) #{val[0]}:#{val[1]}
 
@@ -151,6 +152,16 @@ html
         index_organized[propname] = {"color" : color, "tagBody" : target}
       }
       getElementsByClassName_repeat("index", index_organizer)
+
+      ////commulative score grabbing code
+      var commulative_organized = {}
+      function commulative_organizer(target)
+      {
+        var commulative_value = Number(target.innerText)
+        var date = target.id
+        commulative_organized[date] = {"value":commulative_value, "tagBody" = target}
+      }
+      getElementsByClassName_repeat("commulative", commulative_organizer)
 
       ////index beautify
       for (propname in index_organized)
