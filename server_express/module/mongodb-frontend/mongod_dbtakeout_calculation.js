@@ -40,7 +40,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         var date_length_count = 0
         for (key in doc)
         {
-            if (date_length_count > current_length)
+            if (date_length_count >= current_length)
             {
                 break
             }
