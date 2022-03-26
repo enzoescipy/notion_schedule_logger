@@ -21,7 +21,27 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     {
         onlyfor_pointer = await collec.find({"sub-collec" : "pointer"})
         var organized_calender = await doc_spliter(onlyfor_pointer)
+
+        // delete date older then current_length
+
+        organized_calender = await elder_deleter(organized_calender, current_length)
+        
         return organized_calender
+    }
+
+    async function elder_deleter(calender, deletelength)
+    {
+        calender_arr = Object.entried(calender)
+        calender_arr.sort((a,b) => {
+            var a_date = new Date(a[0])
+            var b_date = new Date(b[0])
+            if (a_date < b_date) {return -1}
+            else if (a_date > b_date) {return 1}
+            else {return 0}
+          })
+        calender_arr = calender_arr.slice(calender_arr.length - deletelength,calender_arr.length)
+        calender = Object.fromEntries(calender_arr)
+        return calender
     }
 
     async function doc_spliter(onlyfor_pointer)
