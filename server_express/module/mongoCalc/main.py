@@ -453,7 +453,7 @@ def calc_gPP_updateOne(propdate, fromTest):
     collec = client[selected_name][selected_col]
 
     def search_and_updateOne(collec):
-        docs = (collec.find({})).items()
+        docs = list(collec.find({}))
         return list(map(doc_processor,docs))
         
     def doc_processor(doc):
