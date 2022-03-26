@@ -60,8 +60,9 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     
     count = 0
     ignore = 0
-    for i in range(len(docs))   :
+    for i in range(len(docs)):
         isdone = docs[i]
+        print(isdone)
         if isdone == False:
             ignore += 1
             if ignore >= ignorance:
