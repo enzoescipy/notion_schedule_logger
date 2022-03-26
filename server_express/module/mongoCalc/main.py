@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from sympy import false
 from mongod_dbmanage import getName, checkHowContinuous
 import sys
 from datetime import date, datetime
@@ -41,7 +42,7 @@ Mathfunc.normal_rewardfunc = normal_rewardfunc
 
 
 
-def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
+def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, insertonly=False):
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
@@ -98,6 +99,8 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
         collec.insert_one(docs)
     else:
         if todaystring in docs:
+            if insertonly == True:
+                return -1
             docs[todaystring]["rate_abs"] = rate
             docs[todaystring]["ignorance"] = ignorance
         else:
@@ -122,7 +125,7 @@ def post_setRateOfProp(propname, rate, fromTest,ignorance, propdate):
     sys.stdout.flush()
     return 1
 
-def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
+def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate, insertonly=False):
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
@@ -177,6 +180,8 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
         collec.insert_one(docs)
     else:
         if todaystring in docs:
+            if insertonly = True:
+                return -1
             docs[todaystring]["rate_abs"] = rate
             docs[todaystring]["ignorance"] = ignorance
         else:
@@ -282,8 +287,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     # find docs that has same id property.
     docs = collec.find_one({"id" : propname})
     if docs == None:
-        # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-        post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
+        # if there are no date : rate pairs, reject.
         return -1
         
     else:
@@ -299,8 +303,7 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
                 continue
 
         if len(datetime_list) == 0:
-            # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-            post_setRateOfProp_noflush(propname, 25, fromTest,1, propdate)
+            # if there are no date : rate pairs, reject.
             return -1
 
 
@@ -328,6 +331,65 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
 
     print(-1, "function ended")
     return -1
+
+def post_sRP_setAll(fromTest, rate, ignorance):
+    fromTest = int(fromTest)
+    selected_name = getName(0,0,fromTest,0)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+    #override true line
+    def calaculate_all(collec, client):
+        doc_all = collec.find({})
+        doc_all = list(doc_all)
+        proceeded = list(map(doc_processor,doc_all))
+        
+        client.close()
+        client = MongoClient(host='localhost', port=27017)
+        selected_name = getName(0,1,fromTest,0)
+        selected_col = selected_name[1]
+        selected_name = selected_name[0]
+        collec = client[selected_name][selected_col]
+        for doc in proceeded:
+            doc["sub-collec"] = "pointer"
+            collec.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
+
+        return proceeded
+
+    def doc_processor(doc):
+        propname = doc["id"]
+        proceeded = map(for_all_date_in_doc_process(propname),list(doc.items()))
+        proceeded = dict(list(proceeded))
+        del_keys = []
+        for key in proceeded.keys():
+            if proceeded[key] == -1:
+                del_keys.append(key)
+        for delkey in del_keys:
+            del(proceeded[delkey])
+
+        return proceeded
+    
+    def for_all_date_in_doc_process(propname):
+        def date_processer(item):
+            key = item[0]
+            value = item[1]
+            if key == "_id":
+                return (key, -1)
+            try:
+                if key[4] == "-" and key[7] == "-":
+                    #then, key is propdate!
+                    point = post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, key, insertonly=True)
+                    return (key, point)
+                else:
+                    return (key, value)
+            except IndexError:
+                return (key, value)
+        return date_processer
+    
+    #functional_excute
+    proceeded_list_docAll = calaculate_all(collec, client)
+    print(proceeded_list_docAll)
 
 def calc_gPP_doAll(fromTest):
     fromTest = int(fromTest)
@@ -477,7 +539,8 @@ def calc_setCommulativeOfPropAll(fromTest):
     sys.stdout.flush()
 
 if fget == "0":
-    post_setRateOfProp(*fvar)
+    print("depracated method has been called. not recommended.")
+    post_setRateOfProp_depracated(*fvar)
 elif fget == "1":
     print("depracated method has been called. not recommended.")
     calc_getPointOfProp_depracated(*fvar)
