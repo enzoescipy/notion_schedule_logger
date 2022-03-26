@@ -433,7 +433,7 @@ def calc_setCommulativeOfPropAll(fromTest):
     def date_selector(item):
         key = item[0]
         value = item[1]
-        print(item)
+        print(item, key == "id" or key == "_id" or key == "sub_collec")
         if key == "id" or key == "_id" or key == "sub_collec":
             return -1
         else:
