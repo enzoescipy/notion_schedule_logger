@@ -1,0 +1,121 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href="/css/mystyles.css")
+    script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
+  body
+    p.hidden rateData?#{rateData}
+    -   
+      rateData = JSON.parse(rateData)
+
+    div.columns
+      div.column.is-8
+        div.columns
+          each valObj, key in rateData
+            div.column
+              p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}
+      div.column
+        div.columns
+          div.column
+            form(action="/api/ratesSet/", method="post")
+              input(type="hidden",name="portal3", value=iam )
+
+              input.slider.is-fullwidth(id="sliderWithValue2" name="ignorance" step="1" min="1" max="5" value="1" type="range")
+              p.sliderValue(id="sliderWithValue2") iamp2
+
+              div.select
+                select(name="prop_name") 
+                  each valObj, key in rateData
+                    option(value=key) #{key}
+
+              input.slider.is-fullwidth(id="sliderWithValue" name="rate_abs" step="1" min="1" max="100" value="25" type="range")
+              p.sliderValue(id="sliderWithValue") iamp
+
+              input.button(type="submit", value="submit")
+          div.column
+            form(action="/home")
+              input(class="button", type="submit", value="Back" )
+      
+    
+
+    script.
+      //html hiding code
+      function getElementsByClassName_repeat(className, repeatFunc)
+      {
+        var gets = document.getElementsByClassName(className)
+
+        for (var i=0; i < gets.length; i++)
+        {
+          var target = gets[i]
+          repeatFunc(target)
+        }
+      }
+      var hidden_values = {}
+      function hider_storingOK(target)
+      {
+        target.hidden = true
+        var targetquerry = (target.innerText).split("?")
+        hidden_values[targetquerry[0]] = {"value":targetquerry[1]}
+      }
+      function hider_storingNO(target)
+      {
+        target.hidden = true
+      }
+
+      getElementsByClassName_repeat('hiddendata', hider_storingOK)
+      getElementsByClassName_repeat("hidden",hider_storingNO)
+
+      //rateData part
+      //// rate data grabing part
+
+      var rate_datas = {}
+
+      function rate_organizer(target)
+      {
+        var date = target.id
+        var parseString = (target.innerText).split(":")
+        var key_propname = parseString[0]
+        var rate = Number(parseString[1])
+        var color = parseString[2]
+
+        var key = key_propname
+
+        var tagobj = {[key]:{"date":date, "rate":rate, "color":color, "tagBody":target}}
+
+        Object.assign(rate_datas,tagobj )
+      }
+
+      var propname_indexes = Object.keys(rate_datas)
+
+
+      getElementsByClassName_repeat("rateData", rate_organizer)
+      ////rate data beautify
+      for (propname in rate_datas)
+      {
+        var tagobj = rate_datas[propname]
+        var rate = tagobj["rate"]
+        var color = tagobj["color"]
+        var tag = tagobj["tagBody"]
+        tag.innerText = propname + ":" + rate
+        tag.className += " has-background-"+color
+        tag.className += " has-text-light"
+      }
+
+      // slidersvaluechanging
+      var sliders = document.querySelectorAll('input[type="range"].slider')
+      sliders.forEach((slider) => {
+        var id = slider.id
+        function forSliderFunc(outputTag)
+        {
+          document.write(outputTag.id)
+          if ((outputTag.id).trim() === id.trim())
+          {
+            slider.addEventListener('input', (event) => {
+              outputTag.innerText = (event.target.value).toString()
+            })
+          }
+        }
+        getElementsByClassName_repeat("sliderValue", forSliderFunc)
+        document.write(id)
+      })
