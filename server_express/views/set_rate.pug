@@ -132,13 +132,13 @@ html
         }
 
         ////set attribute of slider and make selector - slider event
-        function set_and_makeEvent(name, targetTag, sourceTag)
+        function set_and_makeEvent(name, sliderTag, selectorTag)
         {
           document.write(name)
-          targetTag.setAttribute("value", sourceTag.value)
-          sourceTag.addEventListener('onchange', (event) => {
+          sliderTag.setAttribute("value", selectorTag.value)
+          selectorTag.addEventListener('onchange', (event) => {
             var propname = event.target.value
-            targetTag.setAttribute("value", rate_datas[propname]["ignorance"])
+            sliderTag.setAttribute("value", rate_datas[propname][name])
           })
         }
         if (slider.getAttribute("name") === "ignorance") 
