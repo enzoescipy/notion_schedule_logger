@@ -62,3 +62,19 @@ html
 
       getElementsByClassName_repeat('hiddendata', hider_storingOK)
       getElementsByClassName_repeat("hidden",hider_storingNO)
+
+      //rateData part
+      //// data grabing part
+      var rate_tags = {}
+      var rate_datas = JSON.parse(rateData)
+
+      function rate_organizer(target)
+      {
+        var key_date = target.id
+        rate_tags[key_date] = target
+      }
+
+      getElementsByClassName_repeat("rateData", rate_organizer)
+
+      //data beautify
+      window.alert(rate_datas)
