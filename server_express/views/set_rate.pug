@@ -80,7 +80,7 @@ html
 
         var tagobj = {[key]:{"date":date, "rate":rate, "color":color, "tagBody":target}}
 
-        rate_datas = Object.assign(tagobj, rate_datas)
+        Object.assign(tagobj, rate_datas)
       }
 
       window.alert(JSON.stringify(rate_datas))
