@@ -137,9 +137,9 @@ html
           sliderTag.setAttribute("value", selectorTag.value)
           selectorTag.addEventListener('onchange', (event) => {
             var propname = event.target.value
+            window.alert(propname, rate_datas[propname][name])
             sliderTag.setAttribute("value", rate_datas[propname][name])
           })
-          document.write(name,selectorTag.value)
         }
         if (slider.getAttribute("name") === "ignorance") 
         {
