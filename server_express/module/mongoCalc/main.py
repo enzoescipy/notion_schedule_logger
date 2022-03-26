@@ -124,7 +124,7 @@ def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, 
     sys.stdout.flush()
     return 1
 
-def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate, insertonly=False):
+def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
@@ -179,8 +179,6 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate, ins
         collec.insert_one(docs)
     else:
         if todaystring in docs:
-            if insertonly == True:
-                return -1
             docs[todaystring]["rate_abs"] = rate
             docs[todaystring]["ignorance"] = ignorance
         else:
@@ -339,34 +337,30 @@ def post_sRP_setAll(fromTest, rate, ignorance):
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
     #override true line
-    def calaculate_all(collec, client):
+    def calaculate_all(collec):
         doc_all = collec.find({})
         doc_all = list(doc_all)
-        proceeded = list(map(doc_processor,doc_all))
-        
-        client.close()
-        client = MongoClient(host='localhost', port=27017)
-        selected_name = getName(0,1,fromTest,0)
-        selected_col = selected_name[1]
-        selected_name = selected_name[0]
-        collec = client[selected_name][selected_col]
-        for doc in proceeded:
-            doc["sub-collec"] = "pointer"
-            collec.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
-
+        proceeded = list(map(elder_date_selector,doc_all))
         return proceeded
 
-    def doc_processor(doc):
+    def elder_date_selector(doc):
         propname = doc["id"]
-        proceeded = map(for_all_date_in_doc_process(propname),list(doc.items()))
-        proceeded = dict(list(proceeded))
-        del_keys = []
-        for key in proceeded.keys():
-            if proceeded[key] == -1:
-                del_keys.append(key)
-        for delkey in del_keys:
-            del(proceeded[delkey])
+        while True:
+            if "_id" in doc:
+                del(doc["_id"])
+            if "id" in doc:
+                del(doc["id"])
+            if "sub-collec" in doc:
+                del(doc["sub-collec"])
+            break
+        doc_ordered = list(doc.items())
+        def sorter(target):
+            return date.fromisoformat(target[0])
+        doc_ordered.sort(key=sorter, reverse=True)
+        doc_ordered[0] = for_all_date_in_doc_process(propname)(doc_ordered[0])
 
+        doc[doc_ordered[0][0]] = doc_ordered[0][1]
+        proceeded = dict(doc)
         return proceeded
     
     def for_all_date_in_doc_process(propname):
@@ -378,7 +372,7 @@ def post_sRP_setAll(fromTest, rate, ignorance):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, key, insertonly=True)
+                    point = post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, key)
                     return (key, point)
                 else:
                     return (key, value)
@@ -387,7 +381,7 @@ def post_sRP_setAll(fromTest, rate, ignorance):
         return date_processer
     
     #functional_excute
-    proceeded_list_docAll = calaculate_all(collec, client)
+    proceeded_list_docAll = calaculate_all(collec)
     print(proceeded_list_docAll)
 
 def calc_gPP_doAll(fromTest):
