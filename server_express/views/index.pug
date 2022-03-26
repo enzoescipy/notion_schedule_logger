@@ -164,7 +164,7 @@ html
         {
           var comu = commulative_object[key]
           pointsum = pointsum + Number(comu[1])
-          document.write(pointsum,comu,Number(comu[1]))
+          document.write("<<",pointsum,comu,Number(comu[1]),">>")
         }
         commulative_organized[date] = {"value":pointsum, "tagBody" : target}
       }
