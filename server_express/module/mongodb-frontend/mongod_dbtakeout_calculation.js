@@ -288,13 +288,14 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
         var date_store = undefined
         for (key in doc)
         {
+            console.log(key)
+
             if (key == "sub-collec" || key == "id" | key == "_id")
             {
                 continue
             } 
             if ((date_store === undefined) || (Date(date_store) < Date(key)))
             {
-                console.log(key)
                 date_store = key
             }
             console.log(">>",date_store)
