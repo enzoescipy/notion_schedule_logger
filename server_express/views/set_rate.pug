@@ -14,7 +14,7 @@ html
         div.columns
           each valObj, key in rateData
             div.column
-              p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}
+              p.rateData(id=valObj["E_date"]) #{key}:#{valObj["rate"]}:#{valObj["color"]}:#{valObj["ignorance"]}
       div.column
         div.columns
           div.column
@@ -78,10 +78,11 @@ html
         var key_propname = parseString[0]
         var rate = Number(parseString[1])
         var color = parseString[2]
+        var ignorance = parseString[3]
 
         var key = key_propname
 
-        var tagobj = {[key]:{"date":date, "rate":rate, "color":color, "tagBody":target}}
+        var tagobj = {[key]:{"date":date, "rate":rate, "color":color,"ignorance":ignorance, "tagBody":target}}
 
         Object.assign(rate_datas,tagobj )
       }
@@ -106,15 +107,47 @@ html
       var sliders = document.querySelectorAll('input[type="range"].slider')
       sliders.forEach((slider) => {
         var id = slider.id
+        // slider value to number event manage
         function forSliderFunc(outputTag)
         {
-          document.write(outputTag.id)
           if ((outputTag.id).trim() === id.trim())
           {
             slider.addEventListener('input', (event) => {
               outputTag.innerText = (event.target.value).toString()
             })
           }
+
         }
         getElementsByClassName_repeat("sliderValue", forSliderFunc)
+        //slider initial value manage
+        ////find the selecter's value
+        var selectors = document.getElementsByTagName("select")
+        var selected_selector
+        for (let i=0; i<selecors.length; i++)
+        {
+          var selector = selectors[i]
+          if (selector.getAttribute("name") === "prop_name")
+          {
+            selected_selector = selector
+          }
+
+        }
+        ////set attribute of slider
+        function set_and_makeEvent(name, targetTag, sourceTag)
+        {
+          targetTag.setAttribute("value", sourceTag.value)
+          sourceTag.addEventListener('onchange', (event) => {
+            var propname = event.target.value
+            targetTag.setAttribute("value", rate_datas[propname]["ignorance"])
+          })
+        }
+        if (slider.getAttribute("name") === "ignorance") 
+        {
+          set_and_makeEvent("ignorance", slider, selected_selector)
+        }
+        else if (slider.getAttribute("name") === "rate_abs")
+        {
+          set_and_makeEvent("rate_abs", slider, selected_selector)
+        }
+          
       })
