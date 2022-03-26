@@ -276,9 +276,10 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
             var earlist_date = earlist_date_finder(doc)
             var propname = doc["id"]
             var rate = doc[earlist_date]["rate_abs"]
+            var ignorance = doc[earlist_date]["ignorance"]
             var color = colorizer_child()
 
-            rateData_organized[propname] = {"E_date":earlist_date, "rate":rate, "color":color}
+            rateData_organized[propname] = {"E_date":earlist_date, "rate":rate, "color":color, "ignorance":ignorance}
         })
         return rateData_organized
     }
