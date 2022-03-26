@@ -172,7 +172,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
     function colorizer()
     {
         var colortable = ["maroon", "red","purple","fuchsia","green","lime","olive","yellow","navy","blue","teal","aqua"]
-        var count = 0
+        var count = -1
         function color_counter()
         {
             count += 1
