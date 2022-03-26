@@ -48,8 +48,6 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     def sortfunc(doc):
         doc_date = doc["id"]
         return date.fromisoformat(doc_date)
-    while True:
-        if "id" in 
     docs.sort(key=sortfunc)
     if docs == None:
         client.close()
