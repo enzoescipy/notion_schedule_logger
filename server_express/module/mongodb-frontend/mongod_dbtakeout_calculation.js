@@ -31,7 +31,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         while (true)
         {
             doc = onlyfor_pointer.next()
-            if (doc === undefined)
+            if (doc.date === undefined)
             {
                 break
             }
