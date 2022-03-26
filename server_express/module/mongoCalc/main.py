@@ -191,7 +191,6 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
 
     rate_sum = 0
     for doc in  docs: 
-        print(doc)
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
@@ -358,7 +357,7 @@ def post_sRP_setAll(fromTest, rate, ignorance):
         doc_ordered = list(doc.items())
         def sorter(target):
             return date.fromisoformat(target[0])
-        doc_ordered.sort(key=sorter, reverse=True)
+        doc_ordered.sort(key=sorter)
         doc_ordered[0] = for_all_date_in_doc_process(propname)(doc_ordered[0])
 
         doc[doc_ordered[0][0]] = doc_ordered[0][1]
