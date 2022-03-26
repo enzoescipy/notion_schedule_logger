@@ -107,7 +107,7 @@ html
       sliders.forEach((slider) => {
         var id = slider.id
         var outputsSet = document.getElementsByTagName('output')
-        for (let i=0; i< outputsSet; i++)
+        for (let i=0; i< outputsSet.length; i++)
         {
           var output = outputsSet[i]
           document.write(output.htmlFor)
