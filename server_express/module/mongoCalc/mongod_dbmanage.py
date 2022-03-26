@@ -60,7 +60,6 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     
     count = 0
     ignore = 0
-    print(docs)
     for i in range(len(docs)):
         isdone = docs[i][1]
         isdate = docs[i][0]
