@@ -44,10 +44,12 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
 
     docs = collec.find_one({"id" : propname})
     docs = list(docs)
+    print(docs)
     def sortfunc(doc):
-        print(doc)
         doc_date = doc["id"]
         return date.fromisoformat(doc_date)
+    while True:
+        if "id" in 
     docs.sort(key=sortfunc)
     if docs == None:
         client.close()
