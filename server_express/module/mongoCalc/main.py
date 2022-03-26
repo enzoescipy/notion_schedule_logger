@@ -334,14 +334,13 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
 
 def calc_gPP_doAllExcept(exceptiondate, fromTest):
     fromTest = int(fromTest)
-
     selected_name = getName(0,0,fromTest,0)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
     #override true line
-    def override_true(collec, client):
+    def calaculate_all(collec, client):
         doc_all = collec.find({})
         doc_all = list(doc_all)
         proceeded = list(map(doc_processor,doc_all))
@@ -389,8 +388,69 @@ def calc_gPP_doAllExcept(exceptiondate, fromTest):
         return date_processer
     
     #functional_excute
-    proceeded_list_docAll = override_true(collec, client)
+    proceeded_list_docAll = calaculate_all(collec, client)
     print(proceeded_list_docAll)
+
+def calc_setCommulativeOfPropAll(propname, propdate, fromTest):
+    propname = propname
+    propdate = propdate
+    fromTest = int(fromTest)
+
+    selected_name = getName(0,1,fromTest,0)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    def add_commulative_pointers(collec):
+        #take current calculation DB's pointer objs.
+        current_calcDB = list(collec.find({'sub-collec': 'pointer'}))
+        #and put the commulative pointers from that.
+        commulativer_func = pointerdocs_to_commulative_lists(collec)
+        commulative_lists = map(commulativer_func,current_calcDB)
+    def pointerdocs_to_commulative_lists(collec):
+        def child(doc):
+            #this doc has all calculation point values about "the one property"
+            #takes part in of docs to (key, value), remove other keys.
+            doc_listized = doc.items()
+            map(doc_listized,date_selector)
+            while True:
+                if -1 not in doc_listized:
+                    break
+                doc_listized.remove(-1)
+            #sort the listized doc.
+            doc_listized.sort(key=sorter)
+            #calculate commulative_pointer
+            commulativer_activate = commulativer()
+            map(doc_listized,commulativer_activate)
+
+            #add the commulative pointers in the DB.
+            commulative_doc = dict(doc_listized)
+            commulative_doc["id"] = doc["id"]
+            commulative_doc["sub_collec"] = "pointer_commulative"
+            collec.replace_one({'sub-collec': 'pointer_commulative', "id":doc["id"]}, commulative_doc, upsert=True)
+            return doc_listized
+        return child
+    def date_selector(item):
+        key = item[0]
+        value = item[1]
+        if key == "id" or key == "_id" or key == "sub_collec":
+            return -1
+        else:
+            return (key, value)
+    def sorter(item):
+        day = item[0]
+        day = date.fromisoformat(day)
+        return day
+    def commulativer():
+        pointsum = 0
+        def child(item):
+            pointsum += item[1]
+            return (item[0],pointsum) #(key, commulated_pointer)
+        return child
+
+
+    add_commulative_pointers(collec)
 
 if fget == "0":
     post_setRateOfProp(*fvar)
@@ -398,6 +458,8 @@ elif fget == "1":
     calc_getPointOfProp(*fvar)
 elif fget == "2" :
     calc_gPP_doAllExcept(*fvar)
+elif fget == "3" :
+    calc_setCommulativeOfPropAll(*fvar)
 else:
     print("invalid input.")
     sys.stdout.flush()
