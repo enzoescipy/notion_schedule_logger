@@ -207,10 +207,12 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
         return "no color left error"
     }
     var result = await color_indexer(calender_legacy)
+    var commu = await calc_commulative_organize(dbNamenum, dbTypenum, collectionTypenum)
+    var organized = {"index": result, "data" : calender, "commulative" : commu}
 
-    if (callback != null){callback({"index": result, "data" : calender})}
+    if (callback != null){callback(organized)}
 
-    return {"index": result, "data" : calender}
+    return organized
 }
 
 async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
