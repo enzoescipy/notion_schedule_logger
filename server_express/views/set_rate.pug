@@ -112,7 +112,7 @@ html
           var output = outputsSet[i]
           if ((output.htmlFor.toString()).trim() === id.trim())
           {
-            slider.addEventListener('slider_'+id, (event) => {
+            slider.addEventListener('input'+, (event) => {
               output.value = event.target.value
             })
           }
