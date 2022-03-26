@@ -62,6 +62,9 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     ignore = 0
     for i in range(len(docs)):
         isdone = docs[i][1]
+        isdate = docs[i][0]
+        if date.fromisoformat(isdate) > date.fromisoformat(targetdate):
+            continue
         if isdone == False:
             ignore += 1
             if ignore >= ignorance:
@@ -70,9 +73,6 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
         elif isdone == True:
             ignore = 0
             count += 1
-            targetdate = date.fromisoformat(targetdate)
-            targetdate += timedelta(days=1)
-            targetdate = date.isoformat(targetdate)
         else:
             client.close()
             raise Exception("wrong type exception!")
