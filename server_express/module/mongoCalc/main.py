@@ -358,7 +358,7 @@ def calc_gPP_doAllExcept(exceptiondate, fromTest):
 
     def doc_processor(doc):
         propname = doc["id"]
-        proceeded = map(for_all_date_in_doc_process(propname),doc.items())
+        proceeded = map(for_all_date_in_doc_process(propname),list(doc.items()))
         proceeded = dict(list(proceeded))
         del_keys = []
         for key in proceeded.keys():
@@ -410,7 +410,7 @@ def calc_setCommulativeOfPropAll(fromTest):
         def child(doc):
             #this doc has all calculation point values about "the one property"
             #takes part in of docs to (key, value), remove other keys.
-            doc_listized = doc.items()
+            doc_listized = list(doc.items())
             map(doc_listized,date_selector)
             while True:
                 if -1 not in doc_listized:
