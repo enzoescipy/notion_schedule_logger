@@ -517,7 +517,9 @@ elif fget == "1":
     calc_getPointOfProp(*fvar)
 elif fget == "2" :
     calc_gPP_doAll(*fvar)
-elif fget == "3" :
+elif fget == "3" : 
+    calc_gPP_doOne(*fvar)
+elif fget == "4" :
     calc_setCommulativeOfPropAll(*fvar)
 else:
     print("invalid input.")
