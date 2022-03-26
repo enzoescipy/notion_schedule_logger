@@ -236,7 +236,7 @@ html
         for (var i=0; i < outputsSet.length; i++) 
         {
           var output = outputsSet[i]
-          if (output.htmlFor == id)
+          if ((output.htmlFor.toString()).trim() === id.trim())
           {
             // connect the output and slider.
             slider.addEventListener('input', (event) => {
