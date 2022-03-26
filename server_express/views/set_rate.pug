@@ -135,7 +135,7 @@ html
         function set_and_makeEvent(name, sliderTag, selectorTag)
         {
           sliderTag.setAttribute("value", selectorTag.value)
-          selectorTag.addEventListener('onchange', (event) => {
+          selectorTag.addEventListener('change', (event) => {
             var propname = event.target.value
             window.alert(propname, rate_datas[propname][name])
             sliderTag.setAttribute("value", rate_datas[propname][name])
