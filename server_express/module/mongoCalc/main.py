@@ -228,7 +228,6 @@ def calc_getPointOfProp(propname, propdate, fromTest):
                     if day[4] == "-" and day[7] == "-":
                         current_datetime = date.fromisoformat(day)
                         datetime_list.append(current_datetime)
-                        print(len(datetime_list))
                 except Exception as exp:
                     continue
 
@@ -324,7 +323,6 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
-            print(propname,continuous_num,target_rate,final_point)
             return final_point
 
     print(-1, "function ended")
