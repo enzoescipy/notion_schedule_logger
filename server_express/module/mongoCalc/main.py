@@ -325,7 +325,6 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
             client.close()
-            print(final_point,continuous_num, target_rate)
             return final_point
 
     print(-1, "function ended")
