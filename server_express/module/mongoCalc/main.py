@@ -16,7 +16,7 @@ class Mathfunc:
         original_func = [(0,1.36),(1,0.58),(2,0.16),(3,2.06),(4,3.79),(5,4.11),(6,5.00)] #calculated by function_reward.ggb geogebra5
         parallel_mover = 0
         multiplier = 1
-        multiplier = (starting - upperbound) /( original_func[6][1] - original_func[0][1])
+        multiplier = (starting - upperbound) /( original_func[0][1] - original_func[6][1])
         parallel_mover = starting - original_func[0][1] * multiplier
         adjusted_function = []
         for point in original_func:
