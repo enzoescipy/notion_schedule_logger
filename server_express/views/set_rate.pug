@@ -110,6 +110,7 @@ html
         for (let i=0; i< outputsSet.length; i++)
         {
           var output = outputsSet[i]
+          document.write(output.htmlFor, id, output.htmlFor === id)
           if (output.htmlFor === id)
           {
             slider.addEventListener('input', (event) => {
