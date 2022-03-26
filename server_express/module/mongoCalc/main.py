@@ -405,7 +405,7 @@ def calc_setCommulativeOfPropAll(fromTest):
         #and put the commulative pointers from that.
         commulativer_func = pointerdocs_to_commulative_lists(collec)
         commulative_lists = map(commulativer_func,current_calcDB)
-        return commulative_lists
+        return list(commulative_lists)
     def pointerdocs_to_commulative_lists(collec):
         def child(doc):
             #this doc has all calculation point values about "the one property"
