@@ -188,26 +188,6 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
     return organized_calender
 }
 
-async function calc_commulative_adder(calender)
-{
-    for (let i=0; i<calender.length; i++)
-    {
-        var selectedDate_arr = calender[i]
-        var point_arr = Object.entries(selectedDate_arr[1])
-        var pointSum = 0
-        for (let j=0; j<calender.length; j++)
-        {
-            var commulative_point = point_arr[j][1]
-            pointSum += commulative_point
-        }
-        console.log(pointSum)
-        calender[i][1]["commulative_sum"] = pointSum
-        console.log(calender[i][1]["commulative_sum"])
-    }
-    return calender
-}
-
-
 async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
