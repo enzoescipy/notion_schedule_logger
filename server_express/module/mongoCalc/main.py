@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from sympy import false
 from mongod_dbmanage import getName, checkHowContinuous
 import sys
 from datetime import date, datetime
