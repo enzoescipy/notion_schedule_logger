@@ -96,8 +96,9 @@ html
         var tagobj = rate_datas[propname]
         var rate = tagobj["rate"]
         var color = tagobj["color"]
+        var ignorance = tagobj["ignorance"]
         var tag = tagobj["tagBody"]
-        tag.innerText = propname + ":" + rate
+        tag.innerText = propname + ":" + rate + "\n" + ignorance
         tag.className += " has-background-"+color
         tag.className += " has-text-light"
       }
