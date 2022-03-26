@@ -180,7 +180,7 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate, ins
         collec.insert_one(docs)
     else:
         if todaystring in docs:
-            if insertonly = True:
+            if insertonly == True:
                 return -1
             docs[todaystring]["rate_abs"] = rate
             docs[todaystring]["ignorance"] = ignorance
