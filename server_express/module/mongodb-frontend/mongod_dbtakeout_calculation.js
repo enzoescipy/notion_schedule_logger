@@ -31,7 +31,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
     async function elder_deleter(calender, deletelength)
     {
-        calender_arr = Object.entried(calender)
+        calender_arr = Object.entries(calender)
         calender_arr.sort((a,b) => {
             var a_date = new Date(a[0])
             var b_date = new Date(b[0])
