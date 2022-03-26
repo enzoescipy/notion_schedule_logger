@@ -296,6 +296,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
             {
                 date_store = key
             }
+            console.log(date_store)
         }
         return date_store
     }
