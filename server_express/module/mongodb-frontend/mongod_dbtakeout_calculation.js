@@ -32,7 +32,6 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
     async function elder_deleter(calender, deletelength)
     {
         calender_arr = Object.entries(calender)
-        console.log(calender_arr)
         calender_arr.sort((a,b) => {
             var a_date = new Date(a[0])
             var b_date = new Date(b[0])
@@ -124,7 +123,6 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
     async function elder_deleter(calender, deletelength)
     {
         calender_arr = Object.entries(calender)
-        console.log(calender_arr)
         calender_arr.sort((a,b) => {
             var a_date = new Date(a[0])
             var b_date = new Date(b[0])
@@ -258,6 +256,7 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     var result = await color_indexer(calender_legacy)
     var calender = await calc_commulative_adder(calender)
     var commu = await calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
+    console.log(commu)
     commu = await calc_commulative_adder(commu)
     var organized = {"index": result, "data" : calender,"commulative":commu}
 
@@ -287,7 +286,6 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
 
             rateData_organized[propname] = {"E_date":earlist_date, "rate":rate, "color":color}
         })
-        console.log(rateData_organized)
         return rateData_organized
     }
 
