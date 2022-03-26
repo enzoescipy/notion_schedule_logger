@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href="/css/mystyles.css")
     script(src="node_modules/jquery/dist/jquery.js", type="text/javscript")
   body
-    p.hidden rateData?#{rateData}
+    p rateData?#{rateData}
     -   
       rateData = JSON.parse(rateData)
 
@@ -117,5 +117,4 @@ html
           }
         }
         getElementsByClassName_repeat("sliderValue", forSliderFunc)
-        document.write(id)
       })
