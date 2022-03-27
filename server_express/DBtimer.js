@@ -4,7 +4,7 @@ const settingMongo = require("./module/mongodb-communicate/mongod_dbmanage_SETTI
 const moment = require('moment');
 require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
-const todaystring = moment().format("YYYY-MM-DD")
+var todaystring = moment().format("YYYY-MM-DD")
 
 
 var preset_DBnaming = []
