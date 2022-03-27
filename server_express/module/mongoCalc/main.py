@@ -543,6 +543,7 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
         
     def doc_processor(doc):
         # find latest date's rate.
+        propname = doc["_id"]
         if "_id" in doc:
             del(doc["_id"])
         if "id" in doc:
@@ -565,7 +566,7 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
                 break
             count += 1
 
-        post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[latest_date]["rate_abs"], fromTest,doc[latest_date]["ignorance"], latest_date)
+        post_setRateOfProp_noflush(dbname, dbcollec,propname, doc[latest_date]["rate_abs"], fromTest,doc[latest_date]["ignorance"], latest_date)
 
 
     result = search_and_updateOne(collec)
