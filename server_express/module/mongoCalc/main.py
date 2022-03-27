@@ -533,6 +533,14 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
     today = date.fromisoformat(date.today().isoformat())
+    #debug : change today if test
+    client = MongoClient(host='localhost', port=27017)
+    collec = client["OPERATION_MODE_system"]["base"]
+    debug_doc = collec.find_one({})
+    if "testdate" in debug_doc:
+        today = date.fromisoformat(debug_doc["testdate"])
+
+    client.close()
 
     selected_name = getName(dbname,0,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
