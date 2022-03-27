@@ -3,6 +3,14 @@ from mongod_dbmanage import getName, checkHowContinuous
 import sys
 from datetime import date, timedelta
 
+def writeLog(*strings):
+    todaystring = date().isoformat()
+    stringsum = ""
+    for stri in strings:
+        stringsum += str(stri)
+    with open("./main_log.txt", 'at') as file:
+        file.write(todaystring +":"+ stringsum)
+
 #decide what function to excute
 
 fget = sys.argv[1]
@@ -198,6 +206,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
         client.close()
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
+        writeLog(propname,target_rate,Mathfunc.normal_rewardfunc(continuous_num),final_point)
         if final_point >= 0 :
             return final_point
 
