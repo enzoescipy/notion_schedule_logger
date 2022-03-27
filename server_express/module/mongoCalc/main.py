@@ -191,6 +191,7 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
 
     rate_sum = 0
     for doc in  docs: 
+        print(doc[todaystring])
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
@@ -382,7 +383,7 @@ def post_sRP_setAll(fromTest, rate, ignorance):
         return date_processer
     
     #functional_excute
-    proceeded_list_docAll = calaculate_all(collec)
+    calaculate_all(collec)
 
 def calc_gPP_doAll(fromTest):
     fromTest = int(fromTest)
