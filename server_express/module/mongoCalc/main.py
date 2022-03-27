@@ -484,7 +484,6 @@ def calc_gPP_updateOne(propdate, fromTest):
         propdate_countable = date.fromisoformat(propdate)
         propday = propdate_countable.weekday()
         for i in range(propday+1):
-            print(i)
             propdate_now = propdate_countable.isoformat()
             doc[propdate_now] = calc_getPointOfProp_noflush(doc["id"], propdate_now, fromTest)
             propdate_countable -= timedelta(days=1)
@@ -582,7 +581,6 @@ def calc_sCO_updateOne(propdate, fromTest):
         return list(map(doc_updattor,docs))
         
     def doc_processor(docpair):
-        print("hello, world!")
 
         doc = docpair[0]
         doc_noncommu = docpair[1]
@@ -591,7 +589,6 @@ def calc_sCO_updateOne(propdate, fromTest):
         propday = propdate_now.weekday()
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
         for i in range(propday+1):
-            print(i)
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
             commulative_before = doc[propdate_before_str]
