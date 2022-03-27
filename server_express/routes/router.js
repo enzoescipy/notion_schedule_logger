@@ -109,10 +109,7 @@ router.post('/api/notionUpdate', function(req, res) {
     async function calculate()
     {
         var para = await mongoPublic.reloadDB_main(0,0,dbtype())
-        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring , dbtype()])
-        pythonProcess.stdout.on('data',(data) => {
-            renderstart(para)
-        })
+        renderstart(para)
     }
 
     function renderstart(para)
@@ -154,12 +151,5 @@ router.post('/api/ratesSet/', function(req, res) {
     })
 })
 
-router.post('/api/refreshTodayProps/', function(req, res) {
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring,dbtype()])
-    pythonProcess.stdout.on('data', (data) => {
-        console.log("(request_4) updated today's calculation and refresh rates.")
-        res.render('warp', {portal: req.body.portal4})
-    })
-})
 
 module.exports = router
