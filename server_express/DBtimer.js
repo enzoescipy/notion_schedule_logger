@@ -126,11 +126,13 @@ async function START()
     }
     console.log("initiation start.")
     await init_test()
+    /*
     console.log("initiation end.")
 
     console.log("loop start.")
 
     infinite_repeat()
+    */
 }
 
 
