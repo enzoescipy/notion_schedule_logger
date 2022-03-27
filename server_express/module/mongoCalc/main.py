@@ -176,9 +176,12 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
         
     else:
         # find latest date's rate.
-        del(doc["_id"])
-        del(doc["id"])
-        del(doc["sub-collec"])
+        if "_id" in doc:
+            del(doc["_id"])
+        if "id" in doc:
+            del(doc["id"])
+        if "sub-collec" in doc:
+            del(doc["sub-collec"])
         doc_tolist = list(doc.items())
         def sorter(item):
             return date.fromisoformat(item[0])
@@ -230,9 +233,12 @@ def post_setRateForNew(dbname, dbcollec,fromTest, rate, ignorance):
 
     def elder_date_selector(doc):
         propname = doc["id"]
-        del(doc["_id"])
-        del(doc["id"])
-        del(doc["sub-collec"])
+        if "_id" in doc:
+            del(doc["_id"])
+        if "id" in doc:
+            del(doc["id"])
+        if "sub-collec" in doc:
+            del(doc["sub-collec"])
         doc_ordered = list(doc.items())
         def sorter(target):
             return date.fromisoformat(target[0])
@@ -537,9 +543,12 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
         
     def doc_processor(doc):
         # find latest date's rate.
-        del(doc["_id"])
-        del(doc["id"])
-        del(doc["sub-collec"])
+        if "_id" in doc:
+            del(doc["_id"])
+        if "id" in doc:
+            del(doc["id"])
+        if "sub-collec" in doc:
+            del(doc["sub-collec"])
         doc_tolist = list(doc.items())
         def sorter(item):
             return date.fromisoformat(item[0])
@@ -592,9 +601,12 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
 
     def elder_date_selector(doc):
         propname = doc["id"]
-        del(doc["_id"])
-        del(doc["id"])
-        del(doc["sub-collec"])
+        if "_id" in doc:
+            del(doc["_id"])
+        if "id" in doc:
+            del(doc["id"])
+        if "sub-collec" in doc:
+            del(doc["sub-collec"])
         doc_ordered = list(doc.items())
         def sorter(target):
             return date.fromisoformat(target[0])
