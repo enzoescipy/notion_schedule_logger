@@ -481,6 +481,7 @@ def calc_gPP_updateOne(propdate, fromTest):
     def search_and_updateOne(collec):
         docs = list(collec.find({'sub-collec': 'pointer'}))
         docs =  list(map(doc_processor,docs))
+        print(docs)
         map(doc_updatter,docs)
         
     def doc_processor(doc):
