@@ -172,6 +172,7 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
+        console.log(calender)
         for (key in calender)
         {
             //get date data.
@@ -179,9 +180,15 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
             date_id = date_data_now.id // what i did. ex) study math
             delete date_data_now.id
 
+            
+
+
+
+
+
             //check if there are already data that has same date_id exist in DB.
-            var query = {"id" : date_id}
-            var docs = await collec.findOne(query) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
+
+            var docs = await collec.findOne({"id" : date_id}) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
 
             if (docs != null) 
             {
