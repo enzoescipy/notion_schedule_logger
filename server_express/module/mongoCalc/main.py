@@ -510,21 +510,15 @@ def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
     def search_and_updateOne(collec):
         docs = list(collec.find({'sub-collec': 'rater'}))
         docs =  list(map(doc_processor,docs))
-        result = list(map(doc_updatter,docs))
-        return result
         
     def doc_processor(doc):
         propdate_countable = date.fromisoformat(propdate)
         propday = propdate_countable.weekday()
         for i in range(propday+1):
             propdate_now = propdate_countable.isoformat()
-            doc[propdate_now] = calc_getPointOfProp_noflush(dbname, dbcollec,doc["id"], propdate_now, fromTest)
             propdate_countable -= timedelta(days=1)
             post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
         return doc
-    def doc_updatter(doc):
-        collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc)
-        return "Done!"
 
     result = search_and_updateOne(collec)
     #print(result)
