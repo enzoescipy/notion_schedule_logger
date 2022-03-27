@@ -3,8 +3,11 @@ const router = express.Router()
 const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculation")
+const moment = require("moment")
 
 var dbtype_fixed = "test"
+var todaystring = moment().format("YYYY-MM-DD")
+
 function dbtype()
 {
     if (dbtype_fixed == "test")
@@ -103,7 +106,17 @@ async function rate_get_rateData(dbNamenum, dbTypenum, collectionTypenum)
 
 //notion update router
 router.post('/api/notionUpdate', function(req, res) {
-    mongoPublic.reloadDB_main(0,0,dbtype(),(para) => {
+    async function calculate()
+    {
+        var para = await mongoPublic.reloadDB_main(0,0,dbtype())
+        var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring , dbtype()])
+        pythonProcess.stdout.on('data',(data) => {
+            renderstart(para)
+        })
+    }
+
+    function renderstart(para)
+    {
         if (para == -1)
         {
             console.log("(request_1_denied) update data from notion -> server mongoDB, blocked by pre-settings ")
@@ -115,7 +128,9 @@ router.post('/api/notionUpdate', function(req, res) {
             res.render('warp', {portal: req.body.portal1, send: 1})
         }
 
-    })
+    }
+
+    calculate()
 })
 
 router.post('/api/SETTINGsSet/', function(req, res) {
