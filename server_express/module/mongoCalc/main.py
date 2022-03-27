@@ -481,14 +481,13 @@ def calc_gPP_updateOne(propdate, fromTest):
     def search_and_updateOne(collec):
         docs = list(collec.find({'sub-collec': 'pointer'}))
         docs =  list(map(doc_processor,docs))
-        print(docs)
         map(doc_updatter,docs)
         
     def doc_processor(doc):
         doc[propdate] = calc_getPointOfProp_noflush(doc["id"], propdate, fromTest)
         return doc
     def doc_updatter(doc):
-        print(doc)
+        print("hello, world!")
         collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc)
 
     result = search_and_updateOne(collec)
