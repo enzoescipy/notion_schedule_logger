@@ -70,7 +70,7 @@ async function infinite_repeat()
 
 async function START()
 {
-    if ( (ispreset_addDB_raised && ispreset_repeatTime_raised))
+    if ( !(ispreset_addDB_raised && ispreset_repeatTime_raised))
     {
         console.log(ispreset_addDB_raised && ispreset_repeatTime_raised)
         console.log("fault. setting not completed.")
