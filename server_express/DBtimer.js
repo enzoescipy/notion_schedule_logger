@@ -77,14 +77,15 @@ async function init()
         var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
         var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
 
-        console.log("pyProprateOptimize...")
-        console.log("pyCalculaion...")
         function debug(data)
         {
             console.log(data.toString())
         }
+        console.log("pyProprateOptimize...")
         await pythonprocess_1.stdout.on('data', debug)
+        console.log("pyCalculaion...")
         await pythonprocess_2.stdout.on('data', debug)
+        console.log("pycommulative...")
         await pythonprocess_4.stdout.on('data', debug)
 
 
@@ -131,7 +132,6 @@ async function START()
     infinite_repeat()
     
 }
-
 
 
 exports.preset_addDB = preset_addDB
