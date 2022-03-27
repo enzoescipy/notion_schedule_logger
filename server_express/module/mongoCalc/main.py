@@ -564,7 +564,7 @@ def calc_setCommulativeOfPropAll(fromTest):
     sys.stdout.flush()
 
 def calc_sCO_updateOne(propdate, fromTest):
-    print("hello, world!")
+
     fromTest = int(fromTest)
 
     selected_name = getName(0,1,fromTest,0)
@@ -577,6 +577,7 @@ def calc_sCO_updateOne(propdate, fromTest):
         docs = list(collec.find({'sub-collec': 'pointer_commulative'}))
         docs_noncommulative = list(collec.find({'sub-collec': 'pointer'}))
         doc_pairs = list(zip(docs, docs_noncommulative))
+        print("hello, world!")
         docs =  list(map(doc_processor,doc_pairs))
         return list(map(doc_updattor,docs))
         
