@@ -6,7 +6,6 @@ const istest = require("../module/serverIsTest/index")
 const moment = require("moment")
 
 var dbtype = istest.NOWNUM
-var todaystring = momeosunt().format("YYYY-MM-DD")
 
 
 
