@@ -602,6 +602,8 @@ def calc_sCO_updateOne(propdate, fromTest):
 
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
+    print("Done!")
+    sys.stdout.flush()
 elif fget == "1":
     post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
 elif fget == "2" :
