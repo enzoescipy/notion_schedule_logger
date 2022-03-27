@@ -33,6 +33,33 @@ async function preset_initial_ratesetting(rate, igno)
     ispreset_initial_ratesetting_raised = true
     return [initrate,initignorance]
 }
+
+async function init_test()
+{
+    for (let i=0; i<preset_DBnaming.length; i++)
+    {
+        var DBnaming = preset_DBnaming[i]
+        //mongo init
+        console.log("settingDB...")
+        await settingMongo.set(1,1,true,DBnaming[0],DBnaming[1],DBnaming[2])
+        await settingMongo.set(0,0,7,DBnaming[0],DBnaming[1],DBnaming[2])
+        console.log("notionMainDB...")
+        await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
+    }
+}
+
+async function repeat_test()
+{
+    for (let i=0; i<preset_DBnaming.length; i++)
+    {
+        var DBnaming = preset_DBnaming[i]
+        console.log("notionMainDB...")
+        await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
+
+    }
+
+}
+
 async function init()
 {
     for (let i=0; i<preset_DBnaming.length; i++)
@@ -85,7 +112,7 @@ async function infinite_repeat()
 {
     console.log("loop.")
 
-    setTimeout(repeat, preset_repeat_ms)
+    setTimeout(repeat_test, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)
 }
 
@@ -98,7 +125,7 @@ async function START()
         return -1
     }
     console.log("initiation start.")
-    await init()
+    await init_test()
     console.log("initiation end.")
 
     console.log("loop start.")
