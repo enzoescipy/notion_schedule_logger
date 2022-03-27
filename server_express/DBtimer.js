@@ -8,6 +8,8 @@ const todaystring = moment().format("YYYY-MM-DD")
 
 var preset_DBnaming = []
 var preset_repeat_ms = 0
+var initrate = undefined
+var initignorance = undefined
 
 var ispreset_addDB_raised = false
 async function preset_addDB(dbNamenum, dbTypenum, collectionTypenum)
@@ -21,8 +23,13 @@ async function preset_addRepeatTime(sec)
     preset_repeat_ms = sec * 1000
     ispreset_repeatTime_raised = true
 }
-
-
+var ispreset_initial_ratesetting_raised = false
+async function preset_initial_ratesetting(rate, igno)
+{
+    initrate = rate
+    initignorance = igno
+    ispreset_initial_ratesetting_raised = true
+}
 async function init()
 {
     for (let i=0; i<preset_DBnaming.length; i++)
@@ -34,7 +41,7 @@ async function init()
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
 
         //python init
-        var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],proprate,ignorance])
+        var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
         var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
 
