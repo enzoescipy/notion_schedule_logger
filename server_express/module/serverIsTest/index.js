@@ -40,7 +40,7 @@ async function NOWNUM()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
     doc = await collec.findOne({})
-    return doc.currentMode
+    return doc["currentMode"]
 }
 exports.TEST = TEST
 exports.MAIN = MAIN
