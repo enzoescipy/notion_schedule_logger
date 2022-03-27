@@ -442,7 +442,7 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
     result = add_commulative_pointers(collec)
 
 def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
-    writeLog(dbname, dbcollec,propdate, fromTest)
+    #writeLog(dbname, dbcollec,propdate, fromTest)
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -575,7 +575,10 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
 
         if newest_date < today:
             zerorate_date_str = date.isoformat(newest_date + timedelta(days=1))
+            # make that prop zero.
             post_setRateOfProp_noflush(dbname, dbcollec,propname, 0, fromTest,1, zerorate_date_str)
+            # modify the other props too.
+            post_updateRateOfWeek(dbname, dbcollec,zerorate_date_str, fromTest)
 
     
     
@@ -602,6 +605,7 @@ elif fget == "2" :
     sys.stdout.flush()
 elif fget == "3" : 
     post_updateRateOfWeek(*fvar) # (dbname, dbcollec,propdate, fromTest) new prop added -> rate_rel could be changed cause by prop amount limitation func.
+                                 #  WARN: it UPDATEs the proprate in the week, not MAKE it. so there must be already a rater exists.
     calc_updatePointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
     calc_updateComuPointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
     print("Done!")                 #calc_updateComuPointOfWeek can also calculate "have no commulative pointers but have just pointers".
