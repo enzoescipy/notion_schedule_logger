@@ -66,7 +66,7 @@ def normal_rateRelCalc_limitPropAmount(num, rate_abs, start_fixrate=0.1):
 Mathfunc.normal_rewardfunc = normal_rewardfunc
 Mathfunc.normal_rateRelCalc_limitPropAmount = normal_rateRelCalc_limitPropAmount
 
-def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate, overlap=True): #overlap False -> propname already in calcdb then reject.
+def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate, overlap=True): #overlap False -> propname already in calc_rater_db then reject.
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     propname = str(propname)
@@ -132,14 +132,15 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
         collec.replace_one({"id" : propname}, docs)
 
     # put and calculate the rate_rel
+
     docs = collec.find({"sub-collec":"rater",todaystring:{'$exists': 1}})
     docs = list(docs)
 
-    rate_sum = 0
     prop_amount = 0
     for doc in  docs: 
+        if doc[todaystring]["rate_abs"] == 0:
+            continue
         prop_amount += 1 
-        rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
         doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
@@ -527,6 +528,74 @@ def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
     #print(result)
     #sys.stdout.flush()   
 
+
+def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
+    fromTest = int(fromTest)
+    today = datetime.today()
+
+    selected_name = getName(dbname,0,fromTest,dbcollec)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+    #override true line
+    def calaculate_all(collec):
+        doc_all = collec.find({})
+        doc_all = list(doc_all)
+        proceeded = list(map(elder_date_selector,doc_all))
+        return proceeded
+
+    def elder_date_selector(doc):
+        propname = doc["id"]
+        while True:
+            if "_id" in doc:
+                del(doc["_id"])
+            if "id" in doc:
+                del(doc["id"])
+            if "sub-collec" in doc:
+                del(doc["sub-collec"])
+            break
+        doc_ordered = list(doc.items())
+        def sorter(target):
+            return date.fromisoformat(target[0])
+        doc_ordered.sort(key=sorter)
+        eldest_date_str = doc_ordered[0][0]
+        eldest_date = date.fromisoformat(eldest_date_str)
+
+        if eldest_date < today:
+            zerorate_date_str = date.isoformat(eldest_date + timedelta(days=1))
+            post_setRateOfProp_noflush(dbname, dbcollec,propname, 0, fromTest,1, zerorate_date_str)
+
+
+        doc_ordered[0] = for_all_date_in_doc_process(propname)(doc_ordered[0]) #[0] is the eldest.
+
+        doc[doc_ordered[0][0]] = doc_ordered[0][1]
+        proceeded = dict(doc)
+        return proceeded
+    
+    def for_all_date_in_doc_process(propname):
+        def date_processer(item):
+            key = item[0]
+            value = item[1]
+            if key == "_id":
+                return (key, -1)
+            try:
+                if key[4] == "-" and key[7] == "-":
+                    #then, key is propdate!
+                    return (key, point)
+                else:
+                    return (key, value)
+            except IndexError:
+                return (key, value)
+        return date_processer
+    
+    #functional_excute
+    calaculate_all(collec)
+
+
+
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
     print("Done!")
@@ -534,14 +603,17 @@ if fget == "0":
 elif fget == "1":
     post_setRateForNew(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, 
     post_setRateForNew(*fvar) #and fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
-    print("Done!")         #only create for new propname, don't touching every existing proprate.
+                              #only create for new propname, don't touching every existing proprate.     
+
+    post_faultRateEliminate(*fvar) #if there are some prop that maindb(notion) date is fewer then other prop, make its rate_abs to 0.
+    print("Done!")         
     sys.stdout.flush()
 elif fget == "2" :
     calc_setPointForNew(*fvar) #(dbname, dbcollec,fromTest)
     print("Done!")        #only create for new propname, don't touching every existing prop points.
     sys.stdout.flush()
 elif fget == "3" : 
-    post_updateRateOfWeek(*fvar)
+    post_updateRateOfWeek(*fvar) # (dbname, dbcollec,propdate, fromTest) new prop added -> rate_rel could be changed cause by prop amount limitation func.
     calc_updatePointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
     calc_updateComuPointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
     print("Done!")                 #calc_updateComuPointOfWeek can also calculate "have no commulative pointers but have just pointers".
