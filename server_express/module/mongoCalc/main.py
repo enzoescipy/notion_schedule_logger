@@ -22,6 +22,16 @@ class Mathfunc:
         for point in original_func:
             adjusted_function.append((point[0], point[1]*multiplier + parallel_mover))
         return adjusted_function
+    def maintain_drop_maintain(starting=0.25, end=0):
+        original_func = [(0,0.25),(1,0.25),(2,0.24),(3,0.22),(4,0.17),(5,0.1),(6,0)]
+        parallel_mover = 0
+        multiplier = 1
+        multiplier = (starting - end) /( original_func[0][1] - original_func[6][1])
+        parallel_mover = starting - original_func[0][1] * multiplier
+        adjusted_function = []
+        for point in original_func:
+            adjusted_function.append((point[0], point[1]*multiplier + parallel_mover))
+        return adjusted_function
 
 def normal_rewardfunc(num):
     num = num - 1
@@ -34,7 +44,19 @@ def normal_rewardfunc(num):
         return 0.0
     else:
         return -1
+def normal_rateRelCalc_limitPropAmount(num, rate_abs, start_fixrate=0.1):
+    num = int((num-1)*0.5)
+    base = Mathfunc.maintain_drop_maintain(starting=rate_abs*start_fixrate)
+    if 0 <= num <= 6:
+        return base[num][1]
+    elif num > 6:
+        return base[6][1]
+    elif num == -1:
+        return 0.0
+    else:
+        return -1
 Mathfunc.normal_rewardfunc = normal_rewardfunc
+Mathfunc.normal_rateRelCalc_limitPropAmount = normal_rateRelCalc_limitPropAmount
 
 
 
@@ -110,11 +132,13 @@ def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, 
     docs = collec.find({todaystring:{'$exists': 1}})
     docs = list(docs)
     rate_sum = 0
+    prop_amount = 0
     for doc in  docs: 
+        prop_amount += 1
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
-        doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
+        doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
     
@@ -190,11 +214,13 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     docs = list(docs)
 
     rate_sum = 0
+    prop_amount = 0
     for doc in  docs: 
+        prop_amount += 1 
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
-        doc_2[todaystring]["rate_rel"] = doc_2[todaystring]["rate_abs"] / rate_sum
+        doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
     
