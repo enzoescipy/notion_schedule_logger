@@ -469,8 +469,8 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
 
         #for commulative, inverse search operate.
-        propdate_now -= timedelta(days=propday+1)
-        propdate_before -= timedelta(days=propday+1) #+1 is for the week changes. so, this func calculate more than week, actually.
+        propdate_now -= timedelta(days=propday)
+        propdate_before -= timedelta(days=propday) #+1 is for the week changes. so, this func calculate more than week, actually.
         for i in range(propday+1):
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
@@ -481,7 +481,7 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
 
             if propdate_now_str in doc_noncommu:
                 noncommu_now = doc_noncommu[propdate_now_str]
-                doc[propdate_now_str] = commulative_before + noncommu_now
+                doc[propdate_now_str] = commulative_before + noncommu_now # insertion happening section
                 propdate_before += timedelta(days=1)
                 propdate_now += timedelta(days=1)
             else:
@@ -490,7 +490,7 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
 
         return doc
     def doc_updattor(doc):
-        collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc)
+        collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc) # final update section
         return "Done!"
 
 
@@ -569,7 +569,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
             return date.fromisoformat(target[0])
         doc_ordered.sort(key=sorter)
         newest_date_str = doc_ordered[-1][0]
-        writeLog(propname, newest_date_str, doc_ordered, today.isoformat())
+        #writeLog(propname, newest_date_str, doc_ordered, today.isoformat())
         newest_date = date.fromisoformat(newest_date_str)
 
         if newest_date < today:
