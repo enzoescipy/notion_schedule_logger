@@ -592,7 +592,6 @@ def calc_sCO_updateOne(propdate, fromTest):
 
         return doc
     def doc_updattor(doc):
-        print(doc)
         collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc)
         return "Done!"
 

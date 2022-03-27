@@ -124,7 +124,7 @@ router.post('/api/notionUpdate', function(req, res) {
         }
         else
         {
-            console.log("(request_) update data from notion -> server mongoDB ")
+            console.log("(request_1) update data from notion -> server mongoDB ")
             res.render('warp', {portal: req.body.portal1, send: 1})
         }
 
@@ -155,5 +155,12 @@ router.post('/api/ratesSet/', function(req, res) {
     })
 })
 
+router.post('/api/refreshTodayProps/', function(req, res) {
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,proprate,dbtype()])
+    pythonProcess.stdout.on('data', (data) => {
+        console.log("(request_4) updated today's calculation and refresh rates.")
+        res.render('warp', {portal: req.body.portal4})
+    })
+})
 
 module.exports = router
