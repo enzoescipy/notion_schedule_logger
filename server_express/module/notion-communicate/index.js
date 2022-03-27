@@ -11,10 +11,17 @@ const moment = require('moment');
 require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
 
+const istest = require("../serverIsTest/index")
+
 async function getItem(databaseId) {
   try {
     //prepare to change day of week to date
     var currnet_date = moment()
+    var istest_date = await istest.TESTDATE_GET()
+    if (istest_date !== -1)
+    {
+      currnet_date = moment(istest_date, "YYYY-MM-DD")
+    }
     var current_day = (Number(currnet_date.format("d")) +6 ) % 7  // starts at 0=monday, ends at 6=sunday.
     var week = [false, false, false, false, false, false, false]
 
