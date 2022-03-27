@@ -533,7 +533,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
-    today = datetime.today()
+    today = date.today()
 
     selected_name = getName(dbname,0,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
@@ -568,28 +568,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
             zerorate_date_str = date.isoformat(eldest_date + timedelta(days=1))
             post_setRateOfProp_noflush(dbname, dbcollec,propname, 0, fromTest,1, zerorate_date_str)
 
-
-        doc_ordered[0] = for_all_date_in_doc_process(propname)(doc_ordered[0]) #[0] is the eldest.
-
-        doc[doc_ordered[0][0]] = doc_ordered[0][1]
-        proceeded = dict(doc)
-        return proceeded
     
-    def for_all_date_in_doc_process(propname):
-        def date_processer(item):
-            key = item[0]
-            value = item[1]
-            if key == "_id":
-                return (key, -1)
-            try:
-                if key[4] == "-" and key[7] == "-":
-                    #then, key is propdate!
-                    return (key, point)
-                else:
-                    return (key, value)
-            except IndexError:
-                return (key, value)
-        return date_processer
     
     #functional_excute
     calaculate_all(collec)
