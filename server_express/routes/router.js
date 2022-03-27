@@ -150,7 +150,6 @@ router.post('/api/ratesSet/', function(req, res) {
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,dbtype(),ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
-        console.log(data.toString())
         console.log("(request_3) update calculation rate_abs in server. ")
         res.render('warp', {portal: req.body.portal3})
     })

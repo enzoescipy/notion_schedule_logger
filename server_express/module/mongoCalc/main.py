@@ -558,8 +558,7 @@ def calc_setCommulativeOfPropAll(fromTest):
     sys.stdout.flush()
 
 if fget == "0":
-    print("depracated method has been called. not recommended.")
-    post_setRateOfProp_depracated(*fvar) #(propname, rate, fromTest,ignorance, propdate, insertonly=False):
+    post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
 elif fget == "1":
     post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
 elif fget == "2" :
