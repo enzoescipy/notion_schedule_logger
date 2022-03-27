@@ -15,12 +15,11 @@ async function getItem(databaseId) {
   try {
     //prepare to change day of week to date
     var currnet_date = moment()
-    //currnet_date.subtract(3,"days")//--debug
-    var current_day = (Number(currnet_date.format("d")) +6 ) % 7
-    var monday = moment()
-    //monday.subtract(3,"days")//--debug
-    monday = monday.subtract(current_day+1, 'days')
+    var current_day = (Number(currnet_date.format("d")) +6 ) % 7 // start at 
+    console.log(current_day);return
     var week = Array(7)
+
+
     for (var i=0; i<7;i++)
     {
       var dateText = monday.add(1,'days').format("YYYY-MM-DD")
