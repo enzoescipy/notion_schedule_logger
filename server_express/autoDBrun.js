@@ -11,7 +11,7 @@ async function start(val)
 	await dbtimer.preset_addRepeatTime(20)
 	await dbtimer.preset_initial_ratesetting(25, 1)
 
-	var todaymodify = istest.TESTDATE_GET()
+	var todaymodify = await istest.TESTDATE_GET()
 	if (todaymodify !== -1)
 	{
 		await dbtimer.preset_today(todaymodify)
