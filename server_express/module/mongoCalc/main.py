@@ -132,7 +132,8 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
         else:
             docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
         del(docs["_id"])
-        collec.replace_one({"id" : propname,"sub-collec":"rater"}, docs, upsert=True)
+        debug = collec.replace_one({"id" : propname,"sub-collec":"rater"}, docs, upsert=True)
+        print(debug)
 
     # put and calculate the rate_rel
 
