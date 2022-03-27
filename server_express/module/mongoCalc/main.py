@@ -219,6 +219,7 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
+        print(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
