@@ -79,7 +79,7 @@ async function init()
 
         console.log("pyProprateOptimize...")
 
-        pythonprocess_1.stdout.on('data', chain1)
+        await pythonprocess_1.stdout.on('data', chain1)
         function chain1(data)
         {
             console.log("pyCalculaion...")
@@ -103,7 +103,7 @@ async function repeat()
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
         var pythonprocess_3 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py",3,DBnaming[0],DBnaming[2],todaystring,DBnaming[1]])
         console.log("pyCalculation_small...")
-        pythonprocess_3.stdout.on('data', () => {})
+        await pythonprocess_3.stdout.on('data', () => {})
     }
 
 }
