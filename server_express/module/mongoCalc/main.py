@@ -247,7 +247,7 @@ def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = post_setRateOfProp_noflush(dbname, dbcollec,propname,propname, rate, fromTest,ignorance, key)
+                    point = post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, key)
                     return (key, point)
                 else:
                     return (key, value)
