@@ -340,7 +340,7 @@ def calc_gPP_updateOne(dbname, dbcollec,propdate, fromTest):
         propday = propdate_countable.weekday()
         for i in range(propday+1):
             propdate_now = propdate_countable.isoformat()
-            doc[propdate_now] = calc_getPointOfProp_noflush(doc["id"], propdate_now, fromTest)
+            doc[propdate_now] = calc_getPointOfProp_noflush(dbname, dbcollec,doc["id"], propdate_now, fromTest)
             propdate_countable -= timedelta(days=1)
         return doc
     def doc_updatter(doc):
