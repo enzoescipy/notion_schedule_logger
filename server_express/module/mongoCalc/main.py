@@ -577,6 +577,7 @@ def calc_sCO_updateOne(propdate, fromTest):
         docs = list(collec.find({'sub-collec': 'pointer_commulative'}))
         docs_noncommulative = list(collec.find({'sub-collec': 'pointer'}))
         doc_pairs = list(zip(docs, docs_noncommulative))
+        print(doc_pairs)
         docs =  list(map(doc_processor,doc_pairs))
         return list(map(doc_updattor,docs))
         
