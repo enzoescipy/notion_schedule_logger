@@ -533,15 +533,15 @@ def calc_setCommulativeOfPropAll(fromTest):
 
 if fget == "0":
     print("depracated method has been called. not recommended.")
-    post_setRateOfProp_depracated(*fvar)
+    post_setRateOfProp_depracated(*fvar) #(propname, rate, fromTest,ignorance, propdate, insertonly=False):
 elif fget == "1":
-    post_sRP_setAll(*fvar)
+    post_sRP_setAll(*fvar) #(fromTest, rate, ignorance)
 elif fget == "2" :
-    calc_gPP_doAll(*fvar)
+    calc_gPP_doAll(*fvar) #(fromTest)
 elif fget == "3" : 
-    calc_gPP_updateOne(*fvar)
+    calc_gPP_updateOne(*fvar) #(propdate, fromTest)
 elif fget == "4" :
-    calc_setCommulativeOfPropAll(*fvar)
+    calc_setCommulativeOfPropAll(*fvar) #(fromTest)
 else:
     print("invalid input.")
     sys.stdout.flush()
