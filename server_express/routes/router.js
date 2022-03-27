@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculation")
 const moment = require("moment")
@@ -108,7 +107,7 @@ async function rate_get_rateData(dbNamenum, dbTypenum, collectionTypenum)
 router.post('/api/notionUpdate', function(req, res) {
     async function calculate()
     {
-        var para = await mongoPublic.reloadDB_main(0,0,dbtype())
+        var para = -1
         renderstart(para)
     }
 
