@@ -58,97 +58,6 @@ def normal_rateRelCalc_limitPropAmount(num, rate_abs, start_fixrate=0.1):
 Mathfunc.normal_rewardfunc = normal_rewardfunc
 Mathfunc.normal_rateRelCalc_limitPropAmount = normal_rateRelCalc_limitPropAmount
 
-
-
-
-
-
-def post_setRateOfProp_depracated(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate, insertonly=False):
-    dbname = int(dbname)
-    dbcollec = int(dbcollec)
-    propname = str(propname)
-    rate = int(rate)
-    fromTest = int(fromTest)
-    ignorance = int(ignorance)
-    # get name and collectionName
-
-    selected_name = getName(dbname,1,fromTest,dbcollec)
-
-    client = MongoClient(host='localhost', port=27017)
-    selected_col = selected_name[1]
-    selected_name = selected_name[0]
-    collec = client[selected_name][selected_col]
-
-    selected_notionName = getName(dbname,0,fromTest, dbcollec)
-    selected_col = selected_notionName[1]
-    selected_name = selected_notionName[0]
-    collec_notion = client[selected_name][selected_col]
-    # search for if propname exist in the notion DB. if not, reject.
-    propname_test = collec_notion.find({"id":propname})
-    if len(list(propname_test)) == 0:
-        client.close()
-        print("no propname found in server. refresh it first. propname : ",propname)
-        sys.stdout.flush()
-        return -1
-    
-
-    # make rate resonable. not int -> to int, over range -> boundary set.
-    if rate <= 1 :
-        rate = 1
-    elif rate >= 100:
-        rate = 100
-    else:
-        rate = int(rate)
-
-    # when is today?
-    todaystring = "invalid"
-    if propdate == "XXXX-XX-XX":
-        todaystring = date.today().isoformat()
-    elif propdate[4] == "-" and propdate[7] == "-":
-        todaystring = propdate
-    else:
-        client.close()
-        print("inappriate date property.")
-        sys.stdout.flush()
-        return -1
-
-
-    # find dataset.
-
-    docs = collec.find_one({"id" : propname})
-
-    if docs == None:
-        docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname}
-        collec.insert_one(docs)
-    else:
-        if todaystring in docs:
-            if insertonly == True:
-                return -1
-            docs[todaystring]["rate_abs"] = rate
-            docs[todaystring]["ignorance"] = ignorance
-        else:
-            docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
-        collec.replace_one({"id" : propname}, docs)
-
-    # put and calculate the rate_rel
-    docs = collec.find({todaystring:{'$exists': 1}})
-    docs = list(docs)
-    rate_sum = 0
-    prop_amount = 0
-    for doc in  docs: 
-        prop_amount += 1
-        rate_sum += doc[todaystring]["rate_abs"]
-
-    for doc_2 in  docs:
-        doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
-        doc_2_id = doc_2["id"]
-        collec.replace_one({"id" : doc_2_id}, doc_2)
-    
-    debug  = list(collec.find({}))
-    client.close()
-    sys.stdout.flush()
-    return 1
-
 def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
@@ -338,7 +247,7 @@ def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, key)
+                    point = post_setRateOfProp_noflush(dbname, dbcollec,propname,propname, rate, fromTest,ignorance, key)
                     return (key, point)
                 else:
                     return (key, value)
