@@ -41,7 +41,7 @@ async function init_test()
         var DBnaming = preset_DBnaming[i]
         //mongo init
         console.log("settingDB...")
-        await settingMongo.set(1,1,true,DBnaming[0],DBnaming[1],DBnaming[2])
+        await settingMongo.set(1,1,false,DBnaming[0],DBnaming[1],DBnaming[2])
         await settingMongo.set(0,0,7,DBnaming[0],DBnaming[1],DBnaming[2])
         console.log("notionMainDB...")
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
