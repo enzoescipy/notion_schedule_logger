@@ -76,8 +76,6 @@ async function init()
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
         var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
-        var pythonprocess_5 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 5])
-        
 
         console.log("pyProprateOptimize...")
 
@@ -86,18 +84,17 @@ async function init()
         {
             console.log(data.toString())
             console.log("pyCalculaion...")
-            pythonprocess_2.stdout.on('data', chain2)
+            await pythonprocess_2.stdout.on('data', chain2)
         }
         function chain2(data)
         {
             console.log(data.toString())
             console.log("pycmmulative...")
-            pythonprocess_5.stdout.on('data',chain3 )
+            await pythonprocess_4.stdout.on('data',chain3 )
         }
         function chain3(data)
         {
             console.log(data.toString())
-            return 1
         }
 
     }
