@@ -2,9 +2,9 @@ const spawn = require("child_process").spawn
 const publicMongo = require("./module/mongodb-communicate/mongod_dbmanage_public")
 const settingMongo = require("./module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 const moment = require('moment');
+const istest = require("./module/serverIsTest/index")
 require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
-var todaystring = moment().format("YYYY-MM-DD")
 
 
 var preset_DBnaming = []
@@ -34,10 +34,7 @@ async function preset_initial_ratesetting(rate, igno)
     ispreset_initial_ratesetting_raised = true
     return [initrate,initignorance]
 }
-async function preset_today(datestring)
-{
-    todaystring = datestring
-}
+
 
 async function init_test()
 {
@@ -113,6 +110,11 @@ async function repeat()
         var DBnaming = preset_DBnaming[i]
         console.log("notionMainDB...")
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
+        todaystring = await istest.TESTDATE_GET()
+        if (todaystring === -1)
+        {
+            todaystring = moment().format("YYYY-MM-DD")
+        }
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         console.log("pyProprateNewAdd...")
         pythonprocess_1.on('close', chain1)
