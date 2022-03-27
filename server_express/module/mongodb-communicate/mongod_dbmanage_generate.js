@@ -172,47 +172,14 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
-        console.log(calender)
-        for (key in calender)
-        {
-            //get date data.
-            var date_data_now = calender[key] //(days in weeks) : (did or not boolean) obj.
-            date_id = date_data_now.id // what i did. ex) study math
-            delete date_data_now.id
-
-            
-
-
-
-
-
-            //check if there are already data that has same date_id exist in DB.
-
-            var docs = await collec.findOne({"id" : date_id}) //document cursor. contains 'many'{ id : date_id, date1:true/false,  date2:true/false, ...}
-
-            if (docs != null) 
+        await calender.forEach((predoc) => {
+            var currentdoc = await collec.findOne({"id":predoc["id"]})
+            if (currentdoc != null)
             {
-                var date_data_db = doc // the {date1 : true, date2 : false, ...}
-                var id_db = doc.id
-                delete date_data_db.id
-                //compare the _now date and db's date.
-                for (date_now in date_data_now)
-                {
-                    var update_doc
-                    var filter
-                    var did_now = date_data_now[date_now]
-                    update_doc = {$set: { [date_now]: did_now }}
-                    filter = {"id":id_db} //update 
-                    var result = await collec.updateOne(filter, update_doc, {}) //it can be done as asynchronously BUT for now, synchronous action.
-                }
+                predoc = Object.assign(currentdoc,predoc)
             }
-            else
-            {
-                //if there is no date_id(study) in the database, create a new document.
-                date_data_now.id = date_id
-                await collec.insertOne(date_data_now)
-            }
-        }
+            await collec.replaceOne({"id":predoc["id"]},predoc,{upsert:true})
+        })
     }
     finally
     {
