@@ -447,8 +447,8 @@ def calc_sCO_updateOne(dbname, dbcollec,propdate, fromTest):
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
 
         #for commulative, inverse search operate.
-        propdate_now -= timedelta(days=propday+1)
-        propdate_before -= timedelta(days=propday+1)
+        propdate_now -= timedelta(days=propday)
+        propdate_before -= timedelta(days=propday)
         for i in range(propday+1):
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
