@@ -93,4 +93,5 @@ async function START()
 
 exports.preset_addDB = preset_addDB
 exports.preset_addRepeatTime = preset_addRepeatTime
+exports.preset_initial_ratesetting = preset_initial_ratesetting
 exports.START = START
