@@ -517,7 +517,10 @@ def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
         for i in range(propday+1):
             propdate_now = propdate_countable.isoformat()
             propdate_countable -= timedelta(days=1)
-            post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
+            if propdate_now in doc:
+                post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
+            else:
+                break
         return doc
 
     result = search_and_updateOne(collec)
