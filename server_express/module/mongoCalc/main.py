@@ -483,7 +483,6 @@ def calc_gPP_updateOne(propdate, fromTest):
     def doc_processor(doc):
         propdate_countable = date.fromisoformat(propdate)
         propday = propdate_countable.weekday()
-        print(propday)
         for i in range(propday+1):
             propdate_now = propdate_countable.isoformat()
             doc[propdate_now] = calc_getPointOfProp_noflush(doc["id"], propdate_now, fromTest)
@@ -587,7 +586,6 @@ def calc_sCO_updateOne(propdate, fromTest):
         propdate_now = date.fromisoformat(propdate)
         propday = propdate_now.weekday()
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
-        print(propday)
         for i in range(propday+1):
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
@@ -600,12 +598,12 @@ def calc_sCO_updateOne(propdate, fromTest):
         return doc
     def doc_updattor(doc):
         collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc)
-        return "Done!"
+        return docs#"Done!"
 
 
     result = search_and_updateOne(collec)
-    #print(result)
-    #sys.stdout.flush()   
+    print(result)
+    sys.stdout.flush()   
 
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
