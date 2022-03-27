@@ -334,7 +334,7 @@ def calc_setPointForNew(dbname, dbcollec, fromTest):
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec, client)
 
-def calc_updatePointOne(dbname, dbcollec,propdate, fromTest):
+def calc_updatePointOfWeek(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -496,6 +496,39 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
     #print(result)
     #sys.stdout.flush()   
 
+def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
+    fromTest = int(fromTest)
+
+    selected_name = getName(dbname,1,fromTest,dbcollec)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    def search_and_updateOne(collec):
+        docs = list(collec.find({'sub-collec': 'rater'}))
+        docs =  list(map(doc_processor,docs))
+        result = list(map(doc_updatter,docs))
+        return result
+        
+    def doc_processor(doc):
+        propdate_countable = date.fromisoformat(propdate)
+        propday = propdate_countable.weekday()
+        for i in range(propday+1):
+            propdate_now = propdate_countable.isoformat()
+            doc[propdate_now] = calc_getPointOfProp_noflush(dbname, dbcollec,doc["id"], propdate_now, fromTest)
+            propdate_countable -= timedelta(days=1)
+            post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
+        return doc
+    def doc_updatter(doc):
+        collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc)
+        return "Done!"
+
+    result = search_and_updateOne(collec)
+    #print(result)
+    #sys.stdout.flush()   
 
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
@@ -511,7 +544,8 @@ elif fget == "2" :
     print("Done!")        #only create for new propname, don't touching every existing prop points.
     sys.stdout.flush()
 elif fget == "3" : 
-    calc_updatePointOne(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
+    post_updateRateOfWeek(*fvar)
+    calc_updatePointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
     calc_updateComuPointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
     print("Done!")                 #calc_updateComuPointOfWeek can also calculate "have no commulative pointers but have just pointers".
     sys.stdout.flush()
