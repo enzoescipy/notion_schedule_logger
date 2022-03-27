@@ -11,7 +11,7 @@ const moment = require('moment');
 require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
 
-async function getItemNOTION(databaseId) {
+async function getItem(databaseId) {
   try {
     //prepare to change day of week to date
     var currnet_date = moment()
@@ -21,6 +21,7 @@ async function getItemNOTION(databaseId) {
     for(let i=current_day; i>=0; i--)
     {
       week[i] = currnet_date.format("YYYY-MM-DD")
+      currnet_date.subtract(1,'days')
     }
 
     const response = await notion.databases.query({
@@ -190,7 +191,7 @@ async function testsetget(databaseId, datestring)
 }                                                   
 
 
-exports.getItemNOTION = getItemNOTION
+exports.getItemNOTION = getItem
 exports.workId = workId
 exports.testsetget = testsetget
 
