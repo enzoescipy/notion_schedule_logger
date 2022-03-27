@@ -1,5 +1,4 @@
 const {MongoClient} = require ("mongodb")
-const dbnaming = require('./mongod_dbmanage_Name')
 const uri = "mongodb://localhost:27017"
 
 const client = new MongoClient(uri);
@@ -7,7 +6,6 @@ const client = new MongoClient(uri);
 
 const NameDB = "OPERATION_MODE_system"
 const NameDB_collec = "base"
-const NameDB_setting = "setting"
 
 async function TEST()
 {
