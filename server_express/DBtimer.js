@@ -112,7 +112,7 @@ async function infinite_repeat()
 {
     console.log("loop.")
 
-    setTimeout(repeat_test, preset_repeat_ms)
+    setTimeout(repeat, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)
 }
 
@@ -125,14 +125,14 @@ async function START()
         return -1
     }
     console.log("initiation start.")
-    await init_test()
-    /*
+    await init()
+    
     console.log("initiation end.")
 
     console.log("loop start.")
 
     infinite_repeat()
-    */
+    
 }
 
 
