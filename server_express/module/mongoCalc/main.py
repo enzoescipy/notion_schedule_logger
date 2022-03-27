@@ -133,13 +133,11 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
             docs[todaystring] = {"ignorance":ignorance,"rate_abs" : rate, "rate_rel" : "invalid"}
         del(docs["_id"])
         collec.replace_one({"id" : propname,"sub-collec":"rater"}, docs, upsert=True)
-        print("11",docs)
 
     # put and calculate the rate_rel
 
     docs = collec.find({"sub-collec":"rater",todaystring:{'$exists': 1}})
     docs = list(docs)
-    print("22",docs, todaystring)
 
     prop_amount = 0
     for doc in  docs: 
@@ -568,8 +566,8 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
             if date.fromisoformat(latest_date) <= date.fromisoformat(propdate):
                 break
             count += 1
-
-        post_setRateOfProp_noflush(dbname, dbcollec,propname, doc[latest_date]["rate_abs"], fromTest,doc[latest_date]["ignorance"], latest_date)
+        assemble_rater = doc[latest_date]
+        post_setRateOfProp_noflush(dbname, dbcollec,propname, assemble_rater["rate_abs"], fromTest,assemble_rater["ignorance"], propdate)
 
 
     result = search_and_updateOne(collec)
