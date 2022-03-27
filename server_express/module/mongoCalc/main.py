@@ -543,7 +543,7 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
         
     def doc_processor(doc):
         # find latest date's rate.
-        propname = doc["_id"]
+        propname = doc["id"]
         if "_id" in doc:
             del(doc["_id"])
         if "id" in doc:
