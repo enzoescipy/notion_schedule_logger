@@ -187,7 +187,6 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
             await applyeachid(predoc)
         }
         //debug
-        console.log(calender)
     }
     finally
     {

@@ -117,7 +117,8 @@ async function repeat()
 
 async function infinite_repeat()
 {
-    console.log("loop.")
+    console.log("loop. log the time inside DB setting.")
+    await settingMongo.set(1,2,moment().format(),DBnaming[0],DBnaming[1],DBnaming[2])
 
     setTimeout(repeat, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)

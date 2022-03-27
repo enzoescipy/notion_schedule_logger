@@ -5,7 +5,7 @@ const uri = "mongodb://localhost:27017"
 const client = new MongoClient(uri);
 
 const where = ["home","server"] 
-const what = ["showday_amount","load_limit"]
+const what = ["showday_amount","maindbload_lock", "last_autoupdate"]
 
 async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypenum, callback)
 {
