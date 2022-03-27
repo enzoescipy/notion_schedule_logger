@@ -307,7 +307,7 @@ def calc_gPP_doAll(dbname, dbcollec, fromTest):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = calc_getPointOfProp_noflush(propname, key, fromTest)
+                    point = calc_getPointOfProp_noflush(dbname, dbcollec,propname, key, fromTest)
                     return (key, point)
                 else:
                     return (key, value)
