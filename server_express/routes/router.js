@@ -156,7 +156,7 @@ router.post('/api/ratesSet/', function(req, res) {
 })
 
 router.post('/api/refreshTodayProps/', function(req, res) {
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,proprate,dbtype()])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring,dbtype()])
     pythonProcess.stdout.on('data', (data) => {
         console.log("(request_4) updated today's calculation and refresh rates.")
         res.render('warp', {portal: req.body.portal4})
