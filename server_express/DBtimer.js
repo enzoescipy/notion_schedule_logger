@@ -95,6 +95,7 @@ async function init()
         function chain3(data)
         {
             console.log(data.toString())
+            return 1
         }
 
     }
