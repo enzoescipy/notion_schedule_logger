@@ -442,6 +442,7 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
     result = add_commulative_pointers(collec)
 
 def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
+    writeLog(dbname, dbcollec,propdate, fromTest)
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
