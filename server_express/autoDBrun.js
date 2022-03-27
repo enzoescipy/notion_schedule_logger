@@ -1,4 +1,5 @@
 const dbtimer = require("./DBtimer")
+const istest = require("./module/serverIsTest/index")
 
 
 var currentmode = istest.NOWNUM()
