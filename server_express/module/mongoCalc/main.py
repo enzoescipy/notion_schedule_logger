@@ -169,37 +169,34 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
 
     target_date = "invalid"
     # find docs that has same id property.
-    docs = collec.find_one({'sub-collec': 'rater',"id" : propname})
-    if docs == None:
+    doc = collec.find_one({'sub-collec': 'rater',"id" : propname})
+    if doc == None:
         # if there are no date : rate pairs, reject.
         return -1
         
     else:
-        # find if there are any date match with our purpose.
-        datetime_list = []
-        for day in docs.keys():
-            current_datetime = "invalid"
-            try:
-                if day[4] == "-" and day[7] == "-":
-                    current_datetime = date.fromisoformat(day)
-                    datetime_list.append(current_datetime)
-            except Exception as exp:
-                continue
+        # find latest date's rate.
+        del(doc["_id"])
+        del(doc["id"])
+        del(doc["sub-collec"])
+        doc_tolist = list(doc.items())
+        def sorter(item):
+            return date.fromisoformat(item[0])
+        doc_tolist.sort(key = sorter, reverse=True)
+        
+        count = 0
+        while True:
+            if count >= len(doc_tolist):
+                target_date = doc_tolist[-1][0]
+                break
+            target_date = doc_tolist[count][0]
+            if date.fromisoformat(target_date) <= date.fromisoformat(propdate):
+                break
+            count += 1
 
-        if len(datetime_list) == 0:
-            # if there are no date : rate pairs, reject.
-            return -1
 
-
-
-    target_date = datetime_list[0]
-    propdate_todateformat = date.fromisoformat(propdate)
-    for day in datetime_list:
-        if day <= propdate_todateformat and target_date <= day:
-            target_date = day
-    target_date_str = target_date.isoformat()
-    target_rate = docs[target_date_str]["rate_rel"]
-    target_ignorance = docs[target_date_str]["ignorance"]
+    target_rate = doc[target_date]["rate_rel"]
+    target_ignorance = doc[target_date]["ignorance"]
     if target_rate == "invalid":
         client.close()
         print(-1,"rate_rel not calculated")
@@ -233,14 +230,9 @@ def post_setRateForNew(dbname, dbcollec,fromTest, rate, ignorance):
 
     def elder_date_selector(doc):
         propname = doc["id"]
-        while True:
-            if "_id" in doc:
-                del(doc["_id"])
-            if "id" in doc:
-                del(doc["id"])
-            if "sub-collec" in doc:
-                del(doc["sub-collec"])
-            break
+        del(doc["_id"])
+        del(doc["id"])
+        del(doc["sub-collec"])
         doc_ordered = list(doc.items())
         def sorter(target):
             return date.fromisoformat(target[0])
@@ -544,14 +536,28 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
         docs =  list(map(doc_processor,docs))
         
     def doc_processor(doc):
-        propdate_countable = date.fromisoformat(propdate)
-        propday = propdate_countable.weekday()
-        for i in range(propday+1):
-            propdate_now = propdate_countable.isoformat()
-            if propdate_now in doc:
-                post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
-            propdate_countable -= timedelta(days=1)
-        return doc
+        # find latest date's rate.
+        del(doc["_id"])
+        del(doc["id"])
+        del(doc["sub-collec"])
+        doc_tolist = list(doc.items())
+        def sorter(item):
+            return date.fromisoformat(item[0])
+        doc_tolist.sort(key = sorter, reverse=True)
+        
+        count = 0
+        latest_date = "invalid"
+        while True:
+            if count >= len(doc_tolist):
+                latest_date = doc_tolist[-1][0]
+                break
+            latest_date = doc_tolist[count][0]
+            if date.fromisoformat(latest_date) <= date.fromisoformat(propdate):
+                break
+            count += 1
+
+        post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[latest_date]["rate_abs"], fromTest,doc[latest_date]["ignorance"], latest_date)
+
 
     result = search_and_updateOne(collec)
     #print(result)
@@ -586,14 +592,9 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
 
     def elder_date_selector(doc):
         propname = doc["id"]
-        while True:
-            if "_id" in doc:
-                del(doc["_id"])
-            if "id" in doc:
-                del(doc["id"])
-            if "sub-collec" in doc:
-                del(doc["sub-collec"])
-            break
+        del(doc["_id"])
+        del(doc["id"])
+        del(doc["sub-collec"])
         doc_ordered = list(doc.items())
         def sorter(target):
             return date.fromisoformat(target[0])
