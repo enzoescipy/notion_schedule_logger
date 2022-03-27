@@ -484,8 +484,6 @@ def calc_gPP_updateOne(propdate, fromTest):
         propdate_countable = date.fromisoformat(propdate)
         propday = propdate_countable.weekday()
         for i in range(propday+1):
-            print(i)
-            sys.stdout.flush()
             propdate_now = propdate_countable.isoformat()
             doc[propdate_now] = calc_getPointOfProp_noflush(doc["id"], propdate_now, fromTest)
             propdate_countable -= timedelta(days=1)
@@ -495,8 +493,8 @@ def calc_gPP_updateOne(propdate, fromTest):
         return "Done!"
 
     result = search_and_updateOne(collec)
-    #print(result)
-    #sys.stdout.flush()   
+    print(result)
+    sys.stdout.flush()   
 
 
 def calc_setCommulativeOfPropAll(fromTest):
@@ -590,8 +588,6 @@ def calc_sCO_updateOne(propdate, fromTest):
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
 
         for i in range(propday+1):
-            print(i)
-            sys.stdout.flush()
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
             commulative_before = doc[propdate_before_str]
@@ -607,8 +603,8 @@ def calc_sCO_updateOne(propdate, fromTest):
 
 
     result = search_and_updateOne(collec)
-    #print(result)
-    #sys.stdout.flush()   
+    print(result)
+    sys.stdout.flush()   
 
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
