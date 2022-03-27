@@ -490,6 +490,9 @@ elif fget == "4" :
     calc_setCommulativeOfPropAll(*fvar) #(dbname, dbcollec,fromTest)
     print("Done!")
     sys.stdout.flush()
+elif fget == "5" :
+    print("Test Done!")
+    sys.stdout.flush()
 else:
     print("invalid input.")
     sys.stdout.flush()
