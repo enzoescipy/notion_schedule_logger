@@ -561,7 +561,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
         def sorter(target):
             return date.fromisoformat(target[0])
         doc_ordered.sort(key=sorter)
-        newest_date_str = doc_ordered[0][-1]
+        newest_date_str = doc_ordered[-1][0]
         newest_date = date.fromisoformat(newest_date_str)
 
         if newest_date < today:
