@@ -138,7 +138,7 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
 
     docs = collec.find({"sub-collec":"rater",todaystring:{'$exists': 1}})
     docs = list(docs)
-    print(docs)
+    print(docs, todaystring)
 
     prop_amount = 0
     for doc in  docs: 
