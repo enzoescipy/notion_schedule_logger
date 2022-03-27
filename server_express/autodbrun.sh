@@ -1,5 +1,5 @@
 #!/bin/sh
 
-node autodbrun.js &
+node autoDBrun.js &
 
 
