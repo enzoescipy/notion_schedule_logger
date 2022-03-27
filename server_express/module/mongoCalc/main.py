@@ -63,21 +63,23 @@ Mathfunc.normal_rateRelCalc_limitPropAmount = normal_rateRelCalc_limitPropAmount
 
 
 
-def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, insertonly=False):
+def post_setRateOfProp_depracated(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate, insertonly=False):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
     ignorance = int(ignorance)
     # get name and collectionName
 
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
 
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
 
-    selected_notionName = getName(0,0,fromTest, 0)
+    selected_notionName = getName(dbname,0,fromTest, dbcollec)
     selected_col = selected_notionName[1]
     selected_name = selected_notionName[0]
     collec_notion = client[selected_name][selected_col]
@@ -147,21 +149,23 @@ def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, 
     sys.stdout.flush()
     return 1
 
-def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
+def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     propname = str(propname)
     rate = int(rate)
     fromTest = int(fromTest)
     ignorance = int(ignorance)
     # get name and collectionName
 
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
 
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
 
-    selected_notionName = getName(0,0,fromTest, 0)
+    selected_notionName = getName(dbname,0,fromTest, dbcollec)
     selected_col = selected_notionName[1]
     selected_name = selected_notionName[0]
     collec_notion = client[selected_name][selected_col]
@@ -226,80 +230,16 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     client.close()
     return 1
 
-def calc_getPointOfProp_depracated(propname, propdate, fromTest):
+
+def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     propname = str(propname)
     propdate = str(propdate)
     fromTest = int(fromTest)
 
 
-    selected_name = getName(0,1,fromTest,0)
-    client = MongoClient(host='localhost', port=27017)
-    selected_col = selected_name[1]
-    selected_name = selected_name[0]
-    collec = client[selected_name][selected_col]
-
-    target_date = "invalid"
-    while True:
-        # find docs that has same id property.
-        docs = collec.find_one({"id" : propname})
-        if docs == None:
-            client.close()
-            print(-1,"no match propname")
-            sys.stdout.flush()
-            return -1, "no match propname"
-        else:
-            # find if there are any date match with our purpose.
-            datetime_list = []
-            for day in docs.keys():
-                current_datetime = "invalid"
-                try:
-                    if day[4] == "-" and day[7] == "-":
-                        current_datetime = date.fromisoformat(day)
-                        datetime_list.append(current_datetime)
-                except Exception as exp:
-                    continue
-
-            if len(datetime_list) == 0:
-                # if there are no date : rate pairs, make it. rate_abs = 25 automatically.
-                post_setRateOfProp(propname, 25, fromTest, propdate=propdate)
-            else:
-                break
-
-
-    target_date = datetime_list[0]
-    propdate_todateformat = date.fromisoformat(propdate)
-    for day in datetime_list:
-        if day <= propdate_todateformat and target_date <= day:
-            target_date = day
-    target_date_str = target_date.isoformat()
-    target_rate = docs[target_date_str]["rate_rel"]
-    target_ignorance = docs[target_date_str]["ignorance"]
-    if target_rate == "invalid":
-        client.close()
-        print(-1,"rate_rel not calculated")
-        sys.stdout.flush()
-        return -1, "rate_rel not calculated"
-    else:
-        #take the... "how long do you continuously keep your todo."
-        client.close()
-        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
-        final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
-        if final_point >= 0 :
-            client.close()
-            sys.stdout.flush()
-            return 1
-
-    print(-1, "function ended")
-    sys.stdout.flush()
-    return -1
-
-def calc_getPointOfProp_noflush(propname, propdate, fromTest):
-    propname = str(propname)
-    propdate = str(propdate)
-    fromTest = int(fromTest)
-
-
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -353,9 +293,11 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
     print(-1, "function ended")
     return -1
 
-def post_sRP_setAll(fromTest, rate, ignorance):
+def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     fromTest = int(fromTest)
-    selected_name = getName(0,0,fromTest,0)
+    selected_name = getName(dbname,0,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -407,9 +349,11 @@ def post_sRP_setAll(fromTest, rate, ignorance):
     #functional_excute
     calaculate_all(collec)
 
-def calc_gPP_doAll(fromTest):
+def calc_gPP_doAll(dbname, dbcollec, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     fromTest = int(fromTest)
-    selected_name = getName(0,0,fromTest,0)
+    selected_name = getName(dbname,0,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -422,7 +366,7 @@ def calc_gPP_doAll(fromTest):
         
         client.close()
         client = MongoClient(host='localhost', port=27017)
-        selected_name = getName(0,1,fromTest,0)
+        selected_name = getName(dbname,1,fromTest,dbcollec)
         selected_col = selected_name[1]
         selected_name = selected_name[0]
         collec = client[selected_name][selected_col]
@@ -465,10 +409,12 @@ def calc_gPP_doAll(fromTest):
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec, client)
 
-def calc_gPP_updateOne(propdate, fromTest):
+def calc_gPP_updateOne(dbname, dbcollec,propdate, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     fromTest = int(fromTest)
 
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -497,10 +443,12 @@ def calc_gPP_updateOne(propdate, fromTest):
     #sys.stdout.flush()   
 
 
-def calc_setCommulativeOfPropAll(fromTest):
+def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     fromTest = int(fromTest)
 
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -563,11 +511,12 @@ def calc_setCommulativeOfPropAll(fromTest):
     result = add_commulative_pointers(collec)
     sys.stdout.flush()
 
-def calc_sCO_updateOne(propdate, fromTest):
-
+def calc_sCO_updateOne(dbname, dbcollec,propdate, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
     fromTest = int(fromTest)
 
-    selected_name = getName(0,1,fromTest,0)
+    selected_name = getName(dbname,1,fromTest,dbcollec)
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -607,26 +556,27 @@ def calc_sCO_updateOne(propdate, fromTest):
     #print(result)
     #sys.stdout.flush()   
 
+
 if fget == "0":
-    post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
+    post_setRateOfProp_noflush(*fvar) #(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
     print("Done!")
     sys.stdout.flush()
 elif fget == "1":
-    post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
-    post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
+    post_sRP_setAll(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
+    post_sRP_setAll(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
     print("Done!")
     sys.stdout.flush()
 elif fget == "2" :
-    calc_gPP_doAll(*fvar) #(fromTest)
+    calc_gPP_doAll(*fvar) #(dbname, dbcollec,fromTest)
     print("Done!")
     sys.stdout.flush()
 elif fget == "3" : 
-    calc_gPP_updateOne(*fvar) #(propdate, fromTest) update a date's points
-    calc_sCO_updateOne(*fvar) #(propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
+    calc_gPP_updateOne(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
+    calc_sCO_updateOne(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
     print("Done!")
     sys.stdout.flush()
 elif fget == "4" :
-    calc_setCommulativeOfPropAll(*fvar) #(fromTest)
+    calc_setCommulativeOfPropAll(*fvar) #(dbname, dbcollec,fromTest)
     print("Done!")
     sys.stdout.flush()
 else:

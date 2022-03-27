@@ -143,7 +143,7 @@ router.post('/api/ratesSet/', function(req, res) {
     var proprate = Number(req.body.rate_abs)
     var ignorance = Number(req.body.ignorance)
 
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,dbtype(),ignorance,"XXXX-XX-XX"])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,0,0,propname,proprate,dbtype(),ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
         console.log("(request_3) update calculation rate_abs in server. ")
