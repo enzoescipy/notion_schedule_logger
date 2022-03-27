@@ -78,24 +78,15 @@ async function init()
         var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
 
         console.log("pyProprateOptimize...")
+        console.log("pyCalculaion...")
+        function debug(data)
+        {
+            console.log(data.toString())
+        }
+        await pythonprocess_1.stdout.on('data', debug)
+        await pythonprocess_2.stdout.on('data', debug)
+        await pythonprocess_4.stdout.on('data', debug)
 
-        await pythonprocess_1.stdout.on('data', chain1)
-        function chain1(data)
-        {
-            console.log(data.toString())
-            console.log("pyCalculaion...")
-            await pythonprocess_2.stdout.on('data', chain2)
-        }
-        function chain2(data)
-        {
-            console.log(data.toString())
-            console.log("pycmmulative...")
-            await pythonprocess_4.stdout.on('data',chain3 )
-        }
-        function chain3(data)
-        {
-            console.log(data.toString())
-        }
 
     }
 }
