@@ -72,6 +72,8 @@ async function repeat()
 
 async function infinite_repeat()
 {
+    console.log("loop.")
+
     setTimeout(repeat, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)
 }
@@ -84,7 +86,11 @@ async function START()
         console.log("fault. setting not completed.")
         return -1
     }
+    console.log("initiation start.")
     await init()
+    console.log("initiation end.")
+
+    console.log("loop start.")
 
     infinite_repeat()
 }
