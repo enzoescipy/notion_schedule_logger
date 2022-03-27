@@ -564,6 +564,7 @@ def calc_setCommulativeOfPropAll(fromTest):
     sys.stdout.flush()
 
 def calc_sCO_updateOne(propdate, fromTest):
+    print("hello, world!")
     fromTest = int(fromTest)
 
     selected_name = getName(0,1,fromTest,0)
@@ -598,12 +599,12 @@ def calc_sCO_updateOne(propdate, fromTest):
         return doc
     def doc_updattor(doc):
         collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc)
-        return doc#"Done!"
+        return "Done!"
 
 
     result = search_and_updateOne(collec)
-    print(result)
-    sys.stdout.flush()   
+    #print(result)
+    #sys.stdout.flush()   
 
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
