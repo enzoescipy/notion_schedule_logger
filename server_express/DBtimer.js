@@ -135,6 +135,7 @@ async function repeat()
             console.log(data)
             console.log("pyCalculation_WeekCommulative_and_TodayPoint...")
             var pythonprocess_3 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py",3,DBnaming[0],DBnaming[2],todaystring,DBnaming[1]])
+            console.log(3,DBnaming[0],DBnaming[2],todaystring,DBnaming[1])
             pythonprocess_3.on('close', chain4)
         }
         function chain4(data)
