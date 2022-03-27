@@ -110,7 +110,7 @@ router.post('/api/notionUpdate', function(req, res) {
     {
         var para = await mongoPublic.reloadDB_main(0,0,dbtype())
         var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring , dbtype()])
-        pythonProcess.stdout.on('data',(data) => {
+        await pythonProcess.stdout.on('data',(data) => {
             renderstart(para)
         })
     }
