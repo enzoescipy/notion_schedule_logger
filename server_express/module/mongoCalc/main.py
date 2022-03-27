@@ -148,8 +148,8 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
     for doc_2 in  docs:
         doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2_id = doc_2["id"]
-        collec.replace_one({"id" : doc_2_id}, doc_2)
-        print(collec.find_one({"id" : propname, "sub-collec":"rater"}))
+        print(doc_2)
+        collec.replace_one({"id" : doc_2_id,"sub-collec":"rater"}, doc_2)
     
     client.close()
     return 1
