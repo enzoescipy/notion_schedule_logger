@@ -488,7 +488,6 @@ def calc_gPP_updateOne(propdate, fromTest):
         doc[propdate] = calc_getPointOfProp_noflush(doc["id"], propdate, fromTest)
         return doc
     def doc_updatter(doc):
-        print("hello, world!")
         collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc)
         return "Done!"
 
@@ -579,7 +578,7 @@ def calc_sCO_updateOne(propdate, fromTest):
         docs_noncommulative = list(collec.find({'sub-collec': 'pointer'}))
         doc_pairs = list(zip(docs, docs_noncommulative))
         docs =  list(map(doc_processor,doc_pairs))
-        map(doc_updattor,docs)
+        return list(map(doc_updattor,docs))
         
     def doc_processor(docpair):
         doc = docpair[0]
@@ -595,6 +594,8 @@ def calc_sCO_updateOne(propdate, fromTest):
     def doc_updattor(doc):
         print(doc)
         collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc)
+        return "Done!"
+
 
     result = search_and_updateOne(collec)
     #print(result)
