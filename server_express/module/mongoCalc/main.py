@@ -209,7 +209,6 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
         client.close()
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
-        writeLog(propname,"targetrate",target_rate,"continuspoint",continuous_num,"finalpoint",final_point)
         if final_point >= 0 :
             return final_point
 
@@ -562,6 +561,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
             return date.fromisoformat(target[0])
         doc_ordered.sort(key=sorter)
         newest_date_str = doc_ordered[-1][0]
+        writeLog(newest_date_str, doc_ordered, today.isoformat())
         newest_date = date.fromisoformat(newest_date_str)
 
         if newest_date < today:
