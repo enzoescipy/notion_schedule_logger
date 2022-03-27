@@ -31,6 +31,7 @@ async function init()
         //mongo init
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
         await settingMongo.set(1,1,true,DBnaming[0],DBnaming[1],DBnaming[2])
+        await settingMongo.set(0,0,7,DBnaming[0],DBnaming[1],DBnaming[2])
         //python init
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],proprate,ignorance])
         var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
