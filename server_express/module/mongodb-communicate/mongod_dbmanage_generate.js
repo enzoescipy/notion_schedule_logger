@@ -243,7 +243,7 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback
     {
         await client.close()
     }
-                    
+    console.log(docSum)
     if (callback != null){callback(docSum)}
     return docSum
 }
