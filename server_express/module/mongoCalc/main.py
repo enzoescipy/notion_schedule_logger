@@ -9,7 +9,7 @@ def writeLog(*strings):
     for stri in strings:
         stringsum += str(stri)
     with open("./main_log.txt", 'at') as file:
-        file.write(todaystring +":"+ stringsum)
+        file.write(todaystring +":"+ stringsum + "\n")
 
 #decide what function to excute
 
