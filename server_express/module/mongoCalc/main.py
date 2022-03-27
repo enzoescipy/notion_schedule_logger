@@ -468,7 +468,7 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
             else:
                 commulative_before = 0
 
-            if propdate_now_str in noncommu_now:
+            if propdate_now_str in doc_noncommu:
                 noncommu_now = doc_noncommu[propdate_now_str]
                 doc[propdate_now_str] = commulative_before + noncommu_now
                 propdate_before += timedelta(days=1)
