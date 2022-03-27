@@ -29,21 +29,28 @@ async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypen
 
 async function get(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum, callback)
 {
-    const whereprop = where[wherenum]
-    const whatprop = what[whatnum]
-
-    seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,2, dbTypenum, collectionTypenum)
-
-    await client.connect()
-
-    const database = client.db(seleted_dbnaming.DB)
-    const collec = database.collection(seleted_dbnaming.collection)
-
-    doc = await collec.findOne({"what" : whatprop, "where" : whereprop})
+    try
+    {
+        const whereprop = where[wherenum]
+        const whatprop = what[whatnum]
     
-    if (callback != null){callback(doc["value"])}
-
-    return doc["value"]
+        seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,2, dbTypenum, collectionTypenum)
+    
+        await client.connect()
+    
+        const database = client.db(seleted_dbnaming.DB)
+        const collec = database.collection(seleted_dbnaming.collection)
+    
+        doc = await collec.findOne({"what" : whatprop, "where" : whereprop})
+        
+        if (callback != null){callback(doc["value"])}
+    
+        return doc["value"]
+    }
+    catch
+    {
+        return -1
+    }
 
 }
 

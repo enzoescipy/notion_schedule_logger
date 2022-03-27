@@ -222,7 +222,11 @@ html
 
       if (isdataloaded === "-1")
       {
-        inputTarget.setAttribute("value", "request Blocked!")
+        inputTarget.setAttribute("value", "no Data!")
+      }
+      else
+      {
+        inputTarget.setAttribute("value", "last update :"+isdataloaded)
       }
 
 

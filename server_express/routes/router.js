@@ -107,7 +107,7 @@ async function rate_get_rateData(dbNamenum, dbTypenum, collectionTypenum)
 router.post('/api/notionUpdate', function(req, res) {
     async function calculate()
     {
-        var para = -1
+        var para = await mongoSETTING.get(1,2,0,dbtype(),0)
         renderstart(para)
     }
 
@@ -115,13 +115,13 @@ router.post('/api/notionUpdate', function(req, res) {
     {
         if (para == -1)
         {
-            console.log("(request_1_denied) update data from notion -> server mongoDB, blocked by pre-settings ")
+            console.log("(request_1_denied) no log has found. ")
             res.render('warp', {portal: req.body.portal1, send: -1})
         }
         else
         {
-            console.log("(request_1) update data from notion -> server mongoDB ")
-            res.render('warp', {portal: req.body.portal1, send: 1})
+            console.log("(request_1) data has been updated since :",para)
+            res.render('warp', {portal: req.body.portal1, send: para})
         }
 
     }
