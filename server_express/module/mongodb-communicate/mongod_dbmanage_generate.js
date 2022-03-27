@@ -172,14 +172,20 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
-        await calender.forEach((predoc) => {
+        async function applyeachid(predoc) 
+        {
             var currentdoc = await collec.findOne({"id":predoc["id"]})
             if (currentdoc != null)
             {
                 predoc = Object.assign(currentdoc,predoc)
             }
             await collec.replaceOne({"id":predoc["id"]},predoc,{upsert:true})
-        })
+        }
+        for (key in calender)
+        {
+            predoc = calender[key]
+            await applyeachid(predoc)
+        }
     }
     finally
     {
