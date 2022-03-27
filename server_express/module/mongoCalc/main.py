@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 from mongod_dbmanage import getName, checkHowContinuous
 import sys
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 def writeLog(*strings):
-    todaystring = date().isoformat()
+    todaystring = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
     stringsum = ""
     for stri in strings:
         stringsum += str(stri)
