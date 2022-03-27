@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from mongod_dbmanage import getName, checkHowContinuous
 import sys
-from datetime import date, datetime
+from datetime import date, timedelta
 
 #decide what function to excute
 
@@ -479,15 +479,18 @@ def calc_gPP_updateOne(propdate, fromTest):
     collec = client[selected_name][selected_col]
 
     def search_and_updateOne(collec):
-        docs = list(collec.find({}))
-        return list(map(doc_processor,docs))
+        docs = list(collec.find({'sub-collec': 'pointer'}))
+        docs =  list(map(doc_processor,docs))
+        map(lambda doc:collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc),docs)
         
     def doc_processor(doc):
         doc[propdate] = calc_getPointOfProp_noflush(doc["id"], propdate, fromTest)
+        return doc
 
     result = search_and_updateOne(collec)
-    print(result)
-    sys.stdout.flush()   
+    #print(result)
+    #sys.stdout.flush()   
+
 
 def calc_setCommulativeOfPropAll(fromTest):
     fromTest = int(fromTest)
@@ -557,6 +560,38 @@ def calc_setCommulativeOfPropAll(fromTest):
     print(result)
     sys.stdout.flush()
 
+def calc_sCO_updateOne(propdate, fromTest):
+    fromTest = int(fromTest)
+
+    selected_name = getName(0,1,fromTest,0)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    def search_and_updateOne(collec):
+        docs = list(collec.find({'sub-collec': 'pointer_commulative'}))
+        docs_noncommulative = list(collec.find({'sub-collec': 'pointer'}))
+        doc_pairs = list(zip(docs, docs_noncommulative))
+        docs =  list(map(doc_processor,doc_pairs))
+        map(lambda doc:collec.replace_one({'sub-collec': 'pointer_commulative', 'id':doc['id']},doc),docs)
+        
+    def doc_processor(docpair):
+        doc = docpair[0]
+        doc_noncommu = docpair[1]
+
+        propdate_before = date.isoformat(date.fromisoformat(propdate) - timedelta(days=1))
+        commulative_before = doc[propdate_before]
+        noncommu_now = doc_noncommu[propdate]
+
+        doc[propdate] = commulative_before + noncommu_now
+
+        return doc
+
+    result = search_and_updateOne(collec)
+    #print(result)
+    #sys.stdout.flush()   
+
 if fget == "0":
     post_setRateOfProp_noflush(*fvar) #(propname, rate, fromTest,ignorance, propdate):
 elif fget == "1":
@@ -564,7 +599,8 @@ elif fget == "1":
 elif fget == "2" :
     calc_gPP_doAll(*fvar) #(fromTest)
 elif fget == "3" : 
-    calc_gPP_updateOne(*fvar) #(propdate, fromTest)
+    calc_gPP_updateOne(*fvar) #(propdate, fromTest) update a date's points
+    calc_sCO_updateOne(*fvar) #(propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
 elif fget == "4" :
     calc_setCommulativeOfPropAll(*fvar) #(fromTest)
 else:
