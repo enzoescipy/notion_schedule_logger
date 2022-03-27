@@ -220,7 +220,7 @@ html
       var isdataloaded = hidden_values["isdataloaded"]["value"]
       var inputTarget = document.getElementsByClassName('refreshData')[0]
 
-      if (isdataloaded === "-1")
+      if (isdataloaded === "-1" or "0")
       {
         inputTarget.setAttribute("value", "no Data!")
       }
