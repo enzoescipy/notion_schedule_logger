@@ -5,7 +5,7 @@ const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculat
 const istest = require("../module/serverIsTest/index")
 const moment = require("moment")
 
-var dbtype_fixed = await istest.NOWNUM()
+var dbtype = istest.NOWNUM
 var todaystring = moment().format("YYYY-MM-DD")
 
 
@@ -33,7 +33,7 @@ async function home_rendernow(req, res)
         showday_amount: undefined,
         title: "Dong hyo Ko - enzoescipy's life challenge",
         iam: "/home", }
-    
+    dbtype_fixed = await dbtype()
     mainScoreData = await home_get_mainScoreData(0,dbtype_fixed,0)
     dataset["mainScoreData_index"] = JSON.stringify(mainScoreData["index"])
     dataset["mainScoreData_main"] = JSON.stringify(mainScoreData["data"])
@@ -77,7 +77,7 @@ async function rate_rendernow(req, res)
     var dataset = { iam: '/home/rate_adjust',
                     rateData: undefined,    
                 }
-    
+    dbtype_fixed = await dbtype()
     dataset["rateData"] = JSON.stringify(await rate_get_rateData(0,dbtype_fixed,0))
 
     res.render("set_rate", dataset)
@@ -94,6 +94,7 @@ async function rate_get_rateData(dbNamenum, dbTypenum, collectionTypenum)
 router.post('/api/notionUpdate', function(req, res) {
     async function calculate()
     {
+        dbtype_fixed = await dbtype()
         var para = await mongoSETTING.get(1,2,0,dbtype_fixed,0)
         renderstart(para)
     }
@@ -116,19 +117,20 @@ router.post('/api/notionUpdate', function(req, res) {
     calculate()
 })
 
-router.post('/api/SETTINGsSet/', function(req, res) {
+router.post('/api/SETTINGsSet/', async function(req, res) {
+    dbtype_fixed = await dbtype()
     mongoSETTING.set(0,0,req.body.slider1,0,dbtype_fixed,0,function() {
         console.log("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
 })
 
-router.post('/api/ratesSet/', function(req, res) {
+router.post('/api/ratesSet/', async function(req, res) {
     //mongoCalc spawn
     var propname = req.body.prop_name
     var proprate = Number(req.body.rate_abs)
     var ignorance = Number(req.body.ignorance)
-
+    dbtype_fixed = await dbtype()
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,0,0,propname,proprate,dbtype_fixed,ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
