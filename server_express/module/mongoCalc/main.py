@@ -186,12 +186,11 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
         collec.replace_one({"id" : propname}, docs)
 
     # put and calculate the rate_rel
-    docs = collec.find({todaystring:{'$exists': 1}})
+    docs = collec.find({"sub-collec":"rater",todaystring:{'$exists': 1}})
     docs = list(docs)
 
     rate_sum = 0
     for doc in  docs: 
-        print(doc[todaystring])
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
