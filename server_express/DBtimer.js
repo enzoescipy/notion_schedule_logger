@@ -60,7 +60,7 @@ async function repeat_test()
 
 }
 
-async function init()
+async function init(callback)
 {
     for (let i=0; i<preset_DBnaming.length; i++)
     {
@@ -78,7 +78,7 @@ async function init()
         var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
 
         console.log("pyProprateOptimize...")
-        await pythonprocess_1.stdout.on('data', chain1)
+        pythonprocess_1.stdout.on('data', chain1)
         function chain1(data)
         {
             console.log(data.toString())
@@ -94,6 +94,9 @@ async function init()
         function chain3(data)
         {
             console.log(data.toString())
+            console.log("initiation end.")
+            console.log("loop start.") 
+            callback()
         }
 
     }
@@ -108,7 +111,7 @@ async function repeat()
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
         var pythonprocess_3 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py",3,DBnaming[0],DBnaming[2],todaystring,DBnaming[1]])
         console.log("pyCalculation_small...")
-        await pythonprocess_3.stdout.on('data', (data) => {console.log(data.toString())})
+        pythonprocess_3.stdout.on('data', (data) => {console.log(data.toString())})
     }
 
 }
@@ -130,14 +133,8 @@ async function START()
         return -1
     }
     console.log("initiation start.")
-    await init()
-    
-    console.log("initiation end.")
-
-    console.log("loop start.")
-
-    infinite_repeat()
-    
+    await init(infinite_repeat)
+   
 }
 
 
