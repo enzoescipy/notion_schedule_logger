@@ -58,7 +58,7 @@ def normal_rateRelCalc_limitPropAmount(num, rate_abs, start_fixrate=0.1):
 Mathfunc.normal_rewardfunc = normal_rewardfunc
 Mathfunc.normal_rateRelCalc_limitPropAmount = normal_rateRelCalc_limitPropAmount
 
-def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate):
+def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, propdate, overlap=True): #overlap False -> propname already in calcdb then reject.
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     propname = str(propname)
@@ -108,12 +108,14 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
 
     # find dataset.
 
-    docs = collec.find_one({"id" : propname})
+    docs = collec.find_one({"id" : propname, "sub-collec":"rater"})
 
     if docs == None:
         docs = {todaystring : {"ignorance":ignorance, "rate_abs" : rate, "rate_rel" : "invalid"}, "id" : propname, "sub-collec":"rater"}
         collec.insert_one(docs)
     else:
+        if overlap == False:
+            return -1
         if todaystring in docs:
             docs[todaystring]["rate_abs"] = rate
             docs[todaystring]["ignorance"] = ignorance
@@ -202,7 +204,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
     print(-1, "function ended")
     return -1
 
-def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
+def post_setRateForNew(dbname, dbcollec,fromTest, rate, ignorance):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -247,7 +249,7 @@ def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, key)
+                    point = post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignorance, key, overlap=False)
                     return (key, point)
                 else:
                     return (key, value)
@@ -258,7 +260,7 @@ def post_sRP_setAll(dbname, dbcollec,fromTest, rate, ignorance):
     #functional_excute
     calaculate_all(collec)
 
-def calc_gPP_doAll(dbname, dbcollec, fromTest):
+def calc_setPointForNew(dbname, dbcollec, fromTest):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -271,34 +273,36 @@ def calc_gPP_doAll(dbname, dbcollec, fromTest):
     def calaculate_all(collec, client):
         doc_all = collec.find({})
         doc_all = list(doc_all)
-        proceeded = list(map(doc_processor,doc_all))
-        
-        client.close()
-        client = MongoClient(host='localhost', port=27017)
+
         selected_name = getName(dbname,1,fromTest,dbcollec)
         selected_col = selected_name[1]
         selected_name = selected_name[0]
-        collec = client[selected_name][selected_col]
+        collec_calc = client[selected_name][selected_col]
+
+        proceeded = list(map(doc_processor(collec_calc),doc_all))
+
         for doc in proceeded:
             doc["sub-collec"] = "pointer"
-            collec.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
+            collec_calc.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
 
         return proceeded
 
-    def doc_processor(doc):
-        propname = doc["id"]
-        proceeded = map(for_all_date_in_doc_process(propname),list(doc.items()))
-        proceeded = dict(list(proceeded))
-        del_keys = []
-        for key in proceeded.keys():
-            if proceeded[key] == -1:
-                del_keys.append(key)
-        for delkey in del_keys:
-            del(proceeded[delkey])
+    def doc_processor(collec_calc):
+        def child(doc):
+            propname = doc["id"]
+            proceeded = map(for_all_date_in_doc_process(propname, collec_calc),list(doc.items()))
+            proceeded = dict(list(proceeded))
+            del_keys = []
+            for key in proceeded.keys():
+                if proceeded[key] == -1:
+                    del_keys.append(key)
+            for delkey in del_keys:
+                del(proceeded[delkey])
 
-        return proceeded
+            return proceeded
+        return child
     
-    def for_all_date_in_doc_process(propname):
+    def for_all_date_in_doc_process(propname,collec_calc):
         def date_processer(item):
             key = item[0]
             value = item[1]
@@ -307,7 +311,10 @@ def calc_gPP_doAll(dbname, dbcollec, fromTest):
             try:
                 if key[4] == "-" and key[7] == "-":
                     #then, key is propdate!
-                    point = calc_getPointOfProp_noflush(dbname, dbcollec,propname, key, fromTest)
+                    already_exists = collec_calc.find_one({"sub-collec" : "pointer", "id":propname, key:{"$exists" :1}})
+                    if  already_exists != None:
+                        return (key, already_exists[key])
+                    point = calc_getPointOfProp_noflush(dbname, dbcollec,propname, key, fromTest, )
                     return (key, point)
                 else:
                     return (key, value)
@@ -318,7 +325,7 @@ def calc_gPP_doAll(dbname, dbcollec, fromTest):
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec, client)
 
-def calc_gPP_updateOne(dbname, dbcollec,propdate, fromTest):
+def calc_updatePointOne(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -419,7 +426,7 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
 
     result = add_commulative_pointers(collec)
 
-def calc_sCO_updateOne(dbname, dbcollec,propdate, fromTest):
+def calc_updateComuPointOne(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -477,17 +484,17 @@ if fget == "0":
     print("Done!")
     sys.stdout.flush()
 elif fget == "1":
-    post_sRP_setAll(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
-    post_sRP_setAll(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
-    print("Done!")
+    post_setRateForNew(*fvar) #(dbname, dbcollec,fromTest, rate, ignorance) find eldest data in notionDB, 
+    post_setRateForNew(*fvar) #and fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
+    print("Done!")         #only create for new propname, don't touching every existing proprate.
     sys.stdout.flush()
 elif fget == "2" :
-    calc_gPP_doAll(*fvar) #(dbname, dbcollec,fromTest)
-    print("Done!")
+    calc_setPointForNew(*fvar) #(dbname, dbcollec,fromTest)
+    print("Done!")        #only create for new propname, don't touching every existing prop points.
     sys.stdout.flush()
 elif fget == "3" : 
-    calc_gPP_updateOne(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
-    calc_sCO_updateOne(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
+    calc_updatePointOne(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
+    calc_updateComuPointOne(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
     print("Done!")
     sys.stdout.flush()
 elif fget == "4" :
