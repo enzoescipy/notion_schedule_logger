@@ -379,6 +379,10 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
         return list(commulative_lists)
     def pointerdocs_to_commulative_lists(collec):
         def child(doc):
+            already_exists = collec.find_one({'sub-collec': 'pointer_commulative',"id":doc["id"]})
+            if already_exists != None:
+                # if there is already commulative proppointer, this function can't do anything.
+                return -1
             #this doc has all calculation point values about "the one property"
             #takes part in of docs to (key, value), remove other keys.
             doc_listized = list(doc.items())
@@ -426,7 +430,7 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
 
     result = add_commulative_pointers(collec)
 
-def calc_updateComuPointOne(dbname, dbcollec,propdate, fromTest):
+def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -454,8 +458,8 @@ def calc_updateComuPointOne(dbname, dbcollec,propdate, fromTest):
         propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
 
         #for commulative, inverse search operate.
-        propdate_now -= timedelta(days=propday)
-        propdate_before -= timedelta(days=propday)
+        propdate_now -= timedelta(days=propday+1)
+        propdate_before -= timedelta(days=propday+1) #+1 is for the week changes. so, this func calculate more than week, actually.
         for i in range(propday+1):
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
@@ -463,10 +467,15 @@ def calc_updateComuPointOne(dbname, dbcollec,propdate, fromTest):
                 commulative_before = doc[propdate_before_str]
             else:
                 commulative_before = 0
-            noncommu_now = doc_noncommu[propdate_now_str]
-            doc[propdate_now_str] = commulative_before + noncommu_now
-            propdate_before += timedelta(days=1)
-            propdate_now += timedelta(days=1)
+
+            if propdate_now_str in noncommu_now:
+                noncommu_now = doc_noncommu[propdate_now_str]
+                doc[propdate_now_str] = commulative_before + noncommu_now
+                propdate_before += timedelta(days=1)
+                propdate_now += timedelta(days=1)
+            else:
+                propdate_before += timedelta(days=1)
+                propdate_now += timedelta(days=1)
 
         return doc
     def doc_updattor(doc):
@@ -494,13 +503,13 @@ elif fget == "2" :
     sys.stdout.flush()
 elif fget == "3" : 
     calc_updatePointOne(*fvar) #(dbname, dbcollec,propdate, fromTest) update a date's points
-    calc_updateComuPointOne(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
-    print("Done!")
+    calc_updateComuPointOfWeek(*fvar) #(dbname, dbcollec,propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
+    print("Done!")                 #calc_updateComuPointOfWeek can also calculate "have no commulative pointers but have just pointers".
     sys.stdout.flush()
 elif fget == "4" :
-    calc_setCommulativeOfPropAll(*fvar) #(dbname, dbcollec,fromTest)
-    print("Done!")
-    sys.stdout.flush()
+    calc_setCommulativeOfPropAll(*fvar) #(dbname, dbcollec,fromTest) only create for new propname, don't touching every existing prop points.
+    print("Done!")                      #there can be one that have no commulative pointers but have just pointers. 
+    sys.stdout.flush()                  #but, calulation of them are for the calc_updateComuPointOfWeek's work.
 elif fget == "5" :
     print("Test Done!")
     sys.stdout.flush()
