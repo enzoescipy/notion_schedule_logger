@@ -600,13 +600,21 @@ if fget == "0":
     sys.stdout.flush()
 elif fget == "1":
     post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
+    print("Done!")
+    sys.stdout.flush()
 elif fget == "2" :
     calc_gPP_doAll(*fvar) #(fromTest)
+    print("Done!")
+    sys.stdout.flush()
 elif fget == "3" : 
     calc_gPP_updateOne(*fvar) #(propdate, fromTest) update a date's points
     calc_sCO_updateOne(*fvar) #(propdate, fromTest) recalculate a date's commulative, by adding beforedate's commu and nowdate's point.
+    print("Done!")
+    sys.stdout.flush()
 elif fget == "4" :
     calc_setCommulativeOfPropAll(*fvar) #(fromTest)
+    print("Done!")
+    sys.stdout.flush()
 else:
     print("invalid input.")
     sys.stdout.flush()
