@@ -95,7 +95,9 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
     
 
     # make rate resonable. not int -> to int, over range -> boundary set.
-    if rate <= 1 :
+    if rate == 0:
+        pass
+    elif rate <= 1 :
         rate = 1
     elif rate >= 100:
         rate = 100
