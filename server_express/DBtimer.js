@@ -80,24 +80,24 @@ async function init(callback)
         //python init
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         console.log("pyProprateNewAdd...")
-        pythonprocess_1.stdout.on('data', chain1)
+        pythonprocess_1.on('close', chain1)
         function chain1(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("pyCalculaionNewAdd...")
             var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_2.stdout.on('data', chain2)
+            pythonprocess_2.on('close', chain2)
         }
         function chain2(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("pycmmulativeNewAdd...")
             var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_4.stdout.on('data',chain3 )
+            pythonprocess_4.on('close',chain3 )
         }
         function chain3(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("initiation end.")
             console.log("loop start.") 
             callback()
@@ -115,31 +115,31 @@ async function repeat()
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         console.log("pyProprateNewAdd...")
-        pythonprocess_1.stdout.on('data', chain1)
+        pythonprocess_1.on('close', chain1)
         function chain1(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("pyCalculaionNewAdd...")
             var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_2.stdout.on('data', chain2)
+            pythonprocess_2.on('close', chain2)
         }
         function chain2(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("pycmmulativeNewAdd...")
             var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_4.stdout.on('data',chain3 )
+            pythonprocess_4.on('close',chain3 )
         }
         function chain3(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("pyCalculation_WeekCommulative_and_TodayPoint...")
             var pythonprocess_3 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py",3,DBnaming[0],DBnaming[2],todaystring,DBnaming[1]])
-            pythonprocess_3.stdout.on('data', chain4)
+            pythonprocess_3.on('close', chain4)
         }
         function chain4(data)
         {
-            console.log(data.toString())
+            console.log(data)
             console.log("initiation end.")
             console.log("loop start.") 
         }
