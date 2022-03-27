@@ -157,6 +157,8 @@ html
       var commulative_organized = {}
       function commulative_organizer(target)
       {
+        alert("hello, world!")
+
         var comu_obj = JSON.parse(target.innerText)
         var date = target.id
         var pointsum = 0
@@ -167,10 +169,8 @@ html
         }
         commulative_organized[date] = {"value":pointsum, "tagBody":target}
       }
-      alert("hello, world!")
 
       getElementsByClassName_repeat("commulative", commulative_organizer)
-      alert("hello, world!")
 
       ////index beautify
       for (propname in index_organized)
