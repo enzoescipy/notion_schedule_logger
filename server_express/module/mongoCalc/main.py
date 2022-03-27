@@ -418,7 +418,6 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
 
 
     result = add_commulative_pointers(collec)
-    sys.stdout.flush()
 
 def calc_sCO_updateOne(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
