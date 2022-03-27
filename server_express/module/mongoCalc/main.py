@@ -169,7 +169,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
 
     target_date = "invalid"
     # find docs that has same id property.
-    docs = collec.find_one({"id" : propname})
+    docs = collec.find_one({'sub-collec': 'rater',"id" : propname})
     if docs == None:
         # if there are no date : rate pairs, reject.
         return -1
@@ -528,6 +528,35 @@ def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
     #print(result)
     #sys.stdout.flush()   
 
+def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
+    dbname = int(dbname)
+    dbcollec = int(dbcollec)
+    fromTest = int(fromTest)
+
+    selected_name = getName(dbname,1,fromTest,dbcollec)
+    client = MongoClient(host='localhost', port=27017)
+    selected_col = selected_name[1]
+    selected_name = selected_name[0]
+    collec = client[selected_name][selected_col]
+
+    def search_and_updateOne(collec):
+        docs = list(collec.find({'sub-collec': 'rater'}))
+        docs =  list(map(doc_processor,docs))
+        
+    def doc_processor(doc):
+        propdate_countable = date.fromisoformat(propdate)
+        propday = propdate_countable.weekday()
+        for i in range(propday+1):
+            propdate_now = propdate_countable.isoformat()
+            if propdate_now in doc:
+                post_setRateOfProp_noflush(dbname, dbcollec,doc["id"], doc[propdate_now]["rate_abs"], fromTest,doc[propdate_now]["ignorance"], propdate_now)
+            propdate_countable -= timedelta(days=1)
+        return doc
+
+    result = search_and_updateOne(collec)
+    #print(result)
+    #sys.stdout.flush()   
+
 
 def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
     dbname = int(dbname)
@@ -578,7 +607,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
             # make that prop zero.
             post_setRateOfProp_noflush(dbname, dbcollec,propname, 0, fromTest,1, zerorate_date_str)
             # modify the other props too.
-            post_updateRateOfWeek(dbname, dbcollec,zerorate_date_str, fromTest)
+            post_f_makeRatesExistsThatDate(dbname, dbcollec,zerorate_date_str, fromTest)
 
     
     
