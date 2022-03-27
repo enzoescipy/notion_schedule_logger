@@ -211,7 +211,6 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
     # put and calculate the rate_rel
     docs = collec.find({"sub-collec":"rater",todaystring:{'$exists': 1}})
     docs = list(docs)
-    print(docs, todaystring)
 
     rate_sum = 0
     prop_amount = 0
@@ -220,7 +219,6 @@ def post_setRateOfProp_noflush(propname, rate, fromTest,ignorance, propdate):
         rate_sum += doc[todaystring]["rate_abs"]
 
     for doc_2 in  docs:
-        print(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2[todaystring]["rate_rel"] = Mathfunc.normal_rateRelCalc_limitPropAmount(prop_amount,doc_2[todaystring]["rate_abs"])
         doc_2_id = doc_2["id"]
         collec.replace_one({"id" : doc_2_id}, doc_2)
@@ -617,6 +615,7 @@ if fget == "0":
     print("Done!")
     sys.stdout.flush()
 elif fget == "1":
+    post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
     post_sRP_setAll(*fvar) #(fromTest, rate, ignorance) find eldest data in notionDB, ant fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
     print("Done!")
     sys.stdout.flush()
