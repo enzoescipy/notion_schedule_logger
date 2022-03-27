@@ -41,7 +41,6 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
     var isexist_doc = await DBnamingDoc.next()
     if ( isexist_doc != null) 
     {
-        console.log(isexist_doc)
         return {"DB" : DBstring, "collection" : collectionType}
     }
     else

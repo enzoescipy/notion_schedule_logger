@@ -18,7 +18,6 @@ async function show_setting()
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
-    console.log(setting_doc)
     await client.close()
 }
 
@@ -34,7 +33,6 @@ async function reset_setting()
     const collec = database.collection(NameDB_collec)
 
     var result = await collec.deleteOne({'id':NameDB_setting})
-    console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
     await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB,"variationofDB":variationofDB, "typeofCollection":typeofCollection})
     await client.close()
@@ -135,7 +133,6 @@ async function debug()
         await client.close()
     }
 
-    console.log(docSum)
 
 }
 
@@ -280,7 +277,6 @@ async function getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var isexist_doc = await DBnamingDoc.next()
     if ( isexist_doc != null) 
     {
-        console.log(isexist_doc)
         return {"DB" : DBstring, "collection" : collectionType}
     }
     else

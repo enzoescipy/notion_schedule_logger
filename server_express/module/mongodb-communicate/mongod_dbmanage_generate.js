@@ -26,7 +26,6 @@ async function insertRandomDatepairs(dbNamenum,dbVarinum, dbTypenum, collectionT
         
         //get date data.
         var calender = await Notion.testsetget(Notion.workId,datestring)
-        console.log(calender == -1)
         if (calender == -1) {client.close(); return -1 }
         for (key in calender)
         {
@@ -99,7 +98,6 @@ async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,d
 
         //remove all of document in pasting DB.    
         var result = await collec2.deleteMany({})
-        console.log("\ndeleted" + result.deletedCount + " data first.\n")
 
         //write document to pasting DB
         while (true)
@@ -153,7 +151,6 @@ async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
         const database = client.db(seleted_dbnaming.DB)
         const collec = database.collection(seleted_dbnaming.collection)
         var result = await collec.deleteMany({})
-        console.log("\ndeleted" + result.deletedCount + " data first.\n")
     }
     finally
     {
@@ -167,7 +164,6 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
 {
     var dbVarinum = 0
     var seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
-    console.log(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
         await client.connect()
@@ -176,8 +172,6 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
         
         //get date data.
         var calender = await Notion.getItemNOTION(Notion.workId)
-        console.log("calender debug:")
-        console.log(calender)
         for (key in calender)
         {
             //get date data.
@@ -224,7 +218,6 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var docSum = {}
-    console.log("(mongod_dbmanage_generate) mongodb inner document emited.")
     try
     {
         await client.connect()
@@ -244,7 +237,6 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback
         await client.close()
     }
                     
-    console.log(docSum)
     if (callback != null){callback(docSum)}
     return docSum
 }

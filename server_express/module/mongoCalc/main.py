@@ -144,7 +144,6 @@ def post_setRateOfProp_depracated(propname, rate, fromTest,ignorance, propdate, 
     
     debug  = list(collec.find({}))
     client.close()
-    print(debug)
     sys.stdout.flush()
     return 1
 
@@ -287,7 +286,6 @@ def calc_getPointOfProp_depracated(propname, propdate, fromTest):
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
             client.close()
-            print(final_point)
             sys.stdout.flush()
             return 1
 
@@ -349,7 +347,6 @@ def calc_getPointOfProp_noflush(propname, propdate, fromTest):
         client.close()
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
-        print(propname,propdate,continuous_num,target_rate,final_point)
         if final_point >= 0 :
             return final_point
 
@@ -467,7 +464,6 @@ def calc_gPP_doAll(fromTest):
     
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec, client)
-    print(proceeded_list_docAll)
 
 def calc_gPP_updateOne(propdate, fromTest):
     fromTest = int(fromTest)
@@ -552,7 +548,6 @@ def calc_setCommulativeOfPropAll(fromTest):
         pointsum = 0
         def child(item):
             nonlocal pointsum
-            print(pointsum)
             if item == -1:
                 return -1
             pointsum += item[1]
@@ -561,7 +556,7 @@ def calc_setCommulativeOfPropAll(fromTest):
 
 
     result = add_commulative_pointers(collec)
-    print(result)
+    printlt)
     sys.stdout.flush()
 
 def calc_sCO_updateOne(propdate, fromTest):
