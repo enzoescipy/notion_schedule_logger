@@ -449,7 +449,10 @@ def calc_sCO_updateOne(dbname, dbcollec,propdate, fromTest):
         for i in range(propday+1):
             propdate_before_str = propdate_before.isoformat()
             propdate_now_str = propdate_now.isoformat()
-            commulative_before = doc[propdate_before_str]
+            if propdate_before_str in doc :
+                commulative_before = doc[propdate_before_str]
+            else:
+                commulative_before = 0
             noncommu_now = doc_noncommu[propdate_now_str]
             doc[propdate_now_str] = commulative_before + noncommu_now
             propdate_before -= timedelta(days=1)
