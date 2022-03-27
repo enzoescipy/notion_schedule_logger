@@ -110,7 +110,7 @@ router.post('/api/notionUpdate', function(req, res) {
     {
         var para = await mongoPublic.reloadDB_main(0,0,dbtype())
         var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 3,todaystring , dbtype()])
-        await pythonProcess.stdout.on('data',(data) => {
+        pythonProcess.stdout.on('data',(data) => {
             renderstart(para)
         })
     }
@@ -146,7 +146,7 @@ router.post('/api/ratesSet/', function(req, res) {
     var proprate = Number(req.body.rate_abs)
     var ignorance = Number(req.body.ignorance)
 
-    console.log(propname, proprate, ignorance)
+    console.log(propname,proprate,dbtype(),ignorance,"XXXX-XX-XX")
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,propname,proprate,dbtype(),ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
