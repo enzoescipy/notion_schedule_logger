@@ -90,7 +90,11 @@ async function init()
         {
             console.log(data.toString())
             console.log("pycmmulative...")
-            pythonprocess_4.stdout.on('data',(data)=>{console.log(data.toString())} )
+            pythonprocess_4.stdout.on('data',chain3 )
+        }
+        function chain3(data)
+        {
+            console.log(data.toString())
         }
 
     }
