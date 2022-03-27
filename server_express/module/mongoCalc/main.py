@@ -481,7 +481,13 @@ def calc_gPP_updateOne(propdate, fromTest):
         return result
         
     def doc_processor(doc):
-        doc[propdate] = calc_getPointOfProp_noflush(doc["id"], propdate, fromTest)
+        propdate_countable = date.fromisoformat(propdate)
+        propday = propdate_countable.weekday()
+        for i in range(propday+1):
+            print(i)
+            propdate_now = propdate_countable.isoformat()
+            doc[propdate_now] = calc_getPointOfProp_noflush(doc["id"], propdate_now, fromTest)
+            propdate_countable -= timedelta(days=1)
         return doc
     def doc_updatter(doc):
         collec.replace_one({'sub-collec': 'pointer', 'id':doc['id']},doc)
@@ -578,11 +584,19 @@ def calc_sCO_updateOne(propdate, fromTest):
         doc = docpair[0]
         doc_noncommu = docpair[1]
 
-        propdate_before = date.isoformat(date.fromisoformat(propdate) - timedelta(days=1))
-        commulative_before = doc[propdate_before]
-        noncommu_now = doc_noncommu[propdate]
+        propdate_now = date.fromisoformat(propdate)
+        propday = propdate_now.weekday()
+        propdate_before = date.fromisoformat(propdate) - timedelta(days=1)
 
-        doc[propdate] = commulative_before + noncommu_now
+        for i in range(propday+1):
+            print(i)
+            propdate_before_str = propdate_before.isoformat()
+            propdate_now_str = propdate_now.isoformat()
+            commulative_before = doc[propdate_before_str]
+            noncommu_now = doc_noncommu[propdate_now_str]
+            doc[propdate_now_str] = commulative_before + noncommu_now
+            propdate_before -= timedelta(days=1)
+            propdate_now -= timedelta(days=1)
 
         return doc
     def doc_updattor(doc):
