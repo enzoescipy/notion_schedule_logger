@@ -556,7 +556,6 @@ def calc_setCommulativeOfPropAll(fromTest):
 
 
     result = add_commulative_pointers(collec)
-    printlt)
     sys.stdout.flush()
 
 def calc_sCO_updateOne(propdate, fromTest):
