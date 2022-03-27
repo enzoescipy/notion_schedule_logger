@@ -16,9 +16,9 @@ async function preset_addDB(dbNamenum, dbTypenum, collectionTypenum)
     ispreset_addDB_raised = true
 }
 var ispreset_repeatTime_raised = false
-async function preset_addRepeatTime(ms)
+async function preset_addRepeatTime(sec)
 {
-    preset_repeat_ms = ms
+    preset_repeat_ms = sec * 1000
     ispreset_repeatTime_raised = true
 }
 
@@ -72,6 +72,7 @@ async function START()
 {
     if ( (ispreset_addDB_raised && ispreset_repeatTime_raised))
     {
+        console.log(ispreset_addDB_raised && ispreset_repeatTime_raised)
         console.log("fault. setting not completed.")
         return -1
     }
