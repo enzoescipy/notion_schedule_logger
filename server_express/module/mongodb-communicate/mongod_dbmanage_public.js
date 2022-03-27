@@ -16,15 +16,29 @@ async function makeNewDBset(dbNamenum,dbVarinum, collectionTypenum)
     }
 }
 
-async function clearDBset(dbNamenum,dbVarinum, collectionTypenum)
+async function clearTests(dbNamenum, collectionTypenum)
 {
     for (var i=0; i<3;i++)
     {
-        console.log(i)
-        await mongoGenerate.initialize(dbNamenum,dbVarinum, i, collectionTypenum)
+        await mongoGenerate.initialize(dbNamenum,i, 0, collectionTypenum)
     }
 }
 
+async function clearMains(dbNamenum, collectionTypenum)
+{
+    for (var i=0; i<3;i++)
+    {
+        await mongoGenerate.initialize(dbNamenum,i, 1, collectionTypenum)
+    }
+}
+
+async function clearBackups(dbNamenum, collectionTypenum)
+{
+    for (var i=0; i<3;i++)
+    {
+        await mongoGenerate.initialize(dbNamenum,i, 2, collectionTypenum)
+    }
+}
 async function clear(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
     await mongoGenerate.initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
@@ -93,8 +107,10 @@ exports.reloadDB_main = reloadDB_main
 exports.generateDB_test = generateDB_test
 exports.saveDB_main = saveDB_main
 exports.takeDBfromBackUp_test = takeDBfromBackUp_test
-exports.clearDBset = clearDBset
 exports.clear = clear
+exports.clearTests = clearTests
+exports.clearMains = clearMains
+exports.clearBackups = clearBackups
 exports.delDBset = delDBset
 exports.debug = debug
 exports.showSetting = showSetting

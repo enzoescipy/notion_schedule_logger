@@ -6,6 +6,7 @@ require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
 const todaystring = moment().format("YYYY-MM-DD")
 
+
 var preset_DBnaming = []
 var preset_repeat_ms = 0
 var initrate = undefined
@@ -32,6 +33,10 @@ async function preset_initial_ratesetting(rate, igno)
     initignorance = Number(igno)
     ispreset_initial_ratesetting_raised = true
     return [initrate,initignorance]
+}
+async function preset_today(datestring)
+{
+    todaystring = datestring
 }
 
 async function init_test()
@@ -174,3 +179,4 @@ exports.preset_addDB = preset_addDB
 exports.preset_addRepeatTime = preset_addRepeatTime
 exports.preset_initial_ratesetting = preset_initial_ratesetting
 exports.START = START
+exports.preset_today = preset_today
