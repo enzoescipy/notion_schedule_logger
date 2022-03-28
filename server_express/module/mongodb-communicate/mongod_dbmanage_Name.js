@@ -134,7 +134,7 @@ async function debug()
         await client.close()
     }
 
-
+    console.log(docSum)
 }
 
 async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
