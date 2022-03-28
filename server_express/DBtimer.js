@@ -122,6 +122,7 @@ async function repeat()
         {
             console.log(data)
             console.log("pyCalculaionNewAdd...")
+            console.log(i, DBnaming[0],DBnaming[2],DBnaming[1])
             var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
             pythonprocess_2.on('close', chain2)
         }
