@@ -37,7 +37,6 @@ async function home_rendernow(req, res)
         title: "Dong hyo Ko - enzoescipy's life challenge",
         iam: "/home", }
     dbtype_fixed = await dbtype()
-    console.log(dbtype_fixed)
     mainScoreData = await home_get_mainScoreData(0,dbtype_fixed,nowCollecNum)
     dataset["mainScoreData_index"] = JSON.stringify(mainScoreData["index"])
     dataset["mainScoreData_main"] = JSON.stringify(mainScoreData["data"])
@@ -60,6 +59,7 @@ async function home_get_collec()
 
 async function home_get_mainScoreData(dbNamenum, dbTypenum, collectionTypenum)
 {
+    console.log(dbNamenum, dbTypenum, collectionTypenum)
     var organized_table = await mongoFront.calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum)
     return organized_table
 }
