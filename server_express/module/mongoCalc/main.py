@@ -294,6 +294,7 @@ def calc_setPointForNew(dbname, dbcollec, fromTest):
         for doc in proceeded:
             doc["sub-collec"] = "pointer"
             collec_calc.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
+            writeLog(dbname, dbcollec, fromTest, doc)
 
         return proceeded
 
