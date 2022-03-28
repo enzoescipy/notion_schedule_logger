@@ -58,7 +58,7 @@ html
         form(action="", method="post")
           div.select
             select(name="collec_num")
-              each index, name in collec_withindex
+              each name, index in collec_withindex
                 option(value=index) #{name}
 
           input(type="hidden",name="portal4", value=iam )
