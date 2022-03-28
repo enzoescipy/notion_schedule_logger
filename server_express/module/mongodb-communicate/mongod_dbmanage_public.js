@@ -7,12 +7,15 @@ async function showSetting()
     mongoNameManage.show_setting()
 }
 
-async function makeNewDBset(dbNamenum,dbVarinum, collectionTypenum)
+async function makeNewDBset(dbNamenum, collectionTypenum)
 {
-    for (var i=0; i<3;i++)
+    for (let vari=0; vari<3; vari++)
     {
-        console.log(i)
-        await mongoGenerate.makeNewDB(dbNamenum,dbVarinum, i, collectionTypenum)
+        for (var i=0; i<3;i++)
+        {
+            console.log(i)
+            await mongoGenerate.makeNewDB(dbNamenum,vari, i, collectionTypenum)
+        }
     }
 }
 
