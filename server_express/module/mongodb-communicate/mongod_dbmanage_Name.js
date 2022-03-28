@@ -38,7 +38,7 @@ async function show_settingLength()
         {
             delete setting_doc[key]
         }
-        setting_doc[key] = setting_doc[key] 
+        setting_doc[key] = setting_doc[key].length 
     }
     console.log(setting_doc)
     await client.close()
