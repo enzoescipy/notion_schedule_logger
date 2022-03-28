@@ -149,6 +149,8 @@ async function deleteSelf(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, cal
 
 async function initialize(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
+    const client = new MongoClient(uri);
+
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     try
     {
