@@ -4,14 +4,36 @@ const fs = require("fs")
 
 const notion = new Client({ auth: fs.readFileSync("notionkeys.key","utf8") })
 
-//fd644186c73345438d5c4ce2c8cfb2ca a5ff1a4fa3c548b992186a05a32cfb1b
-const workId = "fd644186c73345438d5c4ce2c8cfb2ca"
+
+const IDStore = {"todoID" : "fd644186c73345438d5c4ce2c8cfb2ca",
+"studyID" : "2049fe58d92f417b979c0209f9462de4",
+"catID" : "9b797bb26dfe4f97b0a8c67647dc4c2e"}
 
 const moment = require('moment');
 require("moment-timezone")
 moment.tz.setDefault("Asia/Seoul")
 
 const istest = require("../serverIsTest/index")
+
+async function getIDfromCollecNum(dbcollec)
+{
+  dbcollec = Number(dbcollec)
+  var idName
+  if (dbcollec === 0)
+  {
+    idName = "todoID"
+  }
+  else if (dbcollec === 1)
+  {
+    idName = "studyID"
+  }
+  else if (dbcollec === 2)
+  {
+    idName = "catID"
+  }
+
+  return IDStore[idName]
+}
 
 async function getItem(databaseId) {
   try {
@@ -199,7 +221,5 @@ async function testsetget(databaseId, datestring)
 
 
 exports.getItemNOTION = getItem
-exports.workId = workId
 exports.testsetget = testsetget
-
-
+exports.getIDfromCollecNum = getIDfromCollecNum

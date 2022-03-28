@@ -152,6 +152,7 @@ async function repeat()
 async function infinite_repeat()
 {
     console.log("loop. log the time inside DB setting.")
+    //logging looped time to db.
     for (let i=0; i<preset_DBnaming.length; i++)
     {
         var DBnaming = preset_DBnaming[i]
@@ -160,6 +161,18 @@ async function infinite_repeat()
 
     setTimeout(repeat, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)
+}
+
+async function just_log_repeat()
+{
+    console.log("loop. log the time inside DB setting.")
+    //logging looped time to db.
+    for (let i=0; i<preset_DBnaming.length; i++)
+    {
+        var DBnaming = preset_DBnaming[i]
+        await settingMongo.set(1,2,moment().format(),DBnaming[0],DBnaming[1],DBnaming[2])
+    }
+    await repeat()
 }
 
 async function START()
@@ -175,9 +188,21 @@ async function START()
    
 }
 
+async function START_onlyOnce()
+{
+    if ( !(ispreset_addDB_raised && ispreset_repeatTime_raised))
+    {
+        console.log(ispreset_addDB_raised && ispreset_repeatTime_raised)
+        console.log("fault. setting not completed.")
+        return -1
+    }
+    console.log("initiation start.")
+    await init(just_log_repeat)
+}
 
 
 exports.preset_addDB = preset_addDB
 exports.preset_addRepeatTime = preset_addRepeatTime
 exports.preset_initial_ratesetting = preset_initial_ratesetting
 exports.START = START
+exports.START_onlyOnce = START_onlyOnce
