@@ -56,7 +56,7 @@ async function TESTDATE_GET()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
     doc = await collec.findOne({})
-    if (doc != null)
+    if (doc != null && "testdate" in doc)
     {
         return doc["testdate"]
     }
