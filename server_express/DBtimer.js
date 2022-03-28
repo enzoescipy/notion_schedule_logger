@@ -108,6 +108,7 @@ async function repeat()
     for (let i=0; i<preset_DBnaming.length; i++)
     {
         var DBnaming = preset_DBnaming[i]
+        console.log(i,DBnaming)
         console.log("notionMainDB...")
         await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
         todaystring = await istest.TESTDATE_GET()
