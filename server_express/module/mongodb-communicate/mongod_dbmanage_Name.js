@@ -42,7 +42,6 @@ async function show_settingLength()
         setting_doc[key] = setting_doc[key].length 
     }
     await client.close()
-    console.log(setting_doc)
     return setting_doc
 }
 
