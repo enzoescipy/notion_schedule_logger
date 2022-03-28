@@ -18,6 +18,7 @@ async function show_setting()
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
+    console.log(setting_doc)
     await client.close()
 }
 
