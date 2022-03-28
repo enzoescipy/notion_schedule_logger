@@ -7,7 +7,7 @@ const moment = require("moment")
 
 var dbtype = istest.NOWNUM
 var todaystring = moment().format("YYYY-MM-DD")
-
+var nowCollecNum = 0
 
 
 var spawn = require("child_process").spawn
@@ -34,14 +34,14 @@ async function home_rendernow(req, res)
         title: "Dong hyo Ko - enzoescipy's life challenge",
         iam: "/home", }
     dbtype_fixed = await dbtype()
-    mainScoreData = await home_get_mainScoreData(0,dbtype_fixed,0)
+    mainScoreData = await home_get_mainScoreData(0,dbtype_fixed,nowCollecNum)
     dataset["mainScoreData_index"] = JSON.stringify(mainScoreData["index"])
     dataset["mainScoreData_main"] = JSON.stringify(mainScoreData["data"])
     dataset["mainScoreData_commulative"] = JSON.stringify(mainScoreData["commulative"])
 
     dataset["isdataloaded"] = await home_get_isdataloaded(req)
 
-    dataset["showday_amount"] = await home_get_showday_amount(0,0,0,dbtype_fixed,0)
+    dataset["showday_amount"] = await home_get_showday_amount(0,0,0,dbtype_fixed,nowCollecNum)
 
     res.render('index',dataset)
 }
@@ -78,7 +78,7 @@ async function rate_rendernow(req, res)
                     rateData: undefined,    
                 }
     dbtype_fixed = await dbtype()
-    dataset["rateData"] = JSON.stringify(await rate_get_rateData(0,dbtype_fixed,0))
+    dataset["rateData"] = JSON.stringify(await rate_get_rateData(0,dbtype_fixed,nowCollecNum))
 
     res.render("set_rate", dataset)
 }
@@ -95,7 +95,7 @@ router.post('/api/notionUpdate', function(req, res) {
     async function calculate()
     {
         dbtype_fixed = await dbtype()
-        var para = await mongoSETTING.get(1,2,0,dbtype_fixed,0)
+        var para = await mongoSETTING.get(1,2,0,dbtype_fixed,nowCollecNum)
         renderstart(para)
     }
 
@@ -119,7 +119,7 @@ router.post('/api/notionUpdate', function(req, res) {
 
 router.post('/api/SETTINGsSet/', async function(req, res) {
     dbtype_fixed = await dbtype()
-    mongoSETTING.set(0,0,req.body.slider1,0,dbtype_fixed,0,function() {
+    mongoSETTING.set(0,0,req.body.slider1,0,dbtype_fixed,nowCollecNum,function() {
         console.log("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
@@ -131,7 +131,7 @@ router.post('/api/ratesSet/', async function(req, res) {
     var proprate = Number(req.body.rate_abs)
     var ignorance = Number(req.body.ignorance)
     dbtype_fixed = await dbtype()
-    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,0,0,propname,proprate,dbtype_fixed,ignorance,"XXXX-XX-XX"])
+    var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,0,nowCollecNum,propname,proprate,dbtype_fixed,ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
         console.log("(request_3) update calculation rate_abs in server. ")
