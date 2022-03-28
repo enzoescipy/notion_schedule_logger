@@ -575,7 +575,7 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
     #sys.stdout.flush()   
 
 
-def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
+def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreignorance):
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     fromTest = int(fromTest)
@@ -589,7 +589,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
 
     client.close()
 
-    selected_name = getName(dbname,0,fromTest,dbcollec)
+    selected_name = getName(dbname,0,fromTest,dbcollec) # get DB from notionDB
     client = MongoClient(host='localhost', port=27017)
     selected_col = selected_name[1]
     selected_name = selected_name[0]
@@ -617,12 +617,26 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
         #writeLog(propname, newest_date_str, doc_ordered, today.isoformat())
         newest_date = date.fromisoformat(newest_date_str)
         writeLog(propname,newest_date_str, today.isoformat(), newest_date < today)
-        if newest_date < today:
+        if newest_date < today: # target to make zero
             zerorate_date_str = date.isoformat(newest_date + timedelta(days=1))
             # make that prop zero.
             post_setRateOfProp_noflush(dbname, dbcollec,propname, 0, fromTest,1, zerorate_date_str)
             # modify the other props too.
             post_f_makeRatesExistsThatDate(dbname, dbcollec,zerorate_date_str, fromTest)
+        else:    #target to restore check. if one has newest_date rater -> rateabs=0 however newest_date == today
+            #has the newest_date -> rateabs=0?
+            selected_name = getName(dbname,1,fromTest,dbcollec) # get DB from notionDB
+            selected_col = selected_name[1]
+            selected_name = selected_name[0]
+            collec_rater = client[selected_name][selected_col]
+            rater_doc = collec_rater.find_one({"id" : propname, "sub-collec":"rater"})
+            newest_date_str
+            if newest_date_str in rater_doc:
+                if rater_doc[newest_date_str]["rate_abs"] == 0:
+                    #restore that rater.
+                    post_setRateOfProp_noflush(dbname, dbcollec,propname, restorerate, fromTest,restoreignorance, zerorate_date_str)
+                    # modify the other props too.
+                    post_f_makeRatesExistsThatDate(dbname, dbcollec,zerorate_date_str, fromTest)
 
     
     
@@ -640,7 +654,7 @@ elif fget == "1":
     post_setRateForNew(*fvar) #and fix its rate to $rate, $ignorance. safe to execute because earlist data won't be evaluated.
                               #only create for new propname, don't touching every existing proprate.     
 
-    post_faultRateEliminate(*fvar) #if there are some prop that maindb(notion) date is fewer then other prop, make its rate_abs to 0.
+    post_faultRateZeroSwitch(*fvar) #if there are some prop that maindb(notion) date is fewer then other prop, make its rate_abs to 0. or restore back.
     print("Done!")         
     sys.stdout.flush()
 elif fget == "2" :
