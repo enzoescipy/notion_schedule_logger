@@ -208,7 +208,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
     else:
         #take the... "how long do you continuously keep your todo."
         client.close()
-        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,0,ignorance=target_ignorance)
+        continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,dbcollec,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
             return final_point
