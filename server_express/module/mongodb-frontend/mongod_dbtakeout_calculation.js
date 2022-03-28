@@ -3,11 +3,12 @@ const dbnaming = require('../mongodb-communicate/mongod_dbmanage_Name')
 const settings = require('../mongodb-communicate/mongod_dbmanage_SETTINGs')
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 
 async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
 {
+    const client = new MongoClient(uri);
+
     //take settings for data amount
     current_length = await settings.get(0,0,0,dbTypenum,0,)
 
@@ -99,6 +100,9 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
 
 async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
+
+    const client = new MongoClient(uri);
+
     //take settings for data amount
     current_length = await settings.get(0,0,0,dbTypenum,0,)
 
@@ -190,6 +194,9 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
 
 async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
+
+    const client = new MongoClient(uri);
+
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
     const database = client.db(seleted_dbnaming.DB)
@@ -247,6 +254,9 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
 
 async function calc_indexOnly(dbNamenum, dbTypenum, collectionTypenum, callback)
 {
+
+    const client = new MongoClient(uri);
+
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
     const database = client.db(seleted_dbnaming.DB)
@@ -261,6 +271,9 @@ async function calc_indexOnly(dbNamenum, dbTypenum, collectionTypenum, callback)
 
 async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callback)
 {
+
+    const client = new MongoClient(uri);
+
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,1, dbTypenum, collectionTypenum)
     await client.connect()
     const database = client.db(seleted_dbnaming.DB)

@@ -1,7 +1,6 @@
 const {MongoClient} = require ("mongodb")
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 
 const NameDB = "OPERATION_MODE_system"
@@ -9,6 +8,9 @@ const NameDB_collec = "base"
 
 async function TEST()
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -20,6 +22,9 @@ async function TEST()
 
 async function MAIN()
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -30,6 +35,9 @@ async function MAIN()
 
 async function BACKUP()
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -40,6 +48,9 @@ async function BACKUP()
 
 async function NOWNUM()
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -50,6 +61,9 @@ async function NOWNUM()
 
 async function TESTDATE(datestring) //testdate would be destroy call the : MAIN, BACKUP
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -58,6 +72,9 @@ async function TESTDATE(datestring) //testdate would be destroy call the : MAIN,
 }
 async function TESTDATE_GET()
 {
+
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)

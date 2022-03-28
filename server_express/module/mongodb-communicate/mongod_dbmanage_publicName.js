@@ -2,7 +2,6 @@ const { get } = require("jquery");
 const {MongoClient} = require ("mongodb")
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 const NameDB = "NAMING_system"
 const NameDB_collec = "base"
@@ -11,6 +10,8 @@ const NameDB_setting = "setting"
 
 async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 {
+    const client = new MongoClient(uri);
+
     dbNamenum = Number(dbNamenum)
     dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)

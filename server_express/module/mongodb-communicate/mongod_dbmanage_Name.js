@@ -2,7 +2,6 @@ const { get } = require("jquery");
 const {MongoClient} = require ("mongodb")
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 const NameDB = "NAMING_system"
 const NameDB_collec = "base"
@@ -10,6 +9,8 @@ const NameDB_setting = "setting"
 
 async function show_setting()
 {
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -24,6 +25,8 @@ async function show_setting()
 
 async function show_setting_collec()
 {
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -38,6 +41,8 @@ async function show_setting_collec()
 
 async function reset_setting()
 {
+    const client = new MongoClient(uri);
+
     const nameofDB = ["NotionpageWorkId"]
     const variationofDB = ["notion","calculate","system"]
     const typeofDB = ["test","main","backup"]
@@ -55,6 +60,8 @@ async function reset_setting()
 
 async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB,1:variationofDB, 2 : typeofDB, 3 : typeofCollection
 {
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -90,6 +97,8 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB,1:vari
 
 async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
 {
+    const client = new MongoClient(uri);
+
     await client.connect()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
@@ -128,6 +137,8 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
 
 async function debug()
 {
+    const client = new MongoClient(uri);
+
     console.log("(mongod_dbmanage) dbnamingDB inner emited.")
     var docSum = {}
     try
@@ -153,6 +164,8 @@ async function debug()
 
 async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
+    const client = new MongoClient(uri);
+
     dbNamenum = Number(dbNamenum)
     dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
@@ -207,6 +220,7 @@ async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 
 async function delDBnaming_super(target_string)
 {
+    const client = new MongoClient(uri);
 
     await client.connect()
     const database = client.db(NameDB)
@@ -227,6 +241,8 @@ async function delDBnaming_super(target_string)
 
 async function delDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
+    const client = new MongoClient(uri);
+
     dbNamenum = Number(dbNamenum)
     dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)
@@ -262,6 +278,8 @@ async function delDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 }
 async function getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
+    const client = new MongoClient(uri);
+
     dbNamenum = Number(dbNamenum)
     dbVarinum = Number(dbVarinum)
     dbTypenum = Number(dbTypenum)

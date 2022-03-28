@@ -2,13 +2,14 @@ const {MongoClient} = require ("mongodb")
 const dbnaming = require('./mongod_dbmanage_Name')
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 const where = ["home","server"] 
 const what = ["showday_amount","maindbload_lock", "last_autoupdate"]
 
 async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypenum, callback)
 {
+    const client = new MongoClient(uri);
+
     const whereprop = where[wherenum]
     const whatprop = what[whatnum]
 
@@ -29,6 +30,9 @@ async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypen
 
 async function get(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum, callback)
 {
+    const client = new MongoClient(uri);
+
+
     try
     {
         const whereprop = where[wherenum]

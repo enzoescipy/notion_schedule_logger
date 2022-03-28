@@ -3,7 +3,6 @@ const Notion = require('../notion-communicate/index')
 const dbnaming = require('./mongod_dbmanage_Name')
 const uri = "mongodb://localhost:27017"
 
-const client = new MongoClient(uri);
 
 async function makeNewDB(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)
 {
@@ -17,6 +16,7 @@ async function insertRandomDatepairs(dbNamenum,dbVarinum, dbTypenum, collectionT
 {
 
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    const client = new MongoClient(uri);
     
     try
     {
@@ -84,6 +84,8 @@ async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,d
 {
     seleted_dbnaming1 = await dbnaming.getDBnaming(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1)
     seleted_dbnaming2 = await dbnaming.getDBnaming(dbNamenum2,dbVarinum2, dbTypenum2, collectionTypenum2)
+    const client = new MongoClient(uri);
+    
     try
     {
         // basic connection
@@ -126,6 +128,8 @@ async function copypaste(dbNamenum1,dbVarinum1, dbTypenum1, collectionTypenum1,d
 async function deleteSelf(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback)     
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    const client = new MongoClient(uri);
+    
     try
     {
         // basic connection
@@ -165,6 +169,9 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
 {
     var dbVarinum = 0
     var seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
+    
+    const client = new MongoClient(uri);
+    
     try
     {
         await client.connect()
@@ -201,6 +208,9 @@ async function debug(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, callback
 {
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var docSum = {}
+    
+    const client = new MongoClient(uri);
+    
     try
     {
         await client.connect()
@@ -229,6 +239,9 @@ async function debug_nolog(dbNamenum,dbVarinum, dbTypenum, collectionTypenum, ca
     seleted_dbnaming = await dbnaming.getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     var docSum = {}
     console.log("(mongod_dbmanage_generate) mongodb inner document emited.")
+    
+    const client = new MongoClient(uri);
+    
     try
     {
         await client.connect()
