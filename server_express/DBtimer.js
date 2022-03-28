@@ -105,7 +105,7 @@ async function init(callback)
 
 async function repeat(DBnaming)
 {
-    console.log(i,DBnaming)
+    console.log(DBnaming)
     console.log("notionMainDB...")
     await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
     todaystring = await istest.TESTDATE_GET()
@@ -120,7 +120,6 @@ async function repeat(DBnaming)
     {
         console.log(data)
         console.log("pyCalculaionNewAdd...")
-        console.log(i, DBnaming[0],DBnaming[2],DBnaming[1])
         var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
         pythonprocess_2.on('close', chain2)
     }
