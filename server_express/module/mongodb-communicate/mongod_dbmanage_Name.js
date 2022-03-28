@@ -320,3 +320,5 @@ exports.delDBnaming_super = delDBnaming_super
 exports.delete_setting = delete_setting
 exports.add_setting = add_setting
 exports.show_setting = show_setting
+
+exports.show_settingLength = show_settingLength
