@@ -38,8 +38,9 @@ async function show_settingLength()
         setting_doc[key] = key.length 
     }
     console.log(setting_doc)
-    return setting_doc
     await client.close()
+
+    return setting_doc
 }
 
 async function reset_setting()
