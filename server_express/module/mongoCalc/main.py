@@ -616,7 +616,7 @@ def post_faultRateEliminate(dbname, dbcollec,fromTest, rate, ignorance):
         newest_date_str = doc_ordered[-1][0]
         #writeLog(propname, newest_date_str, doc_ordered, today.isoformat())
         newest_date = date.fromisoformat(newest_date_str)
-
+        print(newest_date_str, today.isoformat(), newest_date < today)
         if newest_date < today:
             zerorate_date_str = date.isoformat(newest_date + timedelta(days=1))
             # make that prop zero.
