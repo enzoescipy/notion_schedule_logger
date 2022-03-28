@@ -630,13 +630,13 @@ def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreigno
             selected_name = selected_name[0]
             collec_rater = client[selected_name][selected_col]
             rater_doc = collec_rater.find_one({"id" : propname, "sub-collec":"rater"})
-            newest_date_str
+            
             if newest_date_str in rater_doc:
                 if rater_doc[newest_date_str]["rate_abs"] == 0:
                     #restore that rater.
-                    post_setRateOfProp_noflush(dbname, dbcollec,propname, restorerate, fromTest,restoreignorance, zerorate_date_str)
+                    post_setRateOfProp_noflush(dbname, dbcollec,propname, restorerate, fromTest,restoreignorance, newest_date_str)
                     # modify the other props too.
-                    post_f_makeRatesExistsThatDate(dbname, dbcollec,zerorate_date_str, fromTest)
+                    post_f_makeRatesExistsThatDate(dbname, dbcollec,newest_date_str, fromTest)
 
     
     
