@@ -64,7 +64,6 @@ async function repeat_test()
 
 async function init(callback)
 {
-
     preset_DBnaming.forEach(async (DBnaming) => {
         //mongo init
         console.log("settingDB...")
@@ -96,7 +95,6 @@ async function init(callback)
             console.log(data)
             console.log("initiation end.")
             console.log("loop start.") 
-            console.log([...DBnaming])
             callback([...DBnaming])
         }
 
@@ -105,7 +103,6 @@ async function init(callback)
 
 async function repeat(DBnaming)
 {
-    console.log(DBnaming)
     console.log("notionMainDB...")
     await publicMongo.reloadDB_main(DBnaming[0],DBnaming[1],DBnaming[2])
     todaystring = await istest.TESTDATE_GET()
