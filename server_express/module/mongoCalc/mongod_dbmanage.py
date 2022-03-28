@@ -41,7 +41,6 @@ def checkHowContinuous(propname,targetdate,dbNamenum, dbTypenum, collectionTypen
     selected_col = selected_name[1]
     selected_name = selected_name[0]
     collec = client[selected_name][selected_col]
-    print(propname, list(collec.find({})))
     docs = collec.find_one({"id" : propname})
     while True:
         if "_id" in docs:
