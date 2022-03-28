@@ -77,20 +77,20 @@ async function init(callback)
         //python init
         var pythonprocess_1 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 1,DBnaming[0],DBnaming[2],DBnaming[1],initrate,initignorance])
         console.log("pyProprateNewAdd...")
-        pythonprocess_1.on('close', (data) => {chain1(data,DBnaming)})
+        pythonprocess_1.on('close', (data) => {chain1(data,[...DBnaming])})
         function chain1(data,DBnaming)
         {
             console.log(data)
             console.log("pyCalculaionNewAdd...")
             var pythonprocess_2 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 2,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_2.on('close', (data) => {chain2(data,DBnaming)})
+            pythonprocess_2.on('close', (data) => {chain2(data,[...DBnaming])})
         }
         function chain2(data,DBnaming)
         {
             console.log(data)
             console.log("pycmmulativeNewAdd...")
             var pythonprocess_4 = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 4,DBnaming[0],DBnaming[2],DBnaming[1]])
-            pythonprocess_4.on('close',(data) => {chain3(data,DBnaming)} )
+            pythonprocess_4.on('close',(data) => {chain3(data,[...DBnaming])} )
         }
         function chain3(data,DBnaming)
         {
