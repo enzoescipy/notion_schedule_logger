@@ -22,6 +22,26 @@ async function show_setting()
     await client.close()
 }
 
+async function show_settingLength()
+{
+    await client.connect()
+    const database = client.db(NameDB)
+    const collec = database.collection(NameDB_collec)
+
+
+    //get settings.
+    var setting = await collec.find({'id':NameDB_setting})
+    var setting_doc = await setting.next()
+    for (key in setting_doc)
+    {
+        if (key == "id") {continue}
+        setting_doc[key] = key.length 
+    }
+    console.log(setting_doc)
+    return setting_doc
+    await client.close()
+}
+
 async function reset_setting()
 {
     const nameofDB = ["NotionpageWorkId"]
