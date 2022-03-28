@@ -97,7 +97,7 @@ async function init(callback)
             console.log(data)
             console.log("initiation end.")
             console.log("loop start.") 
-            callback(DBnaming)
+            callback([...DBnaming])
         }
 
     }
