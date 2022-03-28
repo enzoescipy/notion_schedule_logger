@@ -150,5 +150,12 @@ router.post('/api/ratesSet/', async function(req, res) {
     })
 })
 
+router.post('/api/collecSet/', async function (req, res) {
+    var selectedCollec = Number(req.body.collec_num)
+    nowCollecNum = selectedCollec
+    console.log("(request_4) changed showing collection. ")
+    res.render('warp', {portal: req.body.portal4})
+})
+
 
 module.exports = router

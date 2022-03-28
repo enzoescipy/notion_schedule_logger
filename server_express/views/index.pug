@@ -55,7 +55,7 @@ html
           input.refreshData(class="button", type="submit", value="refresh Data" )
 
       div.coloumn
-        form(action="", method="post")
+        form(action="/api/collecSet/", method="post")
           div.select
             select(name="collec_num")
               each name, index in collec_withindex
