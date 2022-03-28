@@ -66,7 +66,7 @@ async function init(callback)
 {
     for (let i=0; i<preset_DBnaming.length; i++)
     {
-        var DBnaming = preset_DBnaming[i]
+        var DBnaming = [...preset_DBnaming[i]]
         //mongo init
         console.log("settingDB...")
         await settingMongo.set(1,1,false,DBnaming[0],DBnaming[1],DBnaming[2])
