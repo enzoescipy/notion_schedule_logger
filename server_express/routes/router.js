@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const mongoPublic = require("../module/mongodb-communicate/mongod_dbmanage_public")
 const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETTINGs")
 const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculation")
 const istest = require("../module/serverIsTest/index")
@@ -8,6 +9,7 @@ const moment = require("moment")
 var dbtype = istest.NOWNUM
 var todaystring = moment().format("YYYY-MM-DD")
 var nowCollecNum = 0
+
 
 
 var spawn = require("child_process").spawn
@@ -31,6 +33,7 @@ async function home_rendernow(req, res)
         mainScoreData_commulative : undefined,
         isdataloaded : undefined,
         showday_amount: undefined,
+        collec: undefined,
         title: "Dong hyo Ko - enzoescipy's life challenge",
         iam: "/home", }
     dbtype_fixed = await dbtype()
@@ -43,7 +46,15 @@ async function home_rendernow(req, res)
 
     dataset["showday_amount"] = await home_get_showday_amount(0,0,0,dbtype_fixed,nowCollecNum)
 
+    dataset["collec"] = JSON.stringify(await home_get_collec())
+
     res.render('index',dataset)
+}
+
+async function home_get_collec()
+{
+    var setting = await mongoPublic.getcollecSettings()
+    return setting
 }
 
 async function home_get_mainScoreData(dbNamenum, dbTypenum, collectionTypenum)

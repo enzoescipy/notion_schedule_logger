@@ -22,7 +22,7 @@ async function show_setting()
     await client.close()
 }
 
-async function show_settingLength()
+async function show_setting_collec()
 {
     await client.connect()
     const database = client.db(NameDB)
@@ -32,17 +32,8 @@ async function show_settingLength()
     //get settings.
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
-    for (key in setting_doc)
-    {
-        if (key == "id" || key == "_id") 
-        {
-            delete setting_doc[key]
-            continue
-        }
-        setting_doc[key] = setting_doc[key].length 
-    }
-    await client.close()
-    return setting_doc
+
+    return setting_doc["typeofCollection"]
 }
 
 async function reset_setting()
@@ -323,4 +314,4 @@ exports.delete_setting = delete_setting
 exports.add_setting = add_setting
 exports.show_setting = show_setting
 
-exports.show_settingLength = show_settingLength
+exports.show_setting_collec = show_setting_collec

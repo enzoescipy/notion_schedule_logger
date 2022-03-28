@@ -7,6 +7,11 @@ async function showSetting()
     mongoNameManage.show_setting()
 }
 
+async function getcollecSettings()
+{
+    return await mongoNameManage.show_setting_collec()
+}
+
 async function makeNewDBset(dbNamenum, collectionTypenum)
 {
     for (let vari=0; vari<3; vari++)
@@ -118,3 +123,4 @@ exports.delDBset = delDBset
 exports.debug = debug
 exports.showSetting = showSetting
 exports.debug_DBset = debug_DBset
+exports.getcollecSettings = getcollecSettings

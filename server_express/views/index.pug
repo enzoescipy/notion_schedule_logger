@@ -9,8 +9,12 @@ html
     p.hiddendata isdataloaded?#{isdataloaded}
     p.hidden mainScoreData_index?#{mainScoreData_index}
     p.hidden mainScoreData_main?#{mainScoreData_main}
+    p.hidden collec?#{collec}
     div
       - 
+        collec = JSON.parse(collec)
+        collec_withindex = {}
+        for (let i=0; i<collec.length; i++) {collec_withindex[i]=collec[i]}
         mainScoreData_index = JSON.parse(mainScoreData_index)
         mainScoreData_index = Object.entries(mainScoreData_index)
         mainScoreData_main_old =  JSON.parse(mainScoreData_main) 
@@ -35,7 +39,7 @@ html
                 p.main_inner(id=arr[0]) #{val[0]}:#{val[1]}
 
     div.columns
-      div.column.is-two-thirds
+      div.column
         form(action='/api/SETTINGsSet/', method="post")
           input(type="hidden", name="portal2", value=iam)
           div.columns
@@ -54,7 +58,8 @@ html
         form(action="", method="post")
           div.select
             select(name="collec_num")
-              
+              each index, name in collec_withindex
+                option(value=index) #{name}
 
           input(type="hidden",name="portal4", value=iam )
 
