@@ -158,7 +158,7 @@ async function infinite_repeat()
         var DBnaming = preset_DBnaming[i]
         await settingMongo.set(1,2,moment().format(),DBnaming[0],DBnaming[1],DBnaming[2])
     }
-
+    await repeat()
     setTimeout(repeat, preset_repeat_ms)
     setTimeout(infinite_repeat, preset_repeat_ms)
 }
