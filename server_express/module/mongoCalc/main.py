@@ -594,7 +594,6 @@ def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreigno
     if "testdate" in debug_doc:
         today = date.fromisoformat(debug_doc["testdate"])
 
-    client.close()
 
     selected_name = getName(dbname,0,fromTest,dbcollec) # get DB from notionDB
     client = MongoClient(host='localhost', port=27017)
