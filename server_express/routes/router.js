@@ -27,7 +27,7 @@ function writeLog(...args)
     textss = thismoment+":"+strSum+"\n"
     console.log(textss)
 
-    fs.appendFileAsync('server_log.txt', textss);
+    fs.appendFileSync('server_log.txt', textss);
 
 }
 
