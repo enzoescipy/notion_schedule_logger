@@ -14,7 +14,21 @@ var nowCollecNum = 0
 
 var spawn = require("child_process").spawn
 
+async function writeLog(...args)
+{
+    //console.log(...args)
+    strSum = ""
+    for (let i=0; i<args; i++)
+    {
+        strSum += args[i]
+    }
+    thismoment = moment().format("YYYY-MM-DD")
 
+
+    var blob = new Blob([thismoment+":"+strSum],{ type: "text/plain;charset=utf-8" });
+
+    saveAs(blob, "serverlog.txt");
+}
 
 //homepage router
 router.get('/',function(req, res) {
@@ -114,12 +128,12 @@ router.post('/api/notionUpdate', function(req, res) {
     {
         if (para == -1)
         {
-            console.log("(request_1_denied) no log has found. ")
+            writeLog("(request_1_denied) no log has found. ")
             res.render('warp', {portal: req.body.portal1, send: -1})
         }
         else
         {
-            console.log("(request_1) data has been updated since :",para)
+            writeLog("(request_1) data has been updated since :",para)
             res.render('warp', {portal: req.body.portal1, send: para})
         }
 
@@ -131,7 +145,7 @@ router.post('/api/notionUpdate', function(req, res) {
 router.post('/api/SETTINGsSet/', async function(req, res) {
     dbtype_fixed = await dbtype()
     mongoSETTING.set(0,0,req.body.slider1,0,dbtype_fixed,nowCollecNum,function() {
-        console.log("(request_2) update local settings in server. ")
+        writeLog("(request_2) update local settings in server. ")
         res.render('warp', {portal: req.body.portal2})
     })
 })
@@ -145,7 +159,7 @@ router.post('/api/ratesSet/', async function(req, res) {
     var pythonProcess = spawn('./python3-server/bin/python', ["./module/mongoCalc/main.py", 0,0,nowCollecNum,propname,proprate,dbtype_fixed,ignorance,"XXXX-XX-XX"])
     
     pythonProcess.stdout.on('data', (data) => {
-        console.log("(request_3) update calculation rate_abs in server. ")
+        writeLog("(request_3) update calculation rate_abs in server. ")
         res.render('warp', {portal: req.body.portal3})
     })
 })
@@ -153,7 +167,7 @@ router.post('/api/ratesSet/', async function(req, res) {
 router.post('/api/collecSet/', async function (req, res) {
     var selectedCollec = Number(req.body.collec_num)
     nowCollecNum = selectedCollec
-    console.log("(request_4) changed showing collection. ")
+    writeLog("(request_4) changed showing collection. ")
     res.render('warp', {portal: req.body.portal4})
 })
 
