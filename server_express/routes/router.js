@@ -33,6 +33,8 @@ function writeLog(...args)
 
 //homepage router
 router.get('/',function(req, res) {
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    writeLog("(/) user "+ip.toString()+"accesed.")
     res.render('home',{
                         title: "Dong hyo Ko,- enzoescipy\'s life challenge",
                     })
@@ -42,6 +44,8 @@ router.get('/',function(req, res) {
 router.get('/home', home_rendernow)
 async function home_rendernow(req, res)
 {
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    writeLog("(/home) user "+ip.toString()+"accesed.")
     var dataset = {
         mainScoreData_index : undefined,
         mainScoreData_main : undefined,
@@ -100,6 +104,8 @@ router.get('/home/rate_adjust', rate_rendernow)
 
 async function rate_rendernow(req, res)
 {
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    writeLog("(/home/rate_adjust) user "+ip.toString()+"accesed.")
     var dataset = { iam: '/home/rate_adjust',
                     rateData: undefined,    
                 }
