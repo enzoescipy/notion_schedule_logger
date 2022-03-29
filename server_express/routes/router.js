@@ -5,6 +5,7 @@ const mongoSETTING = require("../module/mongodb-communicate/mongod_dbmanage_SETT
 const mongoFront = require("../module/mongodb-frontend/mongod_dbtakeout_calculation")
 const istest = require("../module/serverIsTest/index")
 const moment = require("moment")
+const fs = require('fs');
 
 var dbtype = istest.NOWNUM
 var todaystring = moment().format("YYYY-MM-DD")
@@ -24,10 +25,8 @@ async function writeLog(...args)
     }
     thismoment = moment().format("YYYY-MM-DD")
 
-
-    var blob = new Blob([thismoment+":"+strSum],{ type: "text/plain;charset=utf-8" });
-
-    saveAs(blob, "serverlog.txt");
+    fs.writeFileAsync('./server_log.txt', thismoment+":"+strSum);
+    
 }
 
 //homepage router
