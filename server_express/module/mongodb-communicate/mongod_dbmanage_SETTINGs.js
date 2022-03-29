@@ -24,7 +24,7 @@ async function set(wherenum, whatnum, value, dbNamenum,dbTypenum,collectionTypen
 
     await collec.replaceOne({"what" : whatprop, "where" : whereprop}, doc, {upsert : true} )
 
-    await client.close()
+    client.close()
     if (callback != null){callback()}
 }
 
@@ -49,10 +49,12 @@ async function get(wherenum, whatnum,dbNamenum,dbTypenum,collectionTypenum, call
         
         if (callback != null){callback(doc["value"])}
     
+        client.close()
         return doc["value"]
     }
     catch
     {
+        client.close()
         return -1
     }
 

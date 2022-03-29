@@ -40,6 +40,7 @@ async function getDBnaming(dbNamenum, dbTypenum, collectionTypenum)
 
     var DBnamingDoc = await collec.find({'id':DBstring})
     var isexist_doc = await DBnamingDoc.next()
+    client.close()
     if ( isexist_doc != null) 
     {
         return {"DB" : DBstring, "collection" : collectionType}

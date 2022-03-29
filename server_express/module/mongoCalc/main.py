@@ -269,6 +269,7 @@ def post_setRateForNew(dbname, dbcollec,fromTest, rate, ignorance):
     
     #functional_excute
     calaculate_all(collec)
+    client.close()
 
 def calc_setPointForNew(dbname, dbcollec, fromTest):
     dbname = int(dbname)
@@ -335,6 +336,7 @@ def calc_setPointForNew(dbname, dbcollec, fromTest):
     
     #functional_excute
     proceeded_list_docAll = calaculate_all(collec, client)
+    client.close()
 
 def calc_updatePointOfWeek(dbname, dbcollec,propdate, fromTest):
     dbname = int(dbname)
@@ -440,6 +442,7 @@ def calc_setCommulativeOfPropAll(dbname, dbcollec,fromTest):
 
 
     result = add_commulative_pointers(collec)
+    client.close()
 
 def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
     #writeLog(dbname, dbcollec,propdate, fromTest)
@@ -496,6 +499,7 @@ def calc_updateComuPointOfWeek(dbname, dbcollec,propdate, fromTest):
 
 
     result = search_and_updateOne(collec)
+    client.close()
     #print(result)
     #sys.stdout.flush()   
 
@@ -525,6 +529,7 @@ def post_updateRateOfWeek(dbname, dbcollec,propdate, fromTest):
         return doc
 
     result = search_and_updateOne(collec)
+    client.close()
     #print(result)
     #sys.stdout.flush()   
 
@@ -572,6 +577,7 @@ def post_f_makeRatesExistsThatDate(dbname, dbcollec,propdate, fromTest):
 
 
     result = search_and_updateOne(collec)
+    client.close()
     #print(result)
     #sys.stdout.flush()   
 
@@ -642,6 +648,7 @@ def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreigno
     
     
     #functional_excute
+    client.close()
     calaculate_all(collec)
 
 

@@ -20,7 +20,7 @@ async function show_setting()
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
     console.log(setting_doc)
-    await client.close()
+    client.close()
 }
 
 async function show_setting_collec()
@@ -36,6 +36,7 @@ async function show_setting_collec()
     var setting = await collec.find({'id':NameDB_setting})
     var setting_doc = await setting.next()
 
+    client.close()
     return setting_doc["typeofCollection"]
 }
 
@@ -55,7 +56,7 @@ async function reset_setting()
     var result = await collec.deleteOne({'id':NameDB_setting})
 
     await collec.insertOne({'id':NameDB_setting, "nameofDB" : nameofDB, "typeofDB":typeofDB,"variationofDB":variationofDB, "typeofCollection":typeofCollection})
-    await client.close()
+    client.close()
 }
 
 async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB,1:variationofDB, 2 : typeofDB, 3 : typeofCollection
@@ -92,7 +93,7 @@ async function add_setting(whichtoadd_num, adding_string) // 0 : nameofDB,1:vari
     var update_doc = {$set: { [whichtoadd]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
 
-    await client.close()
+    client.close()
 }
 
 async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB, 1 : typeofDB, 2 : typeofCollection
@@ -132,7 +133,7 @@ async function delete_setting(whichtodel_num, proptodel_string) // 0 : nameofDB,
     var update_doc = {$set: { [whichtodel]:  innerArray}}
     await collec.updateOne(filter,update_doc,{})
 
-    await client.close()
+    client.close()
 }
 
 async function debug()
@@ -156,7 +157,7 @@ async function debug()
     }
     finally
     {
-        await client.close()
+        client.close()
     }
 
     console.log(docSum)
@@ -215,7 +216,7 @@ async function putDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
         var newdoc = {'id' : dbname, 'collections' : collecArray}
         await collec.insertOne(newdoc)
     }
-    await client.close()
+    client.close()
 }
 
 async function delDBnaming_super(target_string)
@@ -236,7 +237,7 @@ async function delDBnaming_super(target_string)
     {
         await collec.deleteOne({"id":dbname})
     } 
-    await client.close()
+    client.close()
 }
 
 async function delDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
@@ -274,7 +275,7 @@ async function delDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
     {
         await collec.deleteOne({"id":dbname})
     } 
-    await client.close()
+    client.close()
 }
 async function getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 {
@@ -307,7 +308,7 @@ async function getDBnaming(dbNamenum,dbVarinum, dbTypenum, collectionTypenum)
 
 
     var DBnamingDoc = await collec.find({'id':DBstring})
-    var isexist_doc = await DBnamingDoc.next()
+    var isexist_doc = await DBnamingDoc.neclient.close()
     if ( isexist_doc != null) 
     {
         return {"DB" : DBstring, "collection" : collectionType}

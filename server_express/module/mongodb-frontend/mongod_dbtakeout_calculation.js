@@ -93,6 +93,7 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         replacer(data[1],data[0],data[2])
         return calender
     }
+    client.close()
     var organized_calender = await pointer_finder(collec)
     if (callback != null){callback(organized_calender); return }
     return organized_calender
@@ -187,6 +188,7 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
         replacer(data[1],data[0],data[2])
         return calender
     }
+    client.close()
     var organized_calender = await pointer_finder(collec)
     if (callback != null){callback(organized_calender); return }
     return organized_calender
@@ -246,7 +248,7 @@ async function calc_pointer_reOrganize(dbNamenum, dbTypenum, collectionTypenum, 
     var commu = await calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, callback)
 
     var organized = {"index": result, "data" : calender,"commulative":commu}
-
+    client.close()
     if (callback != null){callback(organized)}
 
     return organized
@@ -264,7 +266,7 @@ async function calc_indexOnly(dbNamenum, dbTypenum, collectionTypenum, callback)
 
     var calender_legacy = await collec.find({'sub-collec': 'pointer'}, {"id":1})
     var index = await color_indexer(calender_legacy)
-
+    client.close()
     if (callback != null){callback(index)}
     return index
 }
@@ -329,7 +331,7 @@ async function calc_rate_organize(dbNamenum, dbTypenum, collectionTypenum,callba
     
 
     var rateData_organized = await rateData_organizer(collec)
-
+    client.close()
     if (callback != null){callback(rateData_organized)}
     return rateData_organized
 }
