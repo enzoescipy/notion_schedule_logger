@@ -17,7 +17,7 @@ async function TEST()
     var todaystring = moment().format("YYYY-MM-DD")
     await collec.replaceOne({"currentMode":{'$exists': 1}}, {"currentMode":0, "testdate":todaystring}, {upsert:true})
 
-    await client.close()
+    client.close()
 }
 
 async function MAIN()
@@ -30,7 +30,7 @@ async function MAIN()
     const collec = database.collection(NameDB_collec)
 
     await collec.replaceOne({"currentMode":{'$exists': 1}}, {"currentMode":1}, {upsert:true})
-    await client.close()
+    client.close()
 }
 
 async function BACKUP()
@@ -43,7 +43,7 @@ async function BACKUP()
     const collec = database.collection(NameDB_collec)
 
     await collec.replaceOne({"currentMode":{'$exists': 1}}, {"currentMode":2}, {upsert:true})
-    await client.close()
+    client.close()
 }
 
 async function NOWNUM()
@@ -55,7 +55,7 @@ async function NOWNUM()
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
     doc = await collec.findOne({})
-    await client.close()
+    client.close()
     return doc["currentMode"]
 }
 
@@ -68,7 +68,7 @@ async function TESTDATE(datestring) //testdate would be destroy call the : MAIN,
     const database = client.db(NameDB)
     const collec = database.collection(NameDB_collec)
     await collec.replaceOne({"currentMode":{'$exists': 1}}, {"currentMode":0, "testdate":datestring}, {upsert:true})
-    await client.close()
+    client.close()
 }
 async function TESTDATE_GET()
 {
@@ -81,12 +81,12 @@ async function TESTDATE_GET()
     doc = await collec.findOne({})
     if (doc != null && "testdate" in doc)
     {
-        await client.close()
+        client.close()
         return doc["testdate"]
     }
     else
     {
-        await client.close()
+        client.close()
         return -1
     }
 }
