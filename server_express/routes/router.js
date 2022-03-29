@@ -25,7 +25,9 @@ function writeLog(...args)
     }
     thismoment = moment().format()
 
-    fs.writeFileSync('server_log.txt', thismoment+":"+strSum);
+    textss = thismoment+":"+strSum+"\n"
+
+    fs.writeFileSync('server_log.txt', textss);
 
 }
 
