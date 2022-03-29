@@ -25,8 +25,8 @@ async function writeLog(...args)
     }
     thismoment = moment().format("YYYY-MM-DD")
 
-    fs.writeFileAsync('./server_log.txt', thismoment+":"+strSum);
-    
+    fs.writeFileSync('./server_log.txt', thismoment+":"+strSum);
+
 }
 
 //homepage router
