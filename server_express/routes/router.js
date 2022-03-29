@@ -17,7 +17,6 @@ var spawn = require("child_process").spawn
 
 function writeLog(...args)
 {
-    console.log(...args)
     strSum = ""
     for (let i=0; i<args; i++)
     {
@@ -26,6 +25,7 @@ function writeLog(...args)
     thismoment = moment().format()
 
     textss = thismoment+":"+strSum+"\n"
+    console.log(textss)
 
     fs.writeFileSync('server_log.txt', textss);
 
