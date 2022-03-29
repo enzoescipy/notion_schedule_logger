@@ -17,7 +17,7 @@ var spawn = require("child_process").spawn
 
 async function writeLog(...args)
 {
-    //console.log(...args)
+    console.log(...args)
     strSum = ""
     for (let i=0; i<args; i++)
     {
