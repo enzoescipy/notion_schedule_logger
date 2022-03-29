@@ -18,7 +18,7 @@ var spawn = require("child_process").spawn
 function writeLog(...args)
 {
     strSum = ""
-    for (let i=0; i<args; i++)
+    for (let i=0; i<args.length; i++)
     {
         strSum += (args[i]).toString()
     }
