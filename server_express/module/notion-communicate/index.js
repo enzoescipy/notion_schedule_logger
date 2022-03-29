@@ -19,20 +19,8 @@ const istest = require("../serverIsTest/index")
 async function getIDfromCollecNum(dbcollec)
 {
   dbcollec = Number(dbcollec)
-  var idName
-  if (dbcollec === 0)
-  {
-    idName = "todoID"
-  }
-  else if (dbcollec === 1)
-  {
-    idName = "studyID"
-  }
-  else if (dbcollec === 2)
-  {
-    idName = "catID"
-  }
-
+  IDStore_arr = Object.entries(IDStore)
+  var idName = IDStore_arr[dbcollec][0]
   return IDStore[idName]
 }
 
