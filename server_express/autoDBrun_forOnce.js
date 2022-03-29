@@ -10,7 +10,8 @@ async function start(val)
 {
 	await dbtimer.preset_addDB(0,Number(val),0)
 	await dbtimer.preset_addDB(0,Number(val),1)
-	last = await dbtimer.preset_addDB(0,Number(val),2)
+	await dbtimer.preset_addDB(0,Number(val),2)
+	last = await dbtimer.preset_addDB(0,Number(val),3)
 
 	console.log(last)
 	
