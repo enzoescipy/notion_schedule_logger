@@ -17,12 +17,11 @@ var spawn = require("child_process").spawn
 
 function writeLog(...args)
 {
-    console.log("hello!")
     console.log(...args)
     strSum = ""
     for (let i=0; i<args; i++)
     {
-        strSum += args[i]
+        strSum += (args[i]).toString()
     }
     thismoment = moment().format("YYYY-MM-DD")
 
