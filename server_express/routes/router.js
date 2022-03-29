@@ -23,7 +23,7 @@ function writeLog(...args)
     {
         strSum += (args[i]).toString()
     }
-    thismoment = moment().format("YYYY-MM-DD")
+    thismoment = moment().format()
 
     fs.writeFileSync('server_log.txt', thismoment+":"+strSum);
 
