@@ -15,7 +15,7 @@ var nowCollecNum = 0
 
 var spawn = require("child_process").spawn
 
-async function writeLog(...args)
+function writeLog(...args)
 {
     console.log(...args)
     strSum = ""
