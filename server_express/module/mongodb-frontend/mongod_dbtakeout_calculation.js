@@ -93,8 +93,9 @@ async function calc_pointer_organize(dbNamenum, dbTypenum, collectionTypenum,cal
         replacer(data[1],data[0],data[2])
         return calender
     }
-    client.close()
+    
     var organized_calender = await pointer_finder(collec)
+    client.close()
     if (callback != null){callback(organized_calender); return }
     return organized_calender
 }
@@ -188,8 +189,9 @@ async function calc_commulative_maker(dbNamenum, dbTypenum, collectionTypenum, c
         replacer(data[1],data[0],data[2])
         return calender
     }
-    client.close()
+    
     var organized_calender = await pointer_finder(collec)
+    client.close()
     if (callback != null){callback(organized_calender); return }
     return organized_calender
 }
