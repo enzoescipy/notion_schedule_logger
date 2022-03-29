@@ -647,8 +647,9 @@ def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreigno
     
     
     #functional_excute
-    client.close()
     calaculate_all(collec)
+    client.close()
+
 
 
 
