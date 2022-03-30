@@ -25,8 +25,8 @@ async function insertRandomDatepairs(dbNamenum,dbVarinum, dbTypenum, collectionT
         const collec = database.collection(seleted_dbnaming.collection)
         
         //get date data.
-        var getID = await Notion.getIDfromCollecNum(collectionTypenum)
-        var calender = await Notion.testsetget(getID,datestring)
+        var getID = await Notion.getIDfromCollecNum(dbNamenum,collectionTypenum)
+        var calender = await Notion.testsetget_passorfail(getID,datestring)
         if (calender == -1) {client.close(); return -1 }
         for (key in calender)
         {
@@ -181,8 +181,8 @@ async function update_mainNotion(dbNamenum, dbTypenum, collectionTypenum, callba
         const collec = database.collection(seleted_dbnaming.collection)
         
         //get date data.
-        var getId = await Notion.getIDfromCollecNum(collectionTypenum)
-        var calender = await Notion.getItemNOTION(getId)
+        var getId = await Notion.getIDfromCollecNum(dbNamenum,collectionTypenum)
+        var calender = await Notion.getItemNOTION_passorfail(getId)
         async function applyeachid(predoc) 
         {
             var currentdoc = await collec.findOne({"id":predoc["id"]})

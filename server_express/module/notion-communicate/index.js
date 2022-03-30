@@ -5,10 +5,14 @@ const fs = require("fs")
 const notion = new Client({ auth: fs.readFileSync("notionkeys.key","utf8") })
 
 
-const IDStore = {"todoID" : "fd644186c73345438d5c4ce2c8cfb2ca",
+const IDStore_passorfail = {"todoID" : "fd644186c73345438d5c4ce2c8cfb2ca",
 "studyID" : "2049fe58d92f417b979c0209f9462de4",
 "catID" : "9b797bb26dfe4f97b0a8c67647dc4c2e",
 "projectsID" : "fc1785afaa5c4883af9819154381f0ea"}
+
+const IDstore_pageamount = {
+  "rank_1" : "ac126e4ba78d4063b84fd23f6fe8bb5a"
+}
 
 const moment = require('moment');
 require("moment-timezone")
@@ -16,15 +20,24 @@ moment.tz.setDefault("Asia/Seoul")
 
 const istest = require("../serverIsTest/index")
 
-async function getIDfromCollecNum(dbcollec)
+async function getIDfromCollecNum(dbnum, dbcollec)
 {
+  var IDStore
+  if (dbnum == 0) {IDStore = IDStore_passorfail}
+  else if (dbnum == 1) {IDStore = IDstore_pageamount}
+
   dbcollec = Number(dbcollec)
   IDStore_arr = Object.entries(IDStore)
   var idName = IDStore_arr[dbcollec][0]
   return IDStore[idName]
 }
 
-async function getItem(databaseId) {
+//pageamount DBname's methods
+
+
+
+// passorfail DBname's methods
+async function getItemNOTION_passorfail(databaseId) {
   try {
     //prepare to change day of week to date
     var currnet_date = moment()
@@ -187,7 +200,7 @@ async function getItem_seletDate(databaseId, datestring) // YYYY-MM-DD
   }
 }
 
-async function testsetget(databaseId, datestring)
+async function testsetget_passorfail(databaseId, datestring)
 {
   var testcalender = await getItem_seletDate(databaseId,datestring)
   if (testcalender == -1) {return -1}
@@ -209,6 +222,6 @@ async function testsetget(databaseId, datestring)
 }                                                   
 
 
-exports.getItemNOTION = getItem
-exports.testsetget = testsetget
+exports.getItemNOTION_passorfail = getItemNOTION_passorfail
+exports.testsetget_passorfail = testsetget_passorfail
 exports.getIDfromCollecNum = getIDfromCollecNum

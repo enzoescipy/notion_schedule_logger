@@ -45,6 +45,12 @@ router.get('/home', home_rendernow)
 async function home_rendernow(req, res)
 {
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    //block other ip not me
+    if (ip ==! "::ffff:119.207.27.39")
+    {
+        res.status(500).send("500 something wrong...")
+        return
+    }
     writeLog("(/home) user "+ip.toString()+" accessed.")
     var dataset = {
         mainScoreData_index : undefined,
