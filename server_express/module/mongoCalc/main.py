@@ -155,7 +155,6 @@ def post_setRateOfProp_noflush(dbname, dbcollec,propname, rate, fromTest,ignoran
 
 
 def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
-    print("hello!")
     dbname = int(dbname)
     dbcollec = int(dbcollec)
     propname = str(propname)
