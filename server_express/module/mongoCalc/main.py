@@ -211,7 +211,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,dbcollec,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
-            writeLog(propname, propdate, final_point)
+            writeLog("hello",propname, propdate, final_point)
             return final_point
 
     print(-1, "function ended")
