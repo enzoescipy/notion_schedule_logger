@@ -211,6 +211,7 @@ def calc_getPointOfProp_noflush(dbname, dbcollec,propname, propdate, fromTest):
         continuous_num = checkHowContinuous(propname, propdate, 0,fromTest,dbcollec,ignorance=target_ignorance)
         final_point = Mathfunc.normal_rewardfunc(continuous_num) * target_rate
         if final_point >= 0 :
+            writeLog(propname, propdate, final_point)
             return final_point
 
     print(-1, "function ended")
@@ -295,7 +296,6 @@ def calc_setPointForNew(dbname, dbcollec, fromTest):
         for doc in proceeded:
             doc["sub-collec"] = "pointer"
             collec_calc.replace_one({"sub-collec" : "pointer", "id":doc["id"]}, doc, upsert=True)
-            writeLog(dbname, dbcollec, fromTest, doc)
 
         return proceeded
 
@@ -622,7 +622,6 @@ def post_faultRateZeroSwitch(dbname, dbcollec,fromTest, restorerate, restoreigno
         newest_date_str = doc_ordered[-1][0]
         #writeLog(propname, newest_date_str, doc_ordered, today.isoformat())
         newest_date = date.fromisoformat(newest_date_str)
-        writeLog(propname,newest_date_str, today.isoformat(), newest_date < today)
         if newest_date < today: # target to make zero
             zerorate_date_str = date.isoformat(newest_date + timedelta(days=1))
             # make that prop zero.
